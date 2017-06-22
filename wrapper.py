@@ -54,6 +54,19 @@ def set_chopper_frequency(freq=10):
     """
     func_gen.set_wave_frequency(freq * 1000.0)
 
+def get_chopper_amplitude():
+    """
+    Returns the chopper amplitude in volts.
+    """
+    return func_gen.get_wave_amplitude()
+
+def set_chopper_amplitude(amplitude=0.5):
+    """
+    Sets the chopper amplitude in volts.
+    :param amplitude: The amplitude in volts
+    """
+    func_gen.set_wave_amplitude(amplitude)
+
 
 def get_chopper_sweep_on():
     """
@@ -349,7 +362,7 @@ def initialize():
     # Initialize the sweeper and set the trigger mode to internal
     sweeper.initialize_instrument()
     sweeper.set_trigger_mode_internal()
-    sweeper.
+    # Initialize the lock-in, reset, set the reference source and trigger, set what happens when the data buffer is full, and set the display and data recording settings.
     lock_in.initialize_instrument()
     lock_in.reset()
     lock_in.set_reference_source(SR830.REFERENCE_SOURCE_EXTERNAL)
@@ -358,8 +371,8 @@ def initialize():
     lock_in.set_end_of_buffer_mode(SR830.END_OF_BUFFER_SHOT)
     lock_in.set_channel1_display(SR830.DISPLAY_CHANNEL1_X)
     lock_in.set_channel2_display(SR830.DISPLAY_CHANNEL2_Y)
+    # Initialize the function generator and set the trigger source to software
     func_gen.set_wave_type(Agilent33220A.WAVE_TYPE_SQUARE)
-    func_gen.set_wave_amplitude(1)
     func_gen.set_trigger_source(Agilent33220A.SWEEP_TRIGGER_SOFTWARE)
 
 def sweep_command_line():
