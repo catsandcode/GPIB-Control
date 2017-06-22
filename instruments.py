@@ -1411,7 +1411,7 @@ class Agilent33220A(Instrument):
         Sets the sweep state, either STATE_ON or STATE_OFF.
         :param state: Either STATE_ON or STATE_OFF
         """
-        return 'SWE:STAT ' + state
+        return 'SWE:STAT ' + str(state)
 
     SWEEP_TRIGGER_IMMEDIATE = 'IMM'
     SWEEP_TRIGGER_EXTERNAL = 'EXT'
