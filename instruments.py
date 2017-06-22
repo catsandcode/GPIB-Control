@@ -28,22 +28,37 @@ class HP8350B(Instrument):
 
     @query
     def get_freq_start(self):
+        """
+        Returns frequency start in Hz.
+        """
         return 'OP FA'
 
     @query
     def get_freq_stop(self):
+        """
+        Returns the frequency stop in Hz.
+        """
         return 'OP FB'
 
     @query
     def get_freq_center(self):
+        """
+        Returns the frequency center in Hz.
+        """
         return 'OP CF'
 
     @query
     def get_freq_width(self):
+        """
+        Returns the frequency width in Hz.
+        """
         return 'OP DF'
 
     @query
     def get_continuous_wave_frequency(self):
+        """
+        Returns the continuous wave frequency in Hz.
+        """
         return 'OP CW'
 
     @write
@@ -1423,3 +1438,6 @@ class Agilent33220A(Instrument):
         Sends a trigger signal.
         """
         return '*TRG'
+
+    def initialize_instrument(self):
+        super(Agilent33220A, self).initialize_instrument()
