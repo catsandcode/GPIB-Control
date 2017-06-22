@@ -114,7 +114,7 @@ def get_power():
     return sweeper.get_power_level()
 
 
-def set_power(power_level=0):
+def set_power(power_level=0.0):
     """
     Sets the power level in dBm.
     :param power_level: The power level in dBm
@@ -281,7 +281,7 @@ def set_sample_rate(sample_rate=512):
     :return: The chosen time constant
     """
     sample_rate_key = 13
-    for key, value in _TIME_CONSTANT_DICT.iteritems():
+    for key, value in _SAMPLE_RATE_DICT.iteritems():
         if sample_rate <= value:
             sample_rate_key = key
             break
@@ -324,7 +324,7 @@ def get_data():
     r_data = lock_in.get_channel1_scanned_data(0, length)
     raw_sweep_data = lock_in.get_channel2_scanned_data(0, length)
     sweep_data = _convert_raw_sweep_data_to_frequency(raw_sweep_data)
-    return np.array([sweep_data, r_data]).transpose()
+    return np.array([sweep_data, r_data])
 
 
 def _convert_raw_sweep_data_to_frequency(raw_data):
@@ -361,16 +361,18 @@ def initialize():
     func_gen.open()
     # Initialize the sweeper and set the trigger mode to internal
     sweeper.initialize_instrument()
-    sweeper.set_trigger_mode_internal()
+    sweeper.set_trigger_mode_single()
     # Initialize the lock-in, reset, set the reference source and trigger, set what happens when the data buffer is full, and set the display and data recording settings.
     lock_in.initialize_instrument()
     lock_in.reset()
     lock_in.set_reference_source(SR830.REFERENCE_SOURCE_EXTERNAL)
-    lock_in.get_reference_trigger_mode(SR830.REFERENCE_TRIGGER_MODE_TTL_RISING_EDGE)
+    lock_in.set_reference_trigger_mode(SR830.REFERENCE_TRIGGER_MODE_TTL_RISING_EDGE)
     lock_in.set_trigger_mode(SR830.TRIGGER_START_MODE_OFF)
     lock_in.set_end_of_buffer_mode(SR830.END_OF_BUFFER_SHOT)
     lock_in.set_channel1_display(SR830.DISPLAY_CHANNEL1_X)
     lock_in.set_channel2_display(SR830.DISPLAY_CHANNEL2_Y)
+    lock_in.set_channel1_output(SR830.CHANNEL1_OUTPUT_DISPLAY)
+    lock_in.set_channel2_output(SR830.CHANNEL2_OUTPUT_DISPLAY)
     # Initialize the function generator and set the trigger source to software
     func_gen.set_wave_type(Agilent33220A.WAVE_TYPE_SQUARE)
     func_gen.set_trigger_source(Agilent33220A.SWEEP_TRIGGER_SOFTWARE)
