@@ -1,11 +1,13 @@
 import visa
 import numpy as np
-from instruments import HP8350B, SR830, Agilent33220A
+from instruments import HP8350B, SR830, Agilent33220A, AgilentE3631A, AgilentE3633A
 from instrument_manager import Instrument
 
 sweeper = None
 lock_in = None
 func_gen = None
+amp_source = None
+chop_source = None
 
 
 def get_sweep_range():
@@ -23,6 +25,18 @@ def set_sweep_range(start=200, stop=300):
     """
     sweeper.start_stop_sweep(start / 18.0, HP8350B.UNIT_GHZ, stop / 18.0, HP8350B.UNIT_GHZ)
 
+def get_continuous_wave_freq():
+    """
+    Returns the continuous wave frequency in GHz.
+    """
+    return sweeper.get_continuous_wave_frequency() / (1 * (10 ** 9))
+
+def set_continuous_wave_freq(freq=200):
+    """
+    Sets the sweeper to continuous wave mode at the specified frequency where units are in GHz. This will automatically
+    divide the ranges by a factor of 18 (as the source is attached to a x18 frequency multiplier).
+    """
+    sweeper.continuous_wave_sweep(freq / 18.0, HP8350B.UNIT_GHZ)
 
 def get_sweep_time():
     """
@@ -54,11 +68,13 @@ def set_chopper_frequency(freq=10):
     """
     func_gen.set_wave_frequency(freq * 1000.0)
 
+
 def get_chopper_amplitude():
     """
     Returns the chopper amplitude in volts.
     """
     return func_gen.get_wave_amplitude()
+
 
 def set_chopper_amplitude(amplitude=0.5):
     """
@@ -70,41 +86,24 @@ def set_chopper_amplitude(amplitude=0.5):
 
 def get_chopper_sweep_on():
     """
-    Gets the chopper sweep state, True if on, False if off.
-    :return: The chopper sweep state
+    Gets the chopper output state, True if on, False if off.
+    :return: The chopper output state
     """
-    if func_gen.get_sweep_state == Agilent33220A.STATE_ON:
+    if func_gen.get_output_state() == Agilent33220A.STATE_ON:
         return True
     else:
         return False
 
 
-def set_chopper_sweep_on(turn_on=False):
+def set_chopper_on(turn_on=False):
     """
-    Sets the chopper sweep on if turn_on is True.
+    Sets the chopper output on if turn_on is True.
     :param turn_on: Turns on if True
     """
     if turn_on:
-        func_gen.set_sweep_state(Agilent33220A.STATE_ON)
+        func_gen.set_output_state(Agilent33220A.STATE_ON)
     else:
-        func_gen.set_sweep_state(Agilent33220A.STATE_OFF)
-
-
-def set_chopper_sweep(start=10, stop=1000, time=20, logarithmic=False):
-    """
-    Sets the chopper sweep parameters.
-    :param start: The start frequency in kHz
-    :param stop: The stop frequency in kHz
-    :param time: The sweep time in seconds
-    :param logarithmic: True if a logarithmic sweep should be used, False otherwise
-    """
-    func_gen.set_sweep_start(start * 1000.0)
-    func_gen.set_sweep_stop(stop * 1000.0)
-    func_gen.set_sweep_time(time)
-    if logarithmic:
-        func_gen.set_sweep_spacing(Agilent33220A.SWEEP_SPACING_LOGARITHMIC)
-    else:
-        func_gen.set_sweep_spacing(Agilent33220A.SWEEP_SPACING_LINEAR)
+        func_gen.set_output_state(Agilent33220A.STATE_OFF)
 
 
 def get_power():
@@ -248,6 +247,37 @@ def set_time_constant(time_constant=1000):
     lock_in.set_time_constant(time_const_key)
     return _TIME_CONSTANT_DICT.get(time_const_key)
 
+_LOW_PASS_SLOPE = {SR830.LOW_PASS_FILTER_SLOPE_6dB_PER_OCT: 6,
+                   SR830.LOW_PASS_FILTER_SLOPE_12dB_PER_OCT: 12,
+                   SR830.LOW_PASS_FILTER_SLOPE_18dB_PER_OCT: 18,
+                   SR830.LOW_PASS_FILTER_SLOPE_24dB_PER_OCT: 24}
+
+
+def get_low_pass_slope():
+    """
+    Returns the current low pass filter slope of the lock-in in dB per octave.
+    :return: The slope in dB per octave
+    """
+    return _LOW_PASS_SLOPE.get(lock_in.get_low_pass_filter_slope())
+
+
+def set_low_pass_slope(slope=18):
+    """
+    Sets the low pass filter slope of the lock-in in dB per octave. The lock-in has a set of allowed slopes. This method
+    will choose the first allowed slope that is smaller than the one entered. If no allowed slope is smaller, 6dB per
+    octave will be selected.
+    :param slope: The preferred slope in dB per octave
+    :return: The chosen slope in dB per octave
+    """
+    slope_key = SR830.LOW_PASS_FILTER_SLOPE_6dB_PER_OCT
+    for key, value in _LOW_PASS_SLOPE.iteritems():
+        if slope >= value:
+            slope_key = key
+        else:
+            break
+    #lock_in.set_low_pass_filter_slope(slope_key)
+    return _LOW_PASS_SLOPE.get(slope_key)
+
 
 _SAMPLE_RATE_DICT = {0: 0.0625,
                      1: 0.125,
@@ -341,6 +371,36 @@ def _convert_raw_sweep_data_to_frequency(raw_data):
     return frequency_data
 
 
+def set_data(col1='X', col2='Y'):
+    """
+    Sets the data to record in columns 1 and 2.
+    :param col1: Either 'X', 'R', 'X noise', 'Aux1', or 'Aux2'
+    :param col2: Either 'Y', 'Theta', 'Y noise', 'Aux3', or 'Aux4'
+    """
+    # Set column 1
+    if col1 == 'X':
+        lock_in.set_channel1_display(SR830.DISPLAY_CHANNEL1_X)
+    elif col1 == 'R':
+        lock_in.set_channel1_display(SR830.DISPLAY_CHANNEL1_R)
+    elif col1 == 'X noise':
+        lock_in.set_channel1_display(SR830.DISPLAY_CHANNEL1_X_NOISE)
+    elif col1 == 'Aux1':
+        lock_in.set_channel1_display(SR830.DISPLAY_CHANNEL1_AUX1)
+    elif col1 == 'Aux2':
+        lock_in.set_channel1_display(SR830.DISPLAY_CHANNEL1_AUX2)
+    # Set column 2
+    if col2 == 'Y':
+        lock_in.set_channel2_display(SR830.DISPLAY_CHANNEL2_Y)
+    elif col2 == 'Theta':
+        lock_in.set_channel2_display(SR830.DISPLAY_CHANNEL2_THETA)
+    elif col2 == 'Y noise':
+        lock_in.set_channel2_display(SR830.DISPLAY_CHANNEL2_Y_NOISE)
+    elif col2 == 'Aux3':
+        lock_in.set_channel2_display(SR830.DISPLAY_CHANNEL2_AUX3)
+    elif col2 == 'Aux4':
+        lock_in.set_channel2_display(SR830.DISPLAY_CHANNEL2_AUX4)
+
+
 def initialize():
     """
     Initializes the instruments and prepares the relevant settings.
@@ -351,31 +411,51 @@ def initialize():
     global sweeper
     global lock_in
     global func_gen
+    #global amp_source
+    global chop_source
     # Instantiate each instrument
     sweeper = HP8350B(rm, 'GPIB0::19::INSTR')
     lock_in = SR830(rm, 'GPIB0::8::INSTR')
     func_gen = Agilent33220A(rm, 'GPIB0::10::INSTR')
+    #amp_source = AgilentE3633A(rm, 'GPIB0::15::INSTR')
+    chop_source = AgilentE3631A(rm, 'GPIB0::4::INSTR')
+    # Name each instrument
+    sweeper.set_name('Sweeper')
+    lock_in.set_name('Lock-In')
+    func_gen.set_name('Func Gen')
+    #amp_source.set_name('Amp Source')
+    chop_source.set_name('Chop Source')
     # Open each instrument
     sweeper.open()
     lock_in.open()
     func_gen.open()
+    #amp_source.open()
+    chop_source.open()
     # Initialize the sweeper and set the trigger mode to internal
     sweeper.initialize_instrument()
     sweeper.set_trigger_mode_single()
     # Initialize the lock-in, reset, set the reference source and trigger, set what happens when the data buffer is full, and set the display and data recording settings.
     lock_in.initialize_instrument()
+    lock_in.set_timeout(10000)  # Set timeout to ten seconds (as data transfer can take a while)
     lock_in.reset()
     lock_in.set_reference_source(SR830.REFERENCE_SOURCE_EXTERNAL)
     lock_in.set_reference_trigger_mode(SR830.REFERENCE_TRIGGER_MODE_TTL_RISING_EDGE)
     lock_in.set_trigger_mode(SR830.TRIGGER_START_MODE_OFF)
     lock_in.set_end_of_buffer_mode(SR830.END_OF_BUFFER_SHOT)
-    lock_in.set_channel1_display(SR830.DISPLAY_CHANNEL1_X)
-    lock_in.set_channel2_display(SR830.DISPLAY_CHANNEL2_Y)
     lock_in.set_channel1_output(SR830.CHANNEL1_OUTPUT_DISPLAY)
     lock_in.set_channel2_output(SR830.CHANNEL2_OUTPUT_DISPLAY)
     # Initialize the function generator and set the trigger source to software
     func_gen.set_wave_type(Agilent33220A.WAVE_TYPE_SQUARE)
-    func_gen.set_trigger_source(Agilent33220A.SWEEP_TRIGGER_SOFTWARE)
+    func_gen.set_output_state(Agilent33220A.STATE_OFF)
+    func_gen.set_sweep_state(Agilent33220A.STATE_OFF)
+    # Initialize the amplifier source and set the appropriate settings
+    #amp_source.initialize_instrument()
+    #amp_source.set_voltage(8.0)
+    # Initialize the chopper source and set the appropriate settings
+    chop_source.initialize_instrument()
+    chop_source.set_voltage(0.0, 5.0, 5.0)
+    chop_source.set_output_state(AgilentE3631A.STATE_ON)
+
 
 def sweep_command_line():
     _command_line('GPIB0::19::INSTR')
@@ -387,6 +467,14 @@ def lock_in_command_line():
 
 def func_gen_command_line():
     _command_line('GPIB0::10::INSTR')
+
+
+def chopper_power_source_command_line():
+    _command_line('GPIB0::4::INSTR')
+
+
+def amplifier_power_source_command_line():
+    _command_line('GPIB0::15::INSTR')
 
 
 def _command_line(address):
