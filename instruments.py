@@ -1106,7 +1106,8 @@ class SR830(Instrument):
         number of bins than an error occurs.
         """
         # noinspection SpellCheckingInspection
-        print 'Querying to ' + self.get_name() + ' --> TRCL? ' + str(channel) + ',' + str(start_bin) + ',' + str(bins_to_return)
+        print 'Querying to ' + self.get_name() + ' --> TRCL? ' + str(channel) + ',' + str(start_bin) + ',' + str(
+            bins_to_return)
         # Write the command
         # noinspection SpellCheckingInspection
         self.write('TRCL? ' + str(channel) + ',' + str(start_bin) + ',' + str(bins_to_return))
@@ -1241,6 +1242,7 @@ class SR830(Instrument):
             return reference_frequency * (10 ^ 3)
         else:
             return reference_frequency
+
 
 class Agilent33220A(Instrument):
     # noinspection SpellCheckingInspection
@@ -1441,3 +1443,67 @@ class Agilent33220A(Instrument):
 
     def initialize_instrument(self):
         super(Agilent33220A, self).initialize_instrument()
+
+
+class AgilentE3631A(Instrument):
+    """
+    The AgilentE3631A class is used to control a Agilent E3631A DC power source via GPIB.
+    """
+
+    STATE_OFF = 0
+    STATE_ON = 1
+
+    @write
+    def set_voltage(self, voltage=0, positive_25_voltage=5, negative_25_voltage=5):
+        """
+        Sets the voltage of the power source.
+        :param voltage: The voltage to set the +6 volts source in volts
+        :param positive_25_voltage: The voltage to set the +25 volts source in volts
+        :param negative_25_voltage: The voltage to set the -25 volts source in volts (this voltage will be made negative automatically)
+        """
+        return ['APPL P6V,' + str(voltage), 'APPL P25V,' + str(positive_25_voltage),
+                'APPL N25V,' + str(negative_25_voltage*-1)]
+
+    @query
+    def get_output_state(self):
+        """
+        Gets the output state of the DC power source, either STATE_ON or STATE_OFF
+        """
+        return 'OUTP:STAT?'
+
+    @write
+    def set_output_state(self, state=STATE_OFF):
+        """
+        Sets the output state of the DC power source, either STATE_ON or STATE_OFF
+        :param state: Either STATE_ON or STATE_OFF
+        """
+        return 'OUTP:STAT ' + str(state)
+
+    def initialize_instrument(self):
+        self.set_output_state(self.STATE_OFF)
+        self.set_voltage(0, 0, 0)
+
+
+class AgilentE3633A(Instrument):
+    """
+    The AgilentE3633A class is used to control a Agilent E3633A DC power source via GPIB.
+    """
+
+    @write
+    def set_voltage(self, voltage=8):
+        """
+        Sets the voltage of the power source.
+        :param voltage: The voltage to set the +6 volts source in volts
+        """
+        return 'APPL ' + str(voltage) + ',0'
+
+    @write
+    def _set_current_state_off(self):
+        """
+        Disables current output
+        """
+        return 'SOUR:CURR:PROT:STAT 0'
+
+    def initialize_instrument(self):
+        self._set_current_state_off()
+        self.set_voltage(0)
