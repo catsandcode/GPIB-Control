@@ -120,6 +120,12 @@ class Instrument(object):
             self._instrument.close()
             self._instrument = None
 
+    def reset(self):
+        """
+        Resets the instrument.
+        """
+        self.write('*RST')
+
     def get_timeout(self):
         """
         Returns the timeout of the query and read functions in milliseconds. A timeout of 0 corresponds to an infinite
