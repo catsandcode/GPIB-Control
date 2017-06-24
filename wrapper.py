@@ -3,6 +3,7 @@ import numpy as np
 from instruments import HP8350B, SR830, Agilent33220A, AgilentE3631A, AgilentE3633A
 from instrument_manager import Instrument
 
+resource_manager = None
 sweeper = None
 lock_in = None
 func_gen = None
@@ -405,32 +406,33 @@ def initialize():
     """
     Initializes the instruments and prepares the relevant settings.
     """
-    # Create a ResourceManager to deal with all of the instruments being used.
-    rm = visa.ResourceManager()
     # Use global variables
+    global resource_manager
     global sweeper
     global lock_in
     global func_gen
     #global amp_source
-    global chop_source
+    #global chop_source
+    # Create a ResourceManager to deal with all of the instruments being used.
+    resource_manager = visa.ResourceManager()
     # Instantiate each instrument
-    sweeper = HP8350B(rm, 'GPIB0::19::INSTR')
-    lock_in = SR830(rm, 'GPIB0::8::INSTR')
-    func_gen = Agilent33220A(rm, 'GPIB0::10::INSTR')
-    #amp_source = AgilentE3633A(rm, 'GPIB0::15::INSTR')
-    chop_source = AgilentE3631A(rm, 'GPIB0::4::INSTR')
+    sweeper = HP8350B(resource_manager, 'GPIB0::19::INSTR')
+    lock_in = SR830(resource_manager, 'GPIB0::8::INSTR')
+    func_gen = Agilent33220A(resource_manager, 'GPIB0::10::INSTR')
+    #amp_source = AgilentE3633A(resource_manager, 'GPIB0::15::INSTR')
+    #chop_source = AgilentE3631A(resource_manager, 'GPIB0::4::INSTR')
     # Name each instrument
     sweeper.set_name('Sweeper')
     lock_in.set_name('Lock-In')
     func_gen.set_name('Func Gen')
     #amp_source.set_name('Amp Source')
-    chop_source.set_name('Chop Source')
+    #chop_source.set_name('Chop Source')
     # Open each instrument
     sweeper.open()
     lock_in.open()
     func_gen.open()
     #amp_source.open()
-    chop_source.open()
+    #chop_source.open()
     # Initialize the sweeper and set the trigger mode to internal
     sweeper.initialize_instrument()
     sweeper.set_trigger_mode_single()
@@ -438,6 +440,11 @@ def initialize():
     lock_in.initialize_instrument()
     lock_in.set_timeout(10000)  # Set timeout to ten seconds (as data transfer can take a while)
     lock_in.reset()
+    lock_in.set_input_shield_grounding(SR830.INPUT_SHIELD_GROUNDING_GROUND)
+    lock_in.set_input_coupling(SR830.INPUT_COUPLING_AC)
+    lock_in.set_input_configuration(SR830.INPUT_CONFIGURATION_A)
+    lock_in.set_input_notch_line_filter(SR830.INPUT_NOTCH_OUT_OR_NO)
+    lock_in.set_reserve_mode(SR830.RESERVE_MODE_LOW_NOISE)
     lock_in.set_reference_source(SR830.REFERENCE_SOURCE_EXTERNAL)
     lock_in.set_reference_trigger_mode(SR830.REFERENCE_TRIGGER_MODE_TTL_RISING_EDGE)
     lock_in.set_trigger_mode(SR830.TRIGGER_START_MODE_OFF)
@@ -452,9 +459,17 @@ def initialize():
     #amp_source.initialize_instrument()
     #amp_source.set_voltage(8.0)
     # Initialize the chopper source and set the appropriate settings
-    chop_source.initialize_instrument()
-    chop_source.set_voltage(0.0, 5.0, 5.0)
-    chop_source.set_output_state(AgilentE3631A.STATE_ON)
+    #chop_source.initialize_instrument()
+    #chop_source.set_voltage(0.0, 5.0, 5.0)
+    #chop_source.set_output_state(AgilentE3631A.STATE_ON)
+
+
+def close():
+    sweeper.close()
+    lock_in.close()
+    func_gen.close()
+    #chop_source.close()
+    resource_manager.close()
 
 
 def sweep_command_line():
