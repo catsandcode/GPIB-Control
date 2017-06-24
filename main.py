@@ -160,7 +160,6 @@ def sweep_parameter(parameter_set_func, values_to_sweep, time_constant=1000.0, s
         wrapper.stop_scan()
         # Get data from the lock-in amplifier and average
         data_unaveraged_no_freq = wrapper.get_data()
-        print data_unaveraged_no_freq
         data_averaged_no_freq = np.mean(data_unaveraged_no_freq, 1)
         data_averaged = np.hstack(([value], data_averaged_no_freq)).flatten()
         data = np.vstack((data, data_averaged))
