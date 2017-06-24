@@ -1309,7 +1309,7 @@ class Agilent33220A(Instrument):
         Sets the wave RMS amplitude in volts.
         :param freq: The wave amplitude in volts
         """
-        return 'VOLT ' + str(amplitude)
+        return ['VOLT:HIGH ' + str(amplitude), 'VOLT:LOW 0']
 
     @query
     def _get_voltage_unit(self):
