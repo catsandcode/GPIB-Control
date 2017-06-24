@@ -352,10 +352,9 @@ def get_data():
     :return: A numpy array object with frequency in the first column and R in the second column
     """
     length = lock_in.get_scanned_data_length()
-    r_data = lock_in.get_channel1_scanned_data(0, length)
-    raw_sweep_data = lock_in.get_channel2_scanned_data(0, length)
-    sweep_data = _convert_raw_sweep_data_to_frequency(raw_sweep_data)
-    return np.array([sweep_data, r_data])
+    channel1_data = lock_in.get_channel1_scanned_data(0, length)
+    channel2_data = lock_in.get_channel2_scanned_data(0, length)
+    return np.array([channel1_data, channel2_data])
 
 
 def _convert_raw_sweep_data_to_frequency(raw_data):
