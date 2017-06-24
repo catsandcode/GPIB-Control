@@ -215,5 +215,6 @@ if __name__ == '__main__':
     #data = np.delete(data, 0, 0)
     #generate_bode_plot(data)
 
-    data = sweep_parameter(wrapper.set_continuous_wave_freq, [10.0*18, 11.0*18, 12.0*18, 12.5*18, 13.0*18, 13.5*18, 14.0*18, 14.5*18, 15.0*18, 15.5*18, 16.0*18, 17.0*18, 18.0*18, 19.0*18, 20.0*18], time_constant=300, sensitivity=2, slope=12, sample_rate=512, samples_to_collect=512, lock_in_time=1.0, chopper_amplitude=1.0, chopper_frequency=50, power=11.5)
-    print data
+    data = sweep_parameter(wrapper.set_continuous_wave_freq, range(200, 301, 2), time_constant=300, sensitivity=2, slope=12, sample_rate=512, samples_to_collect=512, lock_in_time=1.0, chopper_amplitude=1.0, chopper_frequency=50, power=11.5)
+    np.save('data/col1_sweeper_sweep_200GHz_to_300GHz_col2_X_col3_Y', data)
+    generate_bode_plot(data)
