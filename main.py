@@ -136,6 +136,20 @@ if __name__ == '__main__':
     #data = sweep_parameter(wrapper.set_continuous_wave_freq, generate_frequency_list(230,250,0.2), time_constant=3000, sensitivity=0.005, slope=12, sample_rate=512, samples_to_collect=512, lock_in_time=1.0, chopper_amplitude=1.0, chopper_frequency=50, power=10)
     #np.save('data/col1_sweeper_sweep_200GHz_to_300GHz_col2_X_col3_Y_take2', data)
 
-    large = np.load('data/col1_sweeper_sweep_200GHz_to_300GHz_col2_X_col3_Y_take1.npy')
-    small = np.load('data/col1_sweeper_sweep_200GHz_to_300GHz_col2_X_col3_Y_take2.npy')
-    generate_bode_plot(small, large)
+    filt = np.load('data/filter.npy')
+    no_filter = np.load('data/no_filter.npy')
+
+    freq = filt[:, 0]
+    filter_x = filt[:, 1]
+    filter_y = filt[:, 2]
+    no_filter_x = no_filter[:, 1]
+    no_filter_y = no_filter[:, 2]
+
+    subtracted_x = np.subtract(filter_x, no_filter_x)
+    subtracted_y = np.subtract(filter_y, no_filter_y)
+
+    subtracted = np.vstack((freq, subtracted_x, subtracted_y)).transpose()
+    generate_bode_plot(filt, no_filter, subtracted)
+
+    #data = sweep_parameter(wrapper.set_continuous_wave_freq, generate_frequency_list(200,300,1), time_constant=1000, sensitivity=0.5, slope=12, sample_rate=512, samples_to_collect=512, lock_in_time=1.0, chopper_amplitude=1.0, chopper_frequency=50, power=10)
+    #np.save('data/filter', data)
