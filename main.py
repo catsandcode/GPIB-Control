@@ -77,51 +77,65 @@ def sweep_parameter(parameter_set_func, values_to_sweep, time_constant=1000.0, s
     return data
 
 
-def generate_bode_plot(data):
+def generate_bode_plot(*data_list):
     """
     Generates the appropriate plots from the given data.
-    :param data: A n by 3 array, where there are n data points, column 0 is frequency, column 1 is x, and column 2 is y
+    :param data: An arbitrary number of n by 3 arrays, where there are n data points, column 0 is frequency, column 1 is x, and column 2 is y
     """
+    count = 0
+    for data in data_list:
 
-    # Generate response and phase from the data array
-    freq = data[:,0]
-    x = data[:,1]
-    y = data[:,2]
-    response = np.sqrt(np.add(np.square(x), np.square(y))) # r=sqrt(x^2+y^2)
-    phase = np.arctan2(y,x) # theta=arctan(y/x)]
-    phase_deg = np.degrees(phase)
+        # Generate response and phase from the data array
+        freq = data[:,0]
+        x = data[:,1]
+        y = data[:,2]
+        response = np.sqrt(np.add(np.square(x), np.square(y))) # r=sqrt(x^2+y^2)
+        phase = np.arctan2(y,x) # theta=arctan(y/x)]
+        phase_deg = np.degrees(phase)
 
-    # Determine axis scales
-    x_max = np.amax(x)
-    y_max = np.amax(y)
-    subplot1_max = max(x_max, y_max)
+        # Determine axis scales
+        x_max = np.amax(x)
+        y_max = np.amax(y)
+        subplot1_max = max(x_max, y_max)
 
 
-    # Define and stylize plots
+        # Define and stylize plots
 
-    plt.figure(1)
+        plt.figure(count)
 
-    plt.subplot(3,1,1)
-    plt.plot(freq, x, 'b-')
-    plt.plot(freq, y, 'g-')
-    plt.ylabel('A [V]')
+        plt.subplot(3,1,1)
+        plt.plot(freq, x, 'b-')
+        plt.plot(freq, y, 'g-')
+        plt.yscale('log')
+        plt.ylabel('A [V]')
 
-    plt.subplot(3,1,2)
-    plt.plot(freq, response, 'k-')
-    plt.ylabel('Response [V]')
+        plt.subplot(3,1,2)
+        plt.plot(freq, response, 'k-')
+        plt.yscale('log')
+        plt.ylabel('Response [V]')
 
-    plt.subplot(3,1,3)
-    plt.plot(freq, phase_deg, 'k-')
-    plt.ylabel('Phase [degrees]')
-    plt.xlabel('Frequency [GHz]')
+        plt.subplot(3,1,3)
+        plt.plot(freq, phase_deg, 'k-')
+        plt.ylabel('Phase [degrees]')
+        plt.xlabel('Frequency [GHz]')
 
+        count += 1
     plt.show()
 
 
+def generate_frequency_list(start, end, step):
+    to_return = []
+    current_frequency = start
+    while(current_frequency <= end):
+        to_return.append(current_frequency)
+        current_frequency += step
+    return to_return
+
 if __name__ == '__main__':
 
-    #data = sweep_parameter(wrapper.set_continuous_wave_freq, range(200, 301, 2), time_constant=300, sensitivity=2, slope=12, sample_rate=512, samples_to_collect=512, lock_in_time=1.0, chopper_amplitude=1.0, chopper_frequency=50, power=11.5)
-    #np.save('data/col1_sweeper_sweep_200GHz_to_300GHz_col2_X_col3_Y', data)
+    #data = sweep_parameter(wrapper.set_continuous_wave_freq, generate_frequency_list(230,250,0.2), time_constant=3000, sensitivity=0.005, slope=12, sample_rate=512, samples_to_collect=512, lock_in_time=1.0, chopper_amplitude=1.0, chopper_frequency=50, power=10)
+    #np.save('data/col1_sweeper_sweep_200GHz_to_300GHz_col2_X_col3_Y_take2', data)
 
-    data = np.load('data/col1_sweeper_sweep_200GHz_to_300GHz_col2_X_col3_Y.npy')
-    generate_bode_plot(data)
+    large = np.load('data/col1_sweeper_sweep_200GHz_to_300GHz_col2_X_col3_Y_take1.npy')
+    small = np.load('data/col1_sweeper_sweep_200GHz_to_300GHz_col2_X_col3_Y_take2.npy')
+    generate_bode_plot(small, large)
