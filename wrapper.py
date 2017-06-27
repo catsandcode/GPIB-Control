@@ -276,7 +276,7 @@ def set_low_pass_slope(slope=18):
             slope_key = key
         else:
             break
-    #lock_in.set_low_pass_filter_slope(slope_key)
+    lock_in.set_low_pass_filter_slope(slope_key)
     return _LOW_PASS_SLOPE.get(slope_key)
 
 
@@ -327,6 +327,15 @@ def get_time_to_fill():
     """
     return lock_in.get_storage_time()
 
+def snap_data():
+    """
+    Gets the current value in the X and Y readouts on the lock-in amplifier
+    :return: A tuple of the form (x, y)
+    """
+    data_dict = lock_in.snap_values(['X', 'Y'])
+    x = data_dict.get('X')
+    y = data_dict.get('Y')
+    return (x, y)
 
 def start_scan():
     """
