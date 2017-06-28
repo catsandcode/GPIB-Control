@@ -77,30 +77,19 @@ def generate_bode_plot(reference, test):
     test_x = test[:, 1]
     test_y = test[:, 2]
 
-    #Calculate the response and phase
+    # Calculate the response and phase
     ref_response = np.sqrt(np.add(np.square(ref_x), np.square(ref_y))) # r=sqrt(x^2+y^2)
     test_response = np.sqrt(np.add(np.square(test_x), np.square(test_y))) # r=sqrt(x^2+y^2)
 
     ref_phase = np.degrees(np.arctan2(ref_y, ref_x)) # theta=arctan(y/x)]
     test_phase = np.degrees(np.arctan2(test_y, test_x)) # theta=arctan(y/x)]
 
-def generate_frequency_list(start, end, step):
-    """
-    Generates the list of frequencies between start and end with a step size of step.
-    :param start: The start frequency
-    :param end: The end frequency
-    :param step: The step in between frequencies
-    :return: The list of frequencies
-    """
-    to_return = []
-    current_frequency = start
-    while(current_frequency <= end):
-        to_return.append(current_frequency)
-        current_frequency += step
     #Subtract the reference from the test
+
     response = np.divide(test_response, ref_response)
     phase = np.subtract(test_phase, ref_phase)
 
+    # Plot the data
     plt.subplot(3, 1, 1)
     ref_x_plt = plt.plot(freq, ref_x, 'r--')
     ref_y_plt = plt.plot(freq, ref_y, 'r-.')
@@ -119,6 +108,24 @@ def generate_frequency_list(start, end, step):
     plt.plot(freq, phase, 'k-')
     plt.ylabel('Phase [degrees]')
     plt.xlabel('Frequency [GHz]')
+
+    plt.show()
+
+
+def generate_frequency_list(start, end, step):
+    """
+    Generates the list of frequencies between start and end with a step size of step.
+    :param start: The start frequency
+    :param end: The end frequency
+    :param step: The step in between frequencies
+    :return: The list of frequencies
+    """
+    to_return = []
+    current_frequency = start
+    while(current_frequency <= end):
+        to_return.append(current_frequency)
+        current_frequency += step
+
 
 if __name__ == '__main__':
     sweep_parameter(wrapper.set_freq_synth_frequency, )
