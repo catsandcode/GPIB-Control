@@ -1067,7 +1067,14 @@ class SR830(Instrument):
         measurements = response.split(',')  # Split the string response into a list using ',' as delimiters
         to_return = {}
         for i in range(len(measurements)):
-            to_return[values[i]] = measurements[i]
+            measurement = measurements[i]
+            try:
+                measurement = float(measurement)
+                if measurement.is_integer():
+                    measurement = int(measurement)
+            except ValueError:
+                pass
+            to_return[values[i]] = measurement
         return to_return
 
     @query
