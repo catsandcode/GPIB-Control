@@ -500,6 +500,10 @@ def amplifier_power_source_command_line():
     _command_line('GPIB0::15::INSTR')
 
 
+def frequency_synthesizer_command_line():
+    _command_line('USB0::0x2012::0x0011::5001::INSTR')
+
+
 def _command_line(address):
     rm = visa.ResourceManager()
     inst = Instrument(rm, address)
