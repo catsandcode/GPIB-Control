@@ -3,6 +3,22 @@ from matplotlib import pyplot as plt
 import numpy as np
 
 
+def generate_frequency_list(start, end, step):
+    """
+    Generates the list of frequencies between start and end with a step size of step.
+    :param start: The start frequency
+    :param end: The end frequency
+    :param step: The step in between frequencies
+    :return: The list of frequencies
+    """
+    to_return = []
+    current_frequency = start
+    while(current_frequency <= end):
+        to_return.append(current_frequency)
+        current_frequency += step
+    return to_return
+
+
 def sweep_parameter(parameter_set_func, values_to_sweep, time_constant=10, sensitivity=10, slope=12, load_time=5, lock_in_time=1.0, chopper_amplitude=5, chopper_frequency=5, power=15, freq_synth_frequency=250):
     """
     This method sweeps a parameter through a set of values. Any parameter can be chosen. If the chosen parameter is represented in one of this functions arguments, whatever is entered for that argument will be ignored,
@@ -26,6 +42,7 @@ def sweep_parameter(parameter_set_func, values_to_sweep, time_constant=10, sensi
     # Setup the frequency synthesizer
     wrapper.set_freq_synth_frequency(freq_synth_frequency)
     wrapper.set_freq_synth_power(power)
+    wrapper.set_freq_synth_enable(True)
 
     # Setup chopper
     wrapper.set_chopper_amplitude(chopper_amplitude)
@@ -55,8 +72,9 @@ def sweep_parameter(parameter_set_func, values_to_sweep, time_constant=10, sensi
 
         # Get data from the lock-in amplifier and and add it to the data array
         (x, y) = wrapper.snap_data()
-        data_averaged = np.hstack((value, x, y))
-        data = np.vstack((data, data_averaged))
+
+        data_row = np.array([value, x, y])
+        data = np.vstack((data, data_row))
 
     # Delete the first row in the collected data, as it was created to give the array shape earlier but holds no useful data
     data = np.delete(data, 0, 0)
@@ -67,12 +85,17 @@ def sweep_parameter(parameter_set_func, values_to_sweep, time_constant=10, sensi
     # Return data
     return data
 
+
 def generate_bode_plot(reference, test):
 
     # Extract data from the reference and test arrays
     freq = reference[:, 0]
     ref_x = reference[:, 1]
     ref_y = reference[:, 2]
+
+    print freq
+    print ref_x
+    print ref_y
 
     test_x = test[:, 1]
     test_y = test[:, 2]
@@ -112,23 +135,14 @@ def generate_bode_plot(reference, test):
     plt.show()
 
 
-def generate_frequency_list(start, end, step):
-    """
-    Generates the list of frequencies between start and end with a step size of step.
-    :param start: The start frequency
-    :param end: The end frequency
-    :param step: The step in between frequencies
-    :return: The list of frequencies
-    """
-    to_return = []
-    current_frequency = start
-    while(current_frequency <= end):
-        to_return.append(current_frequency)
-        current_frequency += step
-
-
 if __name__ == '__main__':
-    sweep_parameter(wrapper.set_freq_synth_frequency, )
+    ref = sweep_parameter(wrapper.set_freq_synth_frequency, generate_frequency_list(200, 300, 1))
+    test = sweep_parameter(wrapper.set_freq_synth_frequency, generate_frequency_list(200, 300, 1))
+    np.save('ref', ref)
+    np.save('test', test)
+    #ref = np.load('ref.npy')
+    #test = np.load('test.npy')
+    #generate_bode_plot(ref, test)
     """
     wrapper.initialize()
     wrapper.set_chopper_on(True)
