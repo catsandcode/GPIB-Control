@@ -3,7 +3,7 @@ from matplotlib import pyplot as plt
 import numpy as np
 
 
-def sweep_parameter(parameter_set_func, values_to_sweep, time_constant=300, sensitivity=500, slope=12, load_time=5, lock_in_time=1.0, chopper_amplitude=5, chopper_frequency=5, power=15, freq_synth_frequency=250):
+def sweep_parameter(parameter_set_func, values_to_sweep, time_constant=10, sensitivity=10, slope=12, load_time=5, lock_in_time=1.0, chopper_amplitude=5, chopper_frequency=5, power=15, freq_synth_frequency=250):
     """
     This method sweeps a parameter through a set of values. Any parameter can be chosen. If the chosen parameter is represented in one of this functions arguments, whatever is entered for that argument will be ignored,
     :param parameter_set_func: The function that sets the parameter the user wishes to sweep through, i.e. wrapper.set_continuous_wave_freq.
@@ -67,51 +67,22 @@ def sweep_parameter(parameter_set_func, values_to_sweep, time_constant=300, sens
     # Return data
     return data
 
+def generate_bode_plot(reference, test):
 
-def generate_bode_plot(data_list):
-    """
-    Generates the appropriate plots from the given data.
-    :param data: A list of n by 3 arrays, where there are n data points, column 0 is frequency, column 1 is x, and column 2 is y
-    """
-    count = 0
-    for data in data_list:
-        # Generate response and phase from the data array
-        freq = data[:,0]
-        x = data[:,1]
-        y = data[:,2]
-        response = np.sqrt(np.add(np.square(x), np.square(y))) # r=sqrt(x^2+y^2)
-        phase = np.arctan2(y,x) # theta=arctan(y/x)]
-        phase_deg = np.degrees(phase)
+    # Extract data from the reference and test arrays
+    freq = reference[:, 0]
+    ref_x = reference[:, 1]
+    ref_y = reference[:, 2]
 
-        # Determine axis scales
-        x_max = np.amax(x)
-        y_max = np.amax(y)
-        subplot1_max = max(x_max, y_max)
+    test_x = test[:, 1]
+    test_y = test[:, 2]
 
+    #Calculate the response and phase
+    ref_response = np.sqrt(np.add(np.square(ref_x), np.square(ref_y))) # r=sqrt(x^2+y^2)
+    test_response = np.sqrt(np.add(np.square(test_x), np.square(test_y))) # r=sqrt(x^2+y^2)
 
-        # Define and stylize plots
-
-        plt.figure(count)
-
-        plt.subplot(3,1,1)
-        plt.plot(freq, x, 'b-')
-        plt.plot(freq, y, 'g-')
-        plt.yscale('log')
-        plt.ylabel('A [V]')
-
-        plt.subplot(3,1,2)
-        plt.plot(freq, response, 'k-')
-        plt.yscale('log')
-        plt.ylabel('Response [V]')
-
-        plt.subplot(3,1,3)
-        plt.plot(freq, phase_deg, 'k-')
-        plt.ylabel('Phase [degrees]')
-        plt.xlabel('Frequency [GHz]')
-
-        count += 1
-    plt.show()
-
+    ref_phase = np.degrees(np.arctan2(ref_y, ref_x)) # theta=arctan(y/x)]
+    test_phase = np.degrees(np.arctan2(test_y, test_x)) # theta=arctan(y/x)]
 
 def generate_frequency_list(start, end, step):
     """
@@ -126,62 +97,44 @@ def generate_frequency_list(start, end, step):
     while(current_frequency <= end):
         to_return.append(current_frequency)
         current_frequency += step
-    return to_return
+    #Subtract the reference from the test
+    response = np.divide(test_response, ref_response)
+    phase = np.subtract(test_phase, ref_phase)
 
+    plt.subplot(3, 1, 1)
+    ref_x_plt = plt.plot(freq, ref_x, 'r--')
+    ref_y_plt = plt.plot(freq, ref_y, 'r-.')
+    test_x_plt = plt.plot(freq, test_x, 'k--')
+    test_y_plt = plt.plot(freq, test_y, 'k-.')
+    plt.legend(handles=[ref_x_plt, ref_y_plt, test_x_plt, test_y_plt])
+    plt.yscale('log')
+    plt.ylabel('Amplitude [V]')
 
-def subtract_reference(reference, sample):
-    """
-    Subtracts a reference from a sample. Both reference and sample are numpy arrays with frequency in the 0th col, x in the 1st col, and y in the 2nd col.
-    :param reference: The reference array.
-    :param sample: The sample array.
-    :return: The subtracted array (i.e. sample/reference).
-    """
-    # Extract x and y from the reference and sample
-    freq = sample[:, 0]
-    sample_x = sample[:, 1]
-    sample_y = sample[:, 2]
-    reference_x = reference[:, 1]
-    reference_y = reference[:, 2]
-    # Divide sample x by reference x, do same for y
-    subtracted_x = np.divide(sample_x, reference_x)
-    subtracted_y = np.divide(sample_y, reference_y)
-    # Construct a new array of the subtracted data
-    subtracted = np.vstack((freq, subtracted_x, subtracted_y)).transpose()
-    # Return the new array
-    return subtracted
+    plt.subplot(3, 1, 2)
+    plt.plot(freq, response, 'k-')
+    plt.yscale('log')
+    plt.ylabel('Response [test/reference]')
 
-
-def subtract2(num, ref, sample):
-    freq = ref[:, 0]
-    x = ref[:, 1]
-    y = ref[:, 2]
-    sample_x = sample[:, 1]
-    sample_y = sample[:, 2]
-    response = np.sqrt(np.add(np.square(x), np.square(y))) # r=sqrt(x^2+y^2)
-    sample_response = np.sqrt(np.add(np.square(sample_x), np.square(sample_y))) # r=sqrt(x^2+y^2)
-
-    # Define and stylize plots
-
-    print 'x'
-    print sample_x
-    print 'y'
-    print sample_y
-
-    plt.figure(num)
-
-    plt.subplot(2, 1, 1)
-    plt.plot(freq, x, 'y-')
-    plt.plot(freq, y, 'm-')
-    plt.plot(freq, sample_x, 'r-')
-    plt.plot(freq, sample_y, 'g-')
-    # plt.yscale('log')
-    plt.ylabel('A [V]')
-
-    plt.subplot(2, 1, 2)
-    plt.plot(freq, np.divide(sample_response, response), 'k-')
-    # plt.yscale('log')
-    plt.ylabel('Response')
-
+    plt.subplot(3, 1, 3)
+    plt.plot(freq, phase, 'k-')
+    plt.ylabel('Phase [degrees]')
+    plt.xlabel('Frequency [GHz]')
 
 if __name__ == '__main__':
-
+    sweep_parameter(wrapper.set_freq_synth_frequency, )
+    """
+    wrapper.initialize()
+    wrapper.set_chopper_on(True)
+    wrapper.set_freq_synth_enable(True)
+    wrapper.set_freq_synth_power(15)
+    command = raw_input('Enter a frequency (in GHz) or "exit"\n')
+    while(command.lower() != 'exit'):
+        try:
+            freq = float(command)
+            wrapper.set_freq_synth_frequency(freq)
+            print 'At frequency ' + str(wrapper.get_freq_synth_freq())
+            print 'At power ' + str(wrapper.get_freq_synth_power())
+        except ValueError:
+            print 'Not a float, try again!\n'
+        command = raw_input('Enter a frequency (in GHz) or "exit"\n')
+    """
