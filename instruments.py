@@ -1507,3 +1507,62 @@ class AgilentE3633A(Instrument):
     def initialize_instrument(self):
         self._set_current_state_off()
         self.set_voltage(0)
+
+
+
+class PasternackPE11S390(Instrument):
+    """
+    The PasternackPE11S390 class is used to control a Pasternack PE11S390 series frequency synthesizers via USB.
+    """
+
+    OUTPUT_STATE_OFF = 0
+    OUTPUT_STATE_ON = 1
+
+    @write
+    def set_output_state(self, output_state=OUTPUT_STATE_OFF):
+        """
+        Turns the RF output either on or off using the OUTPUT_STATE_ constants.
+        :param output_state: Either OUTPUT_STATE_ON or OUTPUT_STATE_OFF
+        """
+        return 'POWE:RF ' + str(output_state) + ';'
+
+    @query
+    def get_output_state(self):
+        """
+        Gets the RF output, one of the OUTPUT_STATE_ constants.
+        """
+        return 'POWE:RF?;'
+
+    @write
+    def set_frequency(self, frequency=10):
+        """
+        Sets the frequency in GHz.
+        :param frequency: The frequency in GHz
+        """
+        return 'FREQ:SET ' + str(frequency) + ';'
+
+    @query
+    def get_frequency(self):
+        """
+        Gets the frequency in GHz.
+        """
+        return 'FREQ:RETACT?;'
+
+    @write
+    def set_power(self, power=10):
+        """
+        Sets the power in dBm.
+        :param power: The power in dBm
+        """
+        return 'POWE:SET ' + str(power) + ';'
+
+    @query
+    def get_power(self):
+        """
+        Gets the power in in dBm.
+        """
+        return 'POWE:SET?;'
+
+    def initialize_instrument(self):
+        # Write commands cannot be issued unless the output state is on, so turn on now
+        self.set_output_state(self.OUTPUT_STATE_ON)
