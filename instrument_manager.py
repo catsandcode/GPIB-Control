@@ -34,6 +34,8 @@ def query(func):
         if response.rfind('\n') != -1:
             response = response[:response.rfind('\n')]
         print "Received from " + self.get_name() + " <-- " + response
+        if response.rfind(';') != -1:
+            response = response[:response.rfind(';')]
         try:
             response = float(response)
             if response.is_integer():
