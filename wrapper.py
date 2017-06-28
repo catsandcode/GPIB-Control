@@ -36,7 +36,7 @@ def get_freq_synth_freq():
     return freq_synth.get_frequency() * 18.0
 
 
-def set_freq_synth_freq(freq=200):
+def set_freq_synth_frequency(freq=200):
     """
     Sets the frequency synthesizer to continuous wave mode at the specified frequency where units are in GHz. This will
     automatically divide the ranges by a factor of 18 (as the source is attached to a x18 frequency multiplier).
