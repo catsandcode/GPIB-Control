@@ -1564,5 +1564,4 @@ class PasternackPE11S390(Instrument):
         return 'POWE:SET?;'
 
     def initialize_instrument(self):
-        # Write commands cannot be issued unless the output state is on, so turn on now
-        self.set_output_state(self.OUTPUT_STATE_ON)
+        self.set_output_state(self.OUTPUT_STATE_OFF)
