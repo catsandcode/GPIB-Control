@@ -1,57 +1,63 @@
 import visa
 import numpy as np
-from instruments import HP8350B, SR830, Agilent33220A, AgilentE3631A, AgilentE3633A
+from instruments import SR830, Agilent33220A, PasternackPE11S390
 from instrument_manager import Instrument
 
 resource_manager = None
-sweeper = None
+freq_synth = None
 lock_in = None
 func_gen = None
-amp_source = None
-chop_source = None
 
 
-def get_sweep_range():
+def get_freq_synth_enable():
     """
-    Gets the sweep range as a tuple (start, stop), where units are in GHz. This will automatically multiply the ranges
-    by a factor of 18 (as the source is attached to a x18 frequency multiplier).
+    Returns true if the frequency sythesizer is enabled, false otherwise.
     """
-    return sweeper.get_freq_start() * 18.0, sweeper.get_freq_stop() * 18.0
+    if freq_synth.get_output_state() == PasternackPE11S390.OUTPUT_STATE_ON:
+        return True
+    return False
 
 
-def set_sweep_range(start=200, stop=300):
+def set_freq_synth_enable(enable=False):
     """
-    Sets the sweep range as a tuple (start, stop), where units are in GHz. This will automatically divide the ranges by
-    a factor of 18 (as the source is attached to a x18 frequency multiplier).
+    Turns the frequency synthesizer output on or off.
+    :param enable: True if the frequency synthesizer should be on, false if off.
     """
-    sweeper.start_stop_sweep(start / 18.0, HP8350B.UNIT_GHZ, stop / 18.0, HP8350B.UNIT_GHZ)
-
-def get_continuous_wave_freq():
-    """
-    Returns the continuous wave frequency in GHz.
-    """
-    return sweeper.get_continuous_wave_frequency() / (1 * (10 ** 9))
-
-def set_continuous_wave_freq(freq=200):
-    """
-    Sets the sweeper to continuous wave mode at the specified frequency where units are in GHz. This will automatically
-    divide the ranges by a factor of 18 (as the source is attached to a x18 frequency multiplier).
-    """
-    sweeper.continuous_wave_sweep(freq / 18.0, HP8350B.UNIT_GHZ)
-
-def get_sweep_time():
-    """
-    Gets the sweep time in seconds.
-    """
-    return sweeper.get_sweep_time()
+    if enable:
+        freq_synth.set_output_state(PasternackPE11S390.OUTPUT_STATE_ON)
+    else:
+        freq_synth.set_output_state(PasternackPE11S390.OUTPUT_STATE_OFF)
 
 
-def set_sweep_time(time=5):
+def get_freq_synth_freq():
     """
-    Sets the sweep time in seconds.
-    :param time: The sweep time in seconds
+    Returns the frequency in GHz.
     """
-    sweeper.set_sweep_time(time, HP8350B.UNIT_SECOND)
+    return freq_synth.get_frequency() * 18.0
+
+
+def set_freq_synth_freq(freq=200):
+    """
+    Sets the frequency synthesizer to continuous wave mode at the specified frequency where units are in GHz. This will
+    automatically divide the ranges by a factor of 18 (as the source is attached to a x18 frequency multiplier).
+    """
+    freq_synth.set_frequency(freq / 18.0)
+
+
+def get_freq_synth_power():
+    """
+    Gets the power level of the frequency synthesizer in dBm.
+    """
+    return freq_synth.get_power()
+
+
+def set_freq_synth_power(power_level=0.0):
+    """
+    Sets the power level of the frequency synthesizer in dBm.
+    :param power_level: The power level in dBm
+    """
+    freq_synth.set_power(power_level)
+
 
 
 def get_chopper_frequency():
@@ -85,17 +91,6 @@ def set_chopper_amplitude(amplitude=0.5):
     func_gen.set_wave_amplitude(amplitude)
 
 
-def get_chopper_sweep_on():
-    """
-    Gets the chopper output state, True if on, False if off.
-    :return: The chopper output state
-    """
-    if func_gen.get_output_state() == Agilent33220A.STATE_ON:
-        return True
-    else:
-        return False
-
-
 def set_chopper_on(turn_on=False):
     """
     Sets the chopper output on if turn_on is True.
@@ -105,49 +100,6 @@ def set_chopper_on(turn_on=False):
         func_gen.set_output_state(Agilent33220A.STATE_ON)
     else:
         func_gen.set_output_state(Agilent33220A.STATE_OFF)
-
-
-def get_power():
-    """
-    Gets the power level of the sweeper in dBm.
-    """
-    return sweeper.get_power_level()
-
-
-def set_power(power_level=0.0):
-    """
-    Sets the power level in dBm.
-    :param power_level: The power level in dBm
-    """
-    sweeper.set_power_level(power_level)
-
-
-def set_sweep_trigger(mode='internal'):
-    """
-    Sets the sweep trigger using either 'internal', 'external',  or 'single'
-    :param mode: Either 'internal' (sweeps are continuously triggered by the sweeper's internal clock), 'external'
-    (sweeps are triggered by an external trigger), or 'single' (sweeps are triggered by the trigger_sweep() function).
-    """
-    if mode == 'internal':
-        sweeper.set_trigger_mode_internal()
-    if mode == 'external':
-        sweeper.set_trigger_mode_external()
-    elif mode == 'single':
-        sweeper.set_trigger_mode_single()
-
-
-def start_sweep():
-    """
-    Triggers a single sweep. This will also send a trigger to the lock-in amplifier.
-    """
-    sweeper.single_trigger()
-
-
-def start_chopper_sweep():
-    """
-    Starts the chopper sweep.
-    """
-    func_gen.send_trigger()
 
 
 _SENSITIVITY_DICT = {0: 0.000002,
@@ -416,37 +368,27 @@ def initialize():
     """
     # Use global variables
     global resource_manager
-    global sweeper
+    global freq_synth
     global lock_in
     global func_gen
-    #global amp_source
-    #global chop_source
     # Create a ResourceManager to deal with all of the instruments being used.
     resource_manager = visa.ResourceManager()
     # Instantiate each instrument
-    sweeper = HP8350B(resource_manager, 'GPIB0::19::INSTR')
+    freq_synth = PasternackPE11S390(resource_manager, 'USB0::0x2012::0x0011::5001::INSTR')
     lock_in = SR830(resource_manager, 'GPIB0::8::INSTR')
     func_gen = Agilent33220A(resource_manager, 'GPIB0::10::INSTR')
-    #amp_source = AgilentE3633A(resource_manager, 'GPIB0::15::INSTR')
-    #chop_source = AgilentE3631A(resource_manager, 'GPIB0::4::INSTR')
     # Name each instrument
-    sweeper.set_name('Sweeper')
+    freq_synth.set_name('Frequency Synthesizer')
     lock_in.set_name('Lock-In')
-    func_gen.set_name('Func Gen')
-    #amp_source.set_name('Amp Source')
-    #chop_source.set_name('Chop Source')
+    func_gen.set_name('Function Generator')
     # Open each instrument
-    sweeper.open()
+    freq_synth.open()
     lock_in.open()
     func_gen.open()
-    #amp_source.open()
-    #chop_source.open()
-    # Initialize the sweeper and set the trigger mode to internal
-    sweeper.initialize_instrument()
-    sweeper.set_trigger_mode_single()
+    # Initialize the frequency synthesizer
+    freq_synth.initialize_instrument()
     # Initialize the lock-in, reset, set the reference source and trigger, set what happens when the data buffer is full, and set the display and data recording settings.
     lock_in.initialize_instrument()
-    lock_in.set_timeout(10000)  # Set timeout to ten seconds (as data transfer can take a while)
     lock_in.reset()
     lock_in.set_input_shield_grounding(SR830.INPUT_SHIELD_GROUNDING_GROUND)
     lock_in.set_input_coupling(SR830.INPUT_COUPLING_AC)
@@ -463,25 +405,13 @@ def initialize():
     func_gen.set_wave_type(Agilent33220A.WAVE_TYPE_SQUARE)
     func_gen.set_output_state(Agilent33220A.STATE_OFF)
     func_gen.set_sweep_state(Agilent33220A.STATE_OFF)
-    # Initialize the amplifier source and set the appropriate settings
-    #amp_source.initialize_instrument()
-    #amp_source.set_voltage(8.0)
-    # Initialize the chopper source and set the appropriate settings
-    #chop_source.initialize_instrument()
-    #chop_source.set_voltage(0.0, 5.0, 5.0)
-    #chop_source.set_output_state(AgilentE3631A.STATE_ON)
 
 
 def close():
-    sweeper.close()
+    freq_synth.close()
     lock_in.close()
     func_gen.close()
-    #chop_source.close()
     resource_manager.close()
-
-
-def sweep_command_line():
-    _command_line('GPIB0::19::INSTR')
 
 
 def lock_in_command_line():
@@ -490,14 +420,6 @@ def lock_in_command_line():
 
 def func_gen_command_line():
     _command_line('GPIB0::10::INSTR')
-
-
-def chopper_power_source_command_line():
-    _command_line('GPIB0::4::INSTR')
-
-
-def amplifier_power_source_command_line():
-    _command_line('GPIB0::15::INSTR')
 
 
 def frequency_synthesizer_command_line():
