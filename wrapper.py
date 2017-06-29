@@ -1,4 +1,3 @@
-import visa
 import numpy as np
 from instruments import SR830, Agilent33220A, PasternackPE11S390
 from instrument_manager import Instrument, USBManager
@@ -373,12 +372,12 @@ def initialize():
     global lock_in
     global func_gen
     # Create new ConnectionManagers to deal with all of the instruments being used.
-    gpib_manager = Prologix('/dev/tty.usbserial-PXHB40P8')
+    gpib_manager = Prologix('/dev/ttyUSB0')
     usb_manager = USBManager()
     # Instantiate each instrument
-    freq_synth = PasternackPE11S390(gpib_manager, '/dev/usbtmc0')
-    lock_in = SR830(resource_manager, 8)
-    func_gen = Agilent33220A(resource_manager, 10)
+    freq_synth = PasternackPE11S390(usb_manager, '/dev/usbtmc0')
+    lock_in = SR830(gpib_manager, 8)
+    func_gen = Agilent33220A(gpib_manager, 10)
     # Name each instrument
     freq_synth.set_name('Frequency Synthesizer')
     lock_in.set_name('Lock-In')
@@ -428,9 +427,8 @@ def frequency_synthesizer_command_line():
     _command_line('USB0::0x2012::0x0011::5001::INSTR')
 
 
-def _command_line(address):
-    rm = visa.ResourceManager()
-    inst = Instrument(rm, address)
+def _command_line(address, connection_manager):
+    inst = Instrument(connection_manager, address)
     inst.open()
     while (True):
         user_input = raw_input(
