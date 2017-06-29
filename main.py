@@ -120,7 +120,7 @@ def generate_bode_plot(reference, test):
 
     plt.subplot(3, 1, 2)
     plt.plot(freq, response, 'k-')
-    plt.yscale('log')
+    #plt.yscale('log')
     plt.ylabel('Response [test/reference]')
 
     plt.subplot(3, 1, 3)
@@ -132,15 +132,17 @@ def generate_bode_plot(reference, test):
 
 
 if __name__ == '__main__':
-    """
+
     ref = sweep_parameter(wrapper.set_freq_synth_frequency, generate_frequency_list(200, 300, 1))
     test = sweep_parameter(wrapper.set_freq_synth_frequency, generate_frequency_list(200, 300, 1))
-    np.save('ref', ref)
-    np.save('test', test)
-    """
-    ref = np.load('data/sweep_220GHz_to_240GHz_half_GHz_step_1st_run.npy')
-    #generate_bode_plot(ref, test)
+    #np.save('ref', ref)
+    #np.save('test', test)
 
+
+    #ref = np.load('data/ref.npy')
+    #test = np.load('data/test.npy')
+    generate_bode_plot(ref, test)
+    """
     freq = ref[:, 0]
     ref_x = ref[:, 1]
     ref_y = ref[:, 2]
@@ -149,3 +151,4 @@ if __name__ == '__main__':
     plt.plot(freq, ref_x, 'r-')
     plt.plot(freq, ref_y, 'b-')
     plt.show()
+    """
