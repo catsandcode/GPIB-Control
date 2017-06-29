@@ -2,15 +2,6 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="09816c75-623a-4471-b48d-5b4d02ff636e" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/gpib_example.py" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/gpib_usb.py" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/data/data collection week 1/col1_chopper_sweep_1kHz_to_120kHz_col2_R_col3_Theta.npy" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/data/data collection week 1/col1_sweeper_sweep_200GHz_to_300GHz_col2_X_col3_Y.npy" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/data/data collection week 2/sweep_220GHz_to_240GHz_half_GHz_step_1st_run.npy" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/data/data collection week 2/sweep_220GHz_to_240GHz_half_GHz_step_2nd_run.npy" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/ref.npy" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/test.npy" afterPath="" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/main.py" afterPath="$PROJECT_DIR$/main.py" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
