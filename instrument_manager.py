@@ -1,8 +1,9 @@
 import abc
-from gpib_manager import Prologix, GpibDeviceInterface
+from gpib import Prologix, GpibDeviceInterface
 
 CONNECTION_TYPE_GPIB = 0
-CONNECTION_TYPE_USB = 0
+CONNECTION_TYPE_USB = 1
+
 
 def write(func):
     """
@@ -51,16 +52,61 @@ def query(func):
     return query_wrapper
 
 
+class USBManager(object):
+
+    def __init__(self):
+        self._connection = None
+
+    def open_resource(self, address):
+        return USBDevice(address, self)
+
+    def _set_address(self, address):
+        if address != self._address:
+            if self._connection is not None:
+                self._connection.close()
+            self._address = address
+            self._connection = open(address, 'w+')
+            self._connection.flush()
+
+    def _read(self):
+        return self._connection.read().strip()
+
+    def _write(self, command):
+        self._connection.write(command)
+        self._connection.flush()
+
+    def _query(self, command):
+        self._connection.write(command)
+        self._connection.flush()
+        return self._connection.read().strip()
+
+class USBDevice(object):
+
+    def __init__(self, address, manager):
+        self._address = address
+        self._manager = manager
+
+    def read(self):
+        self._manager._set_address(self._manager, self._address)
+        return self._manager._read()
+
+    def write(self, command):
+        self._manager._set_address(self._manager, self._address)
+        self._manager._write(command)
+
+    def query(self, command):
+        self._manager._set_address(self._manager, self._address)
+        return self._query(command)
+
 class Instrument(object):
 
-    def __init__(self, connection_manager, address, connection_type=CONNECTION_TYPE_GPIB): # TODO Update resource_manager to prologix_serial_device
+    def __init__(self, connection_manager, address):
         """
         Initializes the instrument object.
         :param connection_manager: The resource manager to use with the instrument.
         :param address: The GPIB address of the instrument.
         """
-        self._resource_manager = connection_manager
-        self._connection_type = connection_type
+        self._connection_manager = connection_manager
         self._address = address
         self._name = address
         self._instrument = None
@@ -91,7 +137,7 @@ class Instrument(object):
         Reads raw values from the instrument.
         :return: The raw data read from the instrument
         """
-        return self._instrument.read_raw()
+        return self._instrument.read()
 
     def write(self, command):
         """
@@ -115,18 +161,10 @@ class Instrument(object):
         """
         if self._instrument is None:
             print self._address
-            self._instrument = self._resource_manager.open_resource(self._address)
+            self._instrument = self._connection_manager.open_resource(self._address)
             if self._instrument is None:
                 return False
         return True
-
-    def close(self):
-        """
-        Closes the connection to the instrument at the specified address.
-        """
-        if self._instrument is not None:
-            #self._instrument.close()
-            del self._instrument
 
     def reset(self):
         """
