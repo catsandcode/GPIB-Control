@@ -2,7 +2,7 @@ from __future__ import division, print_function
 
 import time
 
-from gpib_usb import Prologix
+from gpib_manager import Prologix
 
 # Initialize communications with the yellow Prologix controller.
 # /dev/ttyUSB0 is the serial port ID and could change depending on
