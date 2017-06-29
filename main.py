@@ -93,10 +93,6 @@ def generate_bode_plot(reference, test):
     ref_x = reference[:, 1]
     ref_y = reference[:, 2]
 
-    print freq
-    print ref_x
-    print ref_y
-
     test_x = test[:, 1]
     test_y = test[:, 2]
 
@@ -136,26 +132,20 @@ def generate_bode_plot(reference, test):
 
 
 if __name__ == '__main__':
+    """
     ref = sweep_parameter(wrapper.set_freq_synth_frequency, generate_frequency_list(200, 300, 1))
     test = sweep_parameter(wrapper.set_freq_synth_frequency, generate_frequency_list(200, 300, 1))
     np.save('ref', ref)
     np.save('test', test)
-    #ref = np.load('ref.npy')
-    #test = np.load('test.npy')
+    """
+    ref = np.load('data/sweep_220GHz_to_240GHz_half_GHz_step_1st_run.npy')
     #generate_bode_plot(ref, test)
-    """
-    wrapper.initialize()
-    wrapper.set_chopper_on(True)
-    wrapper.set_freq_synth_enable(True)
-    wrapper.set_freq_synth_power(15)
-    command = raw_input('Enter a frequency (in GHz) or "exit"\n')
-    while(command.lower() != 'exit'):
-        try:
-            freq = float(command)
-            wrapper.set_freq_synth_frequency(freq)
-            print 'At frequency ' + str(wrapper.get_freq_synth_freq())
-            print 'At power ' + str(wrapper.get_freq_synth_power())
-        except ValueError:
-            print 'Not a float, try again!\n'
-        command = raw_input('Enter a frequency (in GHz) or "exit"\n')
-    """
+
+    freq = ref[:, 0]
+    ref_x = ref[:, 1]
+    ref_y = ref[:, 2]
+
+    plt.figure(1)
+    plt.plot(freq, ref_x, 'r-')
+    plt.plot(freq, ref_y, 'b-')
+    plt.show()
