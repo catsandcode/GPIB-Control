@@ -51,52 +51,31 @@ def query(func):
 
     return query_wrapper
 
-
 class USBManager(object):
 
     def __init__(self):
-        self._connection = None
+        pass
 
     def open_resource(self, address):
-        return USBDevice(address, self)
-
-    def _set_address(self, address):
-        if address != self._address:
-            if self._connection is not None:
-                self._connection.close()
-            self._address = address
-            self._connection = open(address, 'w+')
-            self._connection.flush()
-
-    def _read(self):
-        return self._connection.read().strip()
-
-    def _write(self, command):
-        self._connection.write(command)
-        self._connection.flush()
-
-    def _query(self, command):
-        self._connection.write(command)
-        self._connection.flush()
-        return self._connection.read().strip()
+        return USBDevice(address)
 
 class USBDevice(object):
 
-    def __init__(self, address, manager):
+    def __init__(self, address):
         self._address = address
-        self._manager = manager
+        self._device = open(self._address, 'w+')
 
     def read(self):
-        self._manager._set_address(self._manager, self._address)
-        return self._manager._read()
+        return self._device.read()
 
     def write(self, command):
-        self._manager._set_address(self._manager, self._address)
-        self._manager._write(command)
+        self._device.write(command)
+        self._device.flush()
 
     def query(self, command):
-        self._manager._set_address(self._manager, self._address)
-        return self._query(command)
+        self._device.write(command)
+        self._device.flush()
+        return self._device.read().strip()
 
 class Instrument(object):
 
