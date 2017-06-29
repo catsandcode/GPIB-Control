@@ -77,6 +77,9 @@ class USBDevice(object):
         self._device.flush()
         return self._device.read().strip()
 
+    def close(self):
+        self._device.close()
+
 class Instrument(object):
 
     def __init__(self, connection_manager, address):
@@ -139,11 +142,18 @@ class Instrument(object):
         :return: True if connection successful, False otherwise.
         """
         if self._instrument is None:
-            print self._address
             self._instrument = self._connection_manager.open_resource(self._address)
             if self._instrument is None:
                 return False
         return True
+
+    def close(self):
+        """
+        Closes a connection to the instrument at the specified address.
+        """
+        if type(self._instrument) == USBDevice:
+            self._instrument.close()
+
 
     def reset(self):
         """

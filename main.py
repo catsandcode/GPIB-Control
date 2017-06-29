@@ -114,7 +114,7 @@ def generate_bode_plot(reference, test):
     ref_y_plt = plt.plot(freq, ref_y, 'r-.')
     test_x_plt = plt.plot(freq, test_x, 'k--')
     test_y_plt = plt.plot(freq, test_y, 'k-.')
-    plt.legend(handles=[ref_x_plt, ref_y_plt, test_x_plt, test_y_plt])
+    #plt.legend(handles=[ref_x_plt, ref_y_plt, test_x_plt, test_y_plt])
     plt.yscale('log')
     plt.ylabel('Amplitude [V]')
 
@@ -133,8 +133,8 @@ def generate_bode_plot(reference, test):
 
 if __name__ == '__main__':
 
-    ref = sweep_parameter(wrapper.set_freq_synth_frequency, generate_frequency_list(200, 300, 1))
-    test = sweep_parameter(wrapper.set_freq_synth_frequency, generate_frequency_list(200, 300, 1))
+    ref = sweep_parameter(wrapper.set_freq_synth_frequency, generate_frequency_list(200, 300, 50))
+    test = sweep_parameter(wrapper.set_freq_synth_frequency, generate_frequency_list(200, 300, 50))
     #np.save('ref', ref)
     #np.save('test', test)
 

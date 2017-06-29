@@ -412,7 +412,6 @@ def close():
     freq_synth.close()
     lock_in.close()
     func_gen.close()
-    resource_manager.close()
 
 
 def lock_in_command_line():
