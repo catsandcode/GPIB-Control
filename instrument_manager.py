@@ -1,4 +1,8 @@
-import abc, visa
+import abc
+from gpib_manager import Prologix, GpibDeviceInterface
+
+CONNECTION_TYPE_GPIB = 0
+CONNECTION_TYPE_USB = 0
 
 def write(func):
     """
@@ -49,13 +53,14 @@ def query(func):
 
 class Instrument(object):
 
-    def __init__(self, resource_manager, address):
+    def __init__(self, connection_manager, address, connection_type=CONNECTION_TYPE_GPIB): # TODO Update resource_manager to prologix_serial_device
         """
         Initializes the instrument object.
-        :param resource_manager: The resource manager to use with the instrument.
+        :param connection_manager: The resource manager to use with the instrument.
         :param address: The GPIB address of the instrument.
         """
-        self._resource_manager = resource_manager
+        self._resource_manager = connection_manager
+        self._connection_type = connection_type
         self._address = address
         self._name = address
         self._instrument = None
@@ -93,7 +98,7 @@ class Instrument(object):
         Writes a string to the instrument.
         :return: The number of bytes written
         """
-        return self._instrument.write(command)
+        return self._instrument.write(command + '\n')
 
     def query(self, command):
         """
@@ -101,7 +106,7 @@ class Instrument(object):
         :param command: The command to use to query the instrument
         :return: The string read from the instrument
         """
-        return self._instrument.query(command)
+        return self._instrument.query(command + '\n')
 
     def open(self):
         """
@@ -109,6 +114,7 @@ class Instrument(object):
         :return: True if connection successful, False otherwise.
         """
         if self._instrument is None:
+            print self._address
             self._instrument = self._resource_manager.open_resource(self._address)
             if self._instrument is None:
                 return False
@@ -119,29 +125,14 @@ class Instrument(object):
         Closes the connection to the instrument at the specified address.
         """
         if self._instrument is not None:
-            self._instrument.close()
-            self._instrument = None
+            #self._instrument.close()
+            del self._instrument
 
     def reset(self):
         """
         Resets the instrument.
         """
         self.write('*RST')
-
-    def get_timeout(self):
-        """
-        Returns the timeout of the query and read functions in milliseconds. A timeout of 0 corresponds to an infinite
-        timeout.
-        """
-        return self._instrument.timeout
-
-    def set_timeout(self, timeout=3000):
-        """
-        Sets the timeout of the query and read functions in milliseconds. Defaults to 3000ms. To set an infinite timeout
-        pass the parameter timeout=0.
-        :param timeout: The timeout
-        """
-        self._instrument.timeout = timeout
 
     def initialize_instrument(self):
         """
