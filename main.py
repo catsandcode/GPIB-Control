@@ -19,7 +19,7 @@ def generate_frequency_list(start, end, step):
     return to_return
 
 
-def sweep_parameter(parameter_set_func, values_to_sweep, time_constant=10, sensitivity=10, slope=12, load_time=5, lock_in_time=1.0, chopper_amplitude=5, chopper_frequency=5, power=15, freq_synth_frequency=250):
+def sweep_parameter(parameter_set_func, values_to_sweep, time_constant=10, sensitivity=10, slope=12, load_time=5, lock_in_time=1.0, chopper_amplitude=5, chopper_frequency=5, power=15, freq_synth_frequency=250, save_path=''):
     """
     This method sweeps a parameter through a set of values. Any parameter can be chosen. If the chosen parameter is represented in one of this functions arguments, whatever is entered for that argument will be ignored,
     :param parameter_set_func: The function that sets the parameter the user wishes to sweep through, i.e. wrapper.set_continuous_wave_freq.
@@ -35,6 +35,7 @@ def sweep_parameter(parameter_set_func, values_to_sweep, time_constant=10, sensi
     :param chopper_frequency: The frequency of the chopper signal.
     :param power: The power of the sweeper.
     :param sweeper_frequency: The frequency of the sweeper.
+    :param save_path: If a non-empty string variable save_path is passed the the sweep will be saved as a .npy file with the sweep settings saved in metadata.
     :return: The data collected, where the first column is frequency, the second column is X, and the third column is Y.
     """
     wrapper.initialize()
@@ -81,15 +82,23 @@ def sweep_parameter(parameter_set_func, values_to_sweep, time_constant=10, sensi
 
     # Close instruments
     wrapper.close()
+    
+    if save_path != '':
+        np.savez(save_path, data = data, parameter_set_func=str(parameter_set_func), time_constant=sensitivity, sensitivity=sensitivity, slope=slope, load_time=load_time, lock_in_time=lock_in_time, chopper_amplitude=chopper_amplitude, chopper_frequency=chopper_frequency, power=power, freq_synth_frequency=freq_synth_frequency)
 
     # Return data
     return data
 
 
 def generate_bode_plot(reference, test):
+    # Test array frequency equality
+    ref_freq = reference[:, 0]
+    test_freq = test[:, 0]
+    if np.array_equal(ref_freq, test_freq) is not True:
+        raise ValueError('Passed arrays do not have the same frequency values.')
 
     # Extract data from the reference and test arrays
-    freq = reference[:, 0]
+    freq = ref_freq
     ref_x = reference[:, 1]
     ref_y = reference[:, 2]
 
@@ -132,23 +141,5 @@ def generate_bode_plot(reference, test):
 
 
 if __name__ == '__main__':
-
-    ref = sweep_parameter(wrapper.set_freq_synth_frequency, generate_frequency_list(200, 300, 50))
-    test = sweep_parameter(wrapper.set_freq_synth_frequency, generate_frequency_list(200, 300, 50))
-    #np.save('ref', ref)
-    #np.save('test', test)
-
-
-    #ref = np.load('data/ref.npy')
-    #test = np.load('data/test.npy')
-    generate_bode_plot(ref, test)
-    """
-    freq = ref[:, 0]
-    ref_x = ref[:, 1]
-    ref_y = ref[:, 2]
-
-    plt.figure(1)
-    plt.plot(freq, ref_x, 'r-')
-    plt.plot(freq, ref_y, 'b-')
-    plt.show()
-    """
+    sweep_parameter(wrapper.set_freq_synth_frequency, generate_frequency_list(200, 300, 0.2), save_path='no_antenna_horns')
+    
