@@ -94,4 +94,4 @@ def sweep_parameter(parameter_set_func, values_to_sweep, time_constant=10, sensi
 
 
 if __name__ == '__main__':
-    sweep_parameter(wrapper.set_freq_synth_frequency, generate_frequency_list(12.5, 16.5, 0.05), save_path='no_virginia_diode', power=15, sensitivity=1000, multiplier=1)
+    sweep_parameter(wrapper.set_freq_synth_frequency, generate_frequency_list(12.5, 16.5, 0.05), save_path='with_virginia_diode', power=15, sensitivity=1000, multiplier=1)
