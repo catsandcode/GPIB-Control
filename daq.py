@@ -18,7 +18,7 @@ def generate_frequency_list(start, end, step):
     return to_return
 
 
-def sweep_parameter(parameter_set_func, values_to_sweep, time_constant=10, sensitivity=10, slope=12, load_time=5, lock_in_time=1.0, chopper_amplitude=5, chopper_frequency=5, power=15, freq_synth_frequency=250, save_path=''):
+def sweep_parameter(parameter_set_func, values_to_sweep, time_constant=10, sensitivity=10, slope=12, load_time=5, lock_in_time=1.0, chopper_amplitude=5, chopper_frequency=5, power=15, freq_synth_frequency=250, multiplier=18, save_path=''):
     """
     This method sweeps a parameter through a set of values. Any parameter can be chosen. If the chosen parameter is represented in one of this functions arguments, whatever is entered for that argument will be ignored,
     :param parameter_set_func: The function that sets the parameter the user wishes to sweep through, i.e. wrapper.set_continuous_wave_freq.
@@ -34,10 +34,14 @@ def sweep_parameter(parameter_set_func, values_to_sweep, time_constant=10, sensi
     :param chopper_frequency: The frequency of the chopper signal.
     :param power: The power of the sweeper.
     :param sweeper_frequency: The frequency of the sweeper.
+    :param multiplier: The multiplier (i.e. product of all frequency multipliers in the setup).
     :param save_path: If a non-empty string variable save_path is passed the the sweep will be saved as a .npy file with the sweep settings saved in metadata.
     :return: The data collected, where the first column is frequency, the second column is X, and the third column is Y.
     """
     wrapper.initialize()
+    
+    # Set the frequency multiplier, as it is particular to the experiment
+    wrapper.set_freq_multiplier(multiplier)
 
     # Setup the frequency synthesizer
     wrapper.set_freq_synth_frequency(freq_synth_frequency)
@@ -83,11 +87,11 @@ def sweep_parameter(parameter_set_func, values_to_sweep, time_constant=10, sensi
     wrapper.close()
     
     if save_path != '':
-        np.savez(save_path, data = data, parameter_set_func=str(parameter_set_func), time_constant=sensitivity, sensitivity=sensitivity, slope=slope, load_time=load_time, lock_in_time=lock_in_time, chopper_amplitude=chopper_amplitude, chopper_frequency=chopper_frequency, power=power, freq_synth_frequency=freq_synth_frequency)
+        np.savez(save_path, data = data, parameter_set_func=str(parameter_set_func), time_constant=sensitivity, sensitivity=sensitivity, slope=slope, load_time=load_time, lock_in_time=lock_in_time, chopper_amplitude=chopper_amplitude, chopper_frequency=chopper_frequency, power=power, freq_synth_frequency=freq_synth_frequency, multiplier=multiplier)
 
     # Return data
     return data
 
 
 if __name__ == '__main__':
-    sweep_parameter(wrapper.set_freq_synth_frequency, generate_frequency_list(200, 300, 0.2), save_path='no_antenna_horns')
+    sweep_parameter(wrapper.set_freq_synth_frequency, generate_frequency_list(200, 300, 0.2), save_path='no_antenna_horns', sensitivity=1000, multiplier=6)
