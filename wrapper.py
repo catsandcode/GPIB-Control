@@ -8,6 +8,8 @@ freq_synth = None
 lock_in = None
 func_gen = None
 
+freq_multiple = None
+
 
 def get_freq_synth_enable():
     """
@@ -33,15 +35,28 @@ def get_freq_synth_freq():
     """
     Returns the frequency in GHz.
     """
-    return freq_synth.get_frequency() * 18.0
+    return freq_synth.get_frequency() * freq_multiple
 
 
 def set_freq_synth_frequency(freq=200):
     """
     Sets the frequency synthesizer to continuous wave mode at the specified frequency where units are in GHz. This will
-    automatically divide the ranges by a factor of 18 (as the source is attached to a x18 frequency multiplier).
+    automatically divide the ranges by freq_multiple (as the source is attached to a set of frequency multipliers).
     """
-    freq_synth.set_frequency(freq / 18.0)
+    freq_synth.set_frequency(freq / freq_multiple)
+    
+def get_freq_multiplier():
+    """
+    Returns the frequency multiplier, which can be changed depending on the experimental setup.
+    """
+    return freq_multiple
+    
+def set_freq_multiplier(multiple = 18):
+    """
+    Sets the frequency multiplier, which should be equal to the product of the frequency multipliers present in the experimental setup.
+    """
+    global freq_multiple
+    freq_multiple = multiple
 
 
 def get_freq_synth_power():
@@ -406,6 +421,8 @@ def initialize():
     func_gen.set_wave_type(Agilent33220A.WAVE_TYPE_SQUARE)
     func_gen.set_output_state(Agilent33220A.STATE_OFF)
     func_gen.set_sweep_state(Agilent33220A.STATE_OFF)
+    # Set freq_multiple to 18, as is standard with this experiment
+    freq_multiple = 18.0
 
 
 def close():
