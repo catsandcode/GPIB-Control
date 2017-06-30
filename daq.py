@@ -87,11 +87,11 @@ def sweep_parameter(parameter_set_func, values_to_sweep, time_constant=10, sensi
     wrapper.close()
     
     if save_path != '':
-        np.savez(save_path, data = data, parameter_set_func=str(parameter_set_func), time_constant=sensitivity, sensitivity=sensitivity, slope=slope, load_time=load_time, lock_in_time=lock_in_time, chopper_amplitude=chopper_amplitude, chopper_frequency=chopper_frequency, power=power, freq_synth_frequency=freq_synth_frequency, multiplier=multiplier)
+        np.savez(save_path, data = data, parameter_set_func=str(parameter_set_func), time_constant=time_constant, sensitivity=sensitivity, slope=slope, load_time=load_time, lock_in_time=lock_in_time, chopper_amplitude=chopper_amplitude, chopper_frequency=chopper_frequency, power=power, freq_synth_frequency=freq_synth_frequency, multiplier=multiplier)
 
     # Return data
     return data
 
 
 if __name__ == '__main__':
-    sweep_parameter(wrapper.set_freq_synth_frequency, generate_frequency_list(200, 300, 0.2), save_path='no_antenna_horns', sensitivity=1000, multiplier=6)
+    sweep_parameter(wrapper.set_freq_synth_frequency, generate_frequency_list(12.5, 16.5, 0.05), save_path='no_virginia_diode', power=15, sensitivity=1000, multiplier=1)
