@@ -3,7 +3,7 @@ from instruments import SR830, Agilent33220A, PasternackPE11S390
 from instrument_manager import Instrument, USBManager
 from gpib import Prologix
 
-resource_manager = None
+gpib_manager = None
 freq_synth = None
 lock_in = None
 func_gen = None
@@ -367,10 +367,10 @@ def initialize():
     Initializes the instruments and prepares the relevant settings.
     """
     # Use global variables
-    global resource_manager
     global freq_synth
     global lock_in
     global func_gen
+    global gpib_manager
     # Create new ConnectionManagers to deal with all of the instruments being used.
     gpib_manager = Prologix('/dev/ttyUSB0')
     usb_manager = USBManager()
