@@ -140,5 +140,5 @@ def save_x_and_y_graphs(sweep, path):
 
 
 if __name__ == '__main__':
-    sweep = np.load('data/no_virginia_diode.npz')
-    save_x_and_y_graphs(sweep, 'data/no_virginia_diode')
+    sweep = np.load('data/with_virginia_diode.npz')
+    print_attributes(sweep)
