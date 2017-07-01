@@ -1,6 +1,6 @@
 import numpy as np
 from instruments import SR830, Agilent33220A, PasternackPE11S390
-from instrument_manager import Instrument, USBManager
+from io import Instrument, USBManager
 from gpib import Prologix
 
 gpib_manager = None
