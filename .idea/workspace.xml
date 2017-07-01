@@ -2,7 +2,6 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="09816c75-623a-4471-b48d-5b4d02ff636e" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/analyze.py" afterPath="$PROJECT_DIR$/analyze.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/daq.py" afterPath="$PROJECT_DIR$/daq.py" />
     </list>
@@ -48,7 +47,7 @@
         <entry file="file://$PROJECT_DIR$/daq.py">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="495">
-              <caret line="96" column="156" lean-forward="false" selection-start-line="96" selection-start-column="156" selection-end-line="96" selection-end-column="156" />
+              <caret line="96" column="153" lean-forward="false" selection-start-line="96" selection-start-column="153" selection-end-line="96" selection-end-column="153" />
               <folding />
             </state>
           </provider>
@@ -770,7 +769,7 @@
     <entry file="file://$PROJECT_DIR$/daq.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="495">
-          <caret line="96" column="156" lean-forward="false" selection-start-line="96" selection-start-column="156" selection-end-line="96" selection-end-column="156" />
+          <caret line="96" column="153" lean-forward="false" selection-start-line="96" selection-start-column="153" selection-end-line="96" selection-end-column="153" />
           <folding />
         </state>
       </provider>
