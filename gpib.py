@@ -95,6 +95,7 @@ class Prologix(object):
 
     def read_next(self, eol='\n', size=None, timeout=1):
         """
+        NOT SAFE IN MULTIPROCESSING ENVIORNMENTS!!!
         Doesn't query the currently selected GPIB bus address for a response, but simply returns any response already in the buffer (up to the eol char, the max number of bytes, or the timeout)
         :param eol: A character indicating the end of the message from the device
         :param size: The maximum number of bytes to read, or None for no limit.
@@ -149,105 +150,91 @@ class GpibDeviceInterface(object):
         self.gpibAddr = gpibAddr
         self.controller = controller
 
-    '''
-	
-
-	Arguments:
-	   msg - 
-	   applyEscape - 
-	'''
-
-    def write(self, msg, applyEscape=False):
+    def write(self, msg):
         """
         Sends a message to the instrument
         :param msg: A string containing the message to send
         :param applyEscape: A bool which, if True, will cause the function to scan the contents of msg and escape any reserved characters
         """
-        # Wait until a hardware lock is aquired
+        # Wait until a hardware lock is acquired
         with self.controller.hw_lock:
-            self.controller.set_gpib_address(self.gpibAddr)
-            self.controller.flush()  # Clear any gunk out
-            self.controller.write(msg)
+            self._write(msg)
 
-
-    '''
-	Sends the command to clear the currently selected GPIB bus address.  See the manual
-	for each specific instrument to see how it responds to this command.  
-	'''
+    def _write(self, msg):
+        """
+        This function writes a command to the Prologix controller (if there is no '++' prefixed to the command, the command will be passed on to whatever device the Prologix controller is addressed to). It does not wait for a hardware lock.
+        :param msg: The message to write
+        """
+        # Set the gpib address
+        self.controller.set_gpib_address(self.gpibAddr)
+        # Clear any gunk out
+        self.controller.flush()
+        # Finally write the message
+        self.controller.write(msg)
 
     def clear(self):
-        with self.controller.hw_lock:
-            self._clear()
-
-    def _clear(self):
+        """
+        Sends the command to clear the currently selected GPIB bus address. See the manual for each specific instrument to see how it responds to this command.
+        """
         self.controller.write("++clr")
 
-    '''
-	Queries the instrument for a response and returns it (up to
-	the eol char, the max number of bytes, or the timeout)
-	
-	Arguments:
-	   eol - A character indicating the end of the message from the device
-	   size - The maximum number of bytes to read, or None for no limit.
-	Returns:
-	   msg - The response of the device.
-	'''
-
     def read(self, eol='\n', size=None):
+        """
+        Queries the instrument for a response and returns it (up to the end of line character, the max number of bytes, or the timeout)
+        :param eol: A character indicating the end of the message from the device
+        :param size: The maximum number of bytes to read, or None for no limit.
+        :return: The response of the device.
+        """
+        # Wait until a hardware lock is acquired
         with self.controller.hw_lock:
-            return self._read(eol, size)
+            self._read(eol, size)
 
     def _read(self, eol='\n', size=None):
+        """
+        Reads from a GPIB device at the current GPIB address. This function does not wait for a hardware lock.
+        :param eol: A character indicating the end of the message from the device
+        :param size: The maximum number of bytes to read, or None for no limit.
+        :return: The response of the device.
+        """
+        # Set the gpib address
         self.controller.set_gpib_address(self.gpibAddr)
-        self.controller.flush()  # Clear any gunk out
+        # Clear any gunk out
+        self.controller.flush()
+        # Finally read and return
         return self.controller.read(eol, size)
 
-    '''
-	Doesn't query the instrument for a response, but simply returns
-	any response already in the buffer (up to the eol char, the max number of bytes, or the timeout).
-	
-	This is NOT SAFE in a multithreaded environment, so I have started it with an underscore.
-	Use at your own risk.
-	
-	Arguments:
-	   eol - A character indicating the end of the message from the device
-	   size - The maximum number of bytes to read, or None for no limit.
-	Returns:
-	   msg - The response of the device.
-	'''
-
-    def _readNext(self, eol='\n', size=None):
+    def readNext(self, eol='\n', size=None):
+        """
+        NOT SAFE IN MULTIPROCESSING ENVIORNMENTS!!!
+        Doesn't query the instrument for a response, but simply returns any response already in the buffer (up to the end of line character, the max number of bytes, or the timeout).
+        :param eol: A character indicating the end of the message from the device
+        :param size: The maximum number of bytes to read, or None for no limit.
+        :return: The response of the device.
+        """
+        # Set the gpib address
         self.controller.set_gpib_address(self.gpibAddr)
+        # Returns read next
         return self.controller.read_next(eol, size)
 
-    '''
-	Sends a command to the currently selected GPIB bus address and returns the response.
-	
-	Arguments:
-	   cmd - A string containing the message to send
-	   applyEscape - A bool which, if True, will cause the function to scan the 
-				 contents of msg and escape any reserved characters
-	   eol - A character indicating the end of the message from the device
-	   size - The maximum number of bytes to read, or None for no limit.
-	Returns:
-	   msg - The response of the device.
-	'''
-
-    def query(self, cmd, eol='\n', size=None, applyEscape=False):
+    def query(self, cmd, eol='\n', size=None):
+        """
+        Writes a command to the currently selected GPIB bus address and then returns the read response.
+        :param cmd: A string containing the message to send
+        :param eol: A character indicating the end of the message from the device
+        :param size: The maximum number of bytes to read, or None for no limit.
+        :return: The response of the device.
+        """
+        # Wait until a hardware lock is acquired
         with self.controller.hw_lock:
-            return self._query(cmd, eol, size, applyEscape)
-
-    def _query(self, cmd, eol='\n', size=None, applyEscape=False):
-        self._write(cmd)
-        return self._read(eol, size)
-
-    '''
-	Flush the controller's communication buffer
-	'''
+            # Write command
+            self._write(cmd)
+            # Return what is read
+            return self._read(eol, size)
 
     def flush(self):
+        """
+        Flush the controller's communication buffer
+        """
+        # Wait until a hardware lock is acquired
         with self.controller.hw_lock:
-            self._flush()
-
-    def _flush(self):
-        self.controller.flush()
+            self.controller.flush()
