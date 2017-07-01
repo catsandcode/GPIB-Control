@@ -1,6 +1,6 @@
 import numpy as np
 from instruments import SR830, Agilent33220A, PasternackPE11S390
-from io import Instrument, Prologix, USBDevice
+from io import Instrument, Prologix
 
 gpib_manager = None
 freq_synth = None
