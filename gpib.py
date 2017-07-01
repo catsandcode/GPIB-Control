@@ -135,41 +135,40 @@ class Prologix(object):
         self.ser.flush()
 
 
-'''
-A class representing a single GPIB instrument hooked up to some controller.
-'''
-
-
 class GpibDeviceInterface(object):
-    '''
-	Contructor - saves the information the instrument needs to know about itself.
-
-	Arguments:
-	   gpibAddr - An integer representing the GPIB bus address of the instrument
-	   controller - A controller object (such as an instance of the Prologix class)
-	'''
+    """
+    A class representing a single GPIB instrument hooked up to some controller.
+    """
 
     def __init__(self, gpibAddr, controller):
+        """
+        Saves the information the instrument needs to know about itself.
+        :param gpibAddr: An integer representing the GPIB bus address of the instrument
+        :param controller: A controller object (such as an instance of the Prologix class)
+        """
         self.gpibAddr = gpibAddr
         self.controller = controller
 
     '''
-	Sends a message to the instrument
+	
 
 	Arguments:
-	   msg - A string containing the message to send
-	   applyEscape - A bool which, if True, will cause the function to scan the 
-				 contents of msg and escape any reserved characters
+	   msg - 
+	   applyEscape - 
 	'''
 
     def write(self, msg, applyEscape=False):
+        """
+        Sends a message to the instrument
+        :param msg: A string containing the message to send
+        :param applyEscape: A bool which, if True, will cause the function to scan the contents of msg and escape any reserved characters
+        """
+        # Wait until a hardware lock is aquired
         with self.controller.hw_lock:
-            self._write(msg, applyEscape)
+            self.controller.set_gpib_address(self.gpibAddr)
+            self.controller.flush()  # Clear any gunk out
+            self.controller.write(msg)
 
-    def _write(self, msg, applyEscape=False):
-        self.controller.set_gpib_address(self.gpibAddr)
-        self.controller.flush()  # Clear any gunk out
-        self.controller.write(msg, applyEscape)
 
     '''
 	Sends the command to clear the currently selected GPIB bus address.  See the manual
@@ -239,7 +238,7 @@ class GpibDeviceInterface(object):
             return self._query(cmd, eol, size, applyEscape)
 
     def _query(self, cmd, eol='\n', size=None, applyEscape=False):
-        self._write(cmd, applyEscape)
+        self._write(cmd)
         return self._read(eol, size)
 
     '''
