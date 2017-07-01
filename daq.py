@@ -1,5 +1,5 @@
 """
-The DAQ module provides functions that might be useful for performing measurements and analyzing data. It is essentially
+The daq module provides functions that might be useful for performing measurements and analyzing data. It is essentially
 a module of code that would otherwise be repeated lots of times in experiment runs.
 """
 
