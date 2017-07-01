@@ -1,4 +1,4 @@
-import time, wrapper
+import time, experiment_wrapper
 import numpy as np
 
 
@@ -38,25 +38,25 @@ def sweep_parameter(parameter_set_func, values_to_sweep, time_constant=10, sensi
     :param save_path: If a non-empty string variable save_path is passed the the sweep will be saved as a .npy file with the sweep settings saved in metadata.
     :return: The data collected, where the first column is frequency, the second column is X, and the third column is Y.
     """
-    wrapper.initialize()
+    experiment_wrapper.initialize()
     
     # Set the frequency multiplier, as it is particular to the experiment
-    wrapper.set_freq_multiplier(multiplier)
+    experiment_wrapper.set_freq_multiplier(multiplier)
 
     # Setup the frequency synthesizer
-    wrapper.set_freq_synth_frequency(freq_synth_frequency)
-    wrapper.set_freq_synth_power(power)
-    wrapper.set_freq_synth_enable(True)
+    experiment_wrapper.set_freq_synth_frequency(freq_synth_frequency)
+    experiment_wrapper.set_freq_synth_power(power)
+    experiment_wrapper.set_freq_synth_enable(True)
 
     # Setup chopper
-    wrapper.set_chopper_amplitude(chopper_amplitude)
-    wrapper.set_chopper_frequency(chopper_frequency)
-    wrapper.set_chopper_on(True)
+    experiment_wrapper.set_chopper_amplitude(chopper_amplitude)
+    experiment_wrapper.set_chopper_frequency(chopper_frequency)
+    experiment_wrapper.set_chopper_on(True)
 
     # Setup lock-in
-    wrapper.set_time_constant(time_constant)
-    wrapper.set_sensitivity(sensitivity)
-    wrapper.set_low_pass_slope(slope)
+    experiment_wrapper.set_time_constant(time_constant)
+    experiment_wrapper.set_sensitivity(sensitivity)
+    experiment_wrapper.set_low_pass_slope(slope)
 
     # Sleep to allow instruments to adjust settings
     time.sleep(load_time)
@@ -75,7 +75,7 @@ def sweep_parameter(parameter_set_func, values_to_sweep, time_constant=10, sensi
         time.sleep((time_constant * 5.0 / 1000.0) + lock_in_time)  # Sleep for five time constants plus the lock_in_time
 
         # Get data from the lock-in amplifier and and add it to the data array
-        (x, y) = wrapper.snap_data()
+        (x, y) = experiment_wrapper.snap_data()
 
         data_row = np.array([value, x, y])
         data = np.vstack((data, data_row))
@@ -84,7 +84,7 @@ def sweep_parameter(parameter_set_func, values_to_sweep, time_constant=10, sensi
     data = np.delete(data, 0, 0)
 
     # Close instruments
-    wrapper.close()
+    experiment_wrapper.close()
     
     if save_path != '':
         np.savez(save_path, data = data, parameter_set_func=str(parameter_set_func), time_constant=time_constant, sensitivity=sensitivity, slope=slope, load_time=load_time, lock_in_time=lock_in_time, chopper_amplitude=chopper_amplitude, chopper_frequency=chopper_frequency, power=power, freq_synth_frequency=freq_synth_frequency, multiplier=multiplier)
@@ -94,4 +94,4 @@ def sweep_parameter(parameter_set_func, values_to_sweep, time_constant=10, sensi
 
 
 if __name__ == '__main__':
-    sweep_parameter(wrapper.set_freq_synth_frequency, generate_frequency_list(12.5, 16.5, 0.005), save_path='no_virginia_diode_high_res', power=15, sensitivity=1000, multiplier=1)
+    sweep_parameter(experiment_wrapper.set_freq_synth_frequency, generate_frequency_list(12.5, 16.5, 0.005), save_path='no_virginia_diode_high_res', power=15, sensitivity=1000, multiplier=1)
