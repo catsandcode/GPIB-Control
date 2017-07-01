@@ -1,3 +1,9 @@
+"""
+The experiment_wrapper module creates a level of abstraction between the control of actual instruments and control of
+the entire experiment as a whole. For example, instead of initializing each instrument on its own and then setting
+settings like the lock-in reference input, the initialize_instruments() function does all of this automatically.
+"""
+
 import numpy as np
 from instruments import SR830, Agilent33220A, PasternackPE11S390
 from io import Instrument, Prologix

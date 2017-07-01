@@ -1,3 +1,13 @@
+# noinspection PyNonAsciiChar,PyByteLiteral
+"""
+The io module deals with all connections coming in and out of the computer. It provides decorator functions to enable
+higher level programming of instruments in the instruments module. It abstracts between basic IO functions (i.e. dealing
+with the serial connection used with the Prologix controller, dealing with the file connection with a USB device) using
+the Instrument class, which should be used as the parent class for actual instruments. The Instrument class provides
+basic functions–read, write, and query, as well as a few others made used to make programming instruments more
+convenient and straightforward.
+"""
+
 import logging
 import multiprocessing
 import serial
