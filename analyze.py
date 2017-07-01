@@ -20,19 +20,20 @@ def calculate_response_and_phase(sweep):
     response = np.sqrt(np.add(np.square(x), np.square(y)))  # r=sqrt(x^2+y^2)
     phase = np.degrees(np.arctan2(y, x))  # theta=arctan(y/x)]
     # Return a new array where the first column is frequency, the second is response, and the third is phase
-    return np.hstack((freq, response, phase))
+    return np.vstack((freq, response, phase)).transpose()
 
 
 def subtract_reference(reference, sweep):
-
     """
-    This function takes a reference sweep and a sweep. The reference sweep is subtracted from the sweep and displayed.
-    Subtraction takes place by first finding the response and phase of the reference sweep and the sweep. The response
-    of the sweep is then divided by the response of the reference. Finally the phase of the reference is subtracted
-    from the phase of the sweep.
-    :param reference: The reference sweep.
-    :param sweep: The sweep.
-    :return: A tuple of form (response, phase).
+    This function takes a reference sweep array and a sweep array. The reference sweep is subtracted from the sweep and
+    displayed. Subtraction takes place by first finding the response and phase of the reference sweep and the sweep. The
+    response of the sweep is then divided by the response of the reference. Finally the phase of the reference is
+    subtracted from the phase of the sweep.
+    :param reference: The reference sweep in an array where the first column is frequency, the second column is x, and
+    the third column is y.
+    :param sweep: The sweep  in an array where the first column is frequency, the second column is x, and the third
+    column is y.
+    :return: A an
     """
     # Test array frequency equality
     ref_freq = reference[:, 0]
@@ -140,5 +141,34 @@ def save_x_and_y_graphs(sweep, path):
 
 
 if __name__ == '__main__':
-    sweep = np.load('data/with_virginia_diode.npz')
-    print_attributes(sweep)
+    vdi = np.load('data/with_virginia_diode.npz')
+    no_vdi = np.load('data/no_virginia_diode.npz')
+    # Load x and y data
+    no_vdi_x = no_vdi['data'][:,1]
+    no_vdi_y = no_vdi['data'][:,2]
+    # Sensitivity of the detector 75-110GHz detector is 250mV/mW, whereas the sensitivity of the 220-325GHz detector is only 150mV/mW. Scale data appropriately.
+    no_vdi_x_scaled = np.multiply(no_vdi_x, 150.0/250.0)
+    no_vdi_y_scaled = np.multiply(no_vdi_y, 150.0 / 250.0)
+    # Get the response and phase of the x and y data for with and without the vdi frequency multiplier
+    vdi_rp = calculate_response_and_phase(vdi['data'])
+    no_vdi_rp = calculate_response_and_phase(np.vstack((no_vdi['data'][:,0], no_vdi_x_scaled, no_vdi_y_scaled)).transpose())
+    # Extract the response and phase
+    freq = vdi_rp[:,0]
+    vdi_resp = vdi_rp[:,1]
+    vdi_phase = vdi_rp[:,2]
+    no_vdi_resp = no_vdi_rp[:,1]
+    no_vdi_phase = no_vdi_rp[:,2]
+    # Divide the responses and subtract the phases
+    resp = np.divide(vdi_resp, no_vdi_resp)
+    phase = np.subtract(vdi_phase, no_vdi_phase)
+    # Plot the response and phase
+    plt.figure(0)
+    plt.subplot(2,1,1)
+    plt.plot(freq, resp)
+    plt.ylabel('response')
+    plt.subplot(2,1,2)
+    plt.plot(freq, phase)
+    plt.ylabel('phase')
+    plt.xlabel('frequency [GHz]')
+    plt.show()
+
