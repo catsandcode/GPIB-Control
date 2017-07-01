@@ -119,18 +119,26 @@ def print_attributes(sweep):
             to_print += '\n'
     print to_print
 
-
-if __name__ == '__main__':
-    sweep = np.load('data/no_virginia_diode.npz')
+def save_x_and_y_graphs(sweep, path):
+    """
+    This function saves a graph of x versus frequency and a graph of y versus frequency to the specified path. The
+    suffixes _x and _y are appended to the x and y graphs, respectively.
+    :param sweep: The sweep to print the x and y graphs from.
+    :param path: The path to save the graphs at.
+    """
     data = sweep['data']
-
     plt.figure(0)
     plt.plot(data[:,0], data[:,1])
     plt.xlabel('Frequency [GHz]')
     plt.ylabel('X Amplitude [V]')
-    plt.savefig('x')
+    plt.savefig(path + '_x')
     plt.figure(1)
     plt.plot(data[:,0], data[:,2])
     plt.xlabel('Frequency [GHz]')
     plt.ylabel('Y Amplitude [V]')
-    plt.savefig('y')
+    plt.savefig(path + '_y')
+
+
+if __name__ == '__main__':
+    sweep = np.load('data/no_virginia_diode.npz')
+    save_x_and_y_graphs(sweep, 'data/no_virginia_diode')
