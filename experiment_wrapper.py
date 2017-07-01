@@ -1,7 +1,6 @@
 import numpy as np
 from instruments import SR830, Agilent33220A, PasternackPE11S390
-from io import Instrument, USBManager
-from gpib import Prologix
+from io import Instrument, Prologix, USBDevice
 
 gpib_manager = None
 freq_synth = None
@@ -388,11 +387,10 @@ def initialize():
     global gpib_manager
     # Create new ConnectionManagers to deal with all of the instruments being used.
     gpib_manager = Prologix('/dev/ttyUSB0')
-    usb_manager = USBManager()
     # Instantiate each instrument
-    freq_synth = PasternackPE11S390(usb_manager, '/dev/usbtmc0')
-    lock_in = SR830(gpib_manager, 8)
-    func_gen = Agilent33220A(gpib_manager, 10)
+    freq_synth = PasternackPE11S390('/dev/usbtmc0', Instrument.CONNECTION_TYPE_USB)
+    lock_in = SR830(8, Instrument.CONNECTION_TYPE_GPIB, gpib_manager)
+    func_gen = Agilent33220A(10, Instrument.CONNECTION_TYPE_GPIB, gpib_manager)
     # Name each instrument
     freq_synth.set_name('Frequency Synthesizer')
     lock_in.set_name('Lock-In')
@@ -446,21 +444,15 @@ def frequency_synthesizer_command_line():
 def _command_line(address, connection_manager):
     inst = Instrument(connection_manager, address)
     inst.open()
-    while (True):
+    while True:
         user_input = raw_input(
             "Type 'EXIT' to stop, 'QUERY [command]' to query, 'WRITE [command]' to write, and 'READ' to read.\n(Note the prompt is not case sensitive.)\n")
         if user_input.lower() == 'exit':
             break
         elif user_input.lower() == 'read':
-            try:
-                print inst.read()
-            except visa.VisaIOError:
-                print 'Timeout, returning to command prompt...'
+            print inst.read()
         elif user_input.rfind(' ') != -1 and user_input.lower()[0:user_input.find(' ')] == 'query':
-            try:
-                print inst.query(user_input[user_input.find(' ') + 1:])
-            except visa.VisaIOError:
-                print 'Timeout, returning to command prompt...'
+            print inst.query(user_input[user_input.find(' ') + 1:])
         elif user_input.rfind(' ') != -1 and user_input.lower()[0:user_input.find(' ')] == 'write':
             print inst.write(user_input[user_input.find(' ') + 1:])
         else:
