@@ -1,4 +1,4 @@
-from io import Instrument, write, query
+from control.io import Instrument, write, query
 
 
 class HP8350B(Instrument):

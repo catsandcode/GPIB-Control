@@ -8,7 +8,6 @@ basic functions–read, write, and query, as well as a few others made used to m
 convenient and straightforward.
 """
 
-import logging
 import multiprocessing
 import serial
 import sys

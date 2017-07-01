@@ -5,8 +5,8 @@ settings like the lock-in reference input, the initialize_instruments() function
 """
 
 import numpy as np
-from instruments import SR830, Agilent33220A, PasternackPE11S390
-from io import Instrument, Prologix
+from control.instruments import SR830, Agilent33220A, PasternackPE11S390
+from control.io import Instrument, Prologix
 
 gpib_manager = None
 freq_synth = None
@@ -440,8 +440,7 @@ def _command_line(address, connection_manager):
     inst = Instrument(connection_manager, address)
     inst.open()
     while True:
-        user_input = raw_input(
-            "Type 'EXIT' to stop, 'QUERY [command]' to query, 'WRITE [command]' to write, and 'READ' to read.\n(Note the prompt is not case sensitive.)\n")
+        user_input = input("Type 'EXIT' to stop, 'QUERY [command]' to query, 'WRITE [command]' to write, and 'READ' to read.\n(Note the prompt is not case sensitive.)\n")
         if user_input.lower() == 'exit':
             break
         elif user_input.lower() == 'read':

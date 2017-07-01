@@ -4,7 +4,8 @@ in the module are completely unrelated to data acquisition, and are purely analy
 that would otherwise be repeated lots of times in experiment runs.
 """
 
-import time, experiment_wrapper
+import time
+import control.experiment_wrapper as experiment_wrapper
 import numpy as np
 from matplotlib import pyplot as plt
 
