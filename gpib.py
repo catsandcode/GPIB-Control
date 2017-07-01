@@ -1,7 +1,3 @@
-'''
-A set of classes to facilitate interfacing with GPIB devices over serial
-'''
-
 import serial
 import sys
 import traceback
@@ -9,178 +5,133 @@ import time
 import logging
 import multiprocessing
 
-# To access serial ports on Ubunutu, run "sudo adduser USERNAMEHERE dialout" and log out/in
 
-'''
-A class which handles communication with a Prologix GPIB-USB module.
-Be sure to wrap your critial sections in the hw_lock!  Use "with" block.
-'''
+# noinspection SpellCheckingInspection
+class Prologix(object):
+    """
+    A class which handles communication with a Prologix GPIB-USB module. This class is safe to use with multiprocessing,
+    although it does not use multiprocessing itself (rather it is safe to use with multiprocessing implementations).
+    Note that commands sent to the Prologix are terminated with a new line character ('\n'). This must be appended to
+    commands sent by the user.
+    """
 
-
-class Prologix():
-    '''
-	Initializes serial communication with the GPIB-USB module.
-	:param comPort - A string containing the name of the com port.  Defaults to
-			 the integer 0, which refers to the first available serial port.
-	   readTimeout - The number of seconds to wait before giving up while reading.
-	'''
-
-    def __init__(self, port=0, readTimeout=1):
-
+    def __init__(self, port=0, read_timeout=1):
+        """
+        Initializes serial communication with the GPIB-USB module.
+        :param port: A string containing the name of the com port.  Defaults to the integer 0, which refers to the first available serial port.
+        :param read_timeout: The number of seconds to wait before giving up while reading.
+        """
+        # Create a hardware lock, used to ensure multiple GpibDeviceInterface objects don't try to access their Prologix controller at once
         self.hw_lock = multiprocessing.Lock()
-
+        # Attempt to open a serial connection to the device
         try:
-            # Open the serial port to the prologix device
-            self.ser = serial.Serial(port=port, baudrate=19200, timeout=readTimeout)
-            logging.debug("Prologix serial port opened successfully")
-
+            self.ser = serial.Serial(port=port, baudrate=19200, timeout=read_timeout)
+            print "Prologix serial port opened successfully"
         except serial.SerialException:
-
-            # Show the error and exit gracefully
-            logging.error("Error while opening serial communication with Prologix: " + str(traceback.format_exc()))
+            # Catch error and exit gracefully
+            print "Error while opening serial communication with Prologix."
             sys.exit(0)
-
-        # Set to command mode
+        # Set to Prologix to controller mode
         self.write("++mode 1\n")
-
-        # Turn off auto-reply
+        # Set the Prologix to tell GPIB devices to go to listen mode after a command is sent
         self.write("++auto 0\n")
-
-        # Set the current GPIB address to "unknown".
+        # Set the current GPIB address to "unknown". Save in multiprocessing shared memory.
         self.cur_addr = multiprocessing.Value('i', -1)
+        # Create a current address lock, used to make sure that multiple GpibDeviceInterface objects don't try to change the Prologix's device address at once
         self.cur_addr_lock = multiprocessing.Lock()
-
-        # Clear out any gunk
+        # Clear out any gunk from the serial conneciton
         self.flush()
-
-        logging.debug("Prologix init complete")
-
-    '''
-	Destructor, closes the serial port.
-	'''
+        # Notify user of successful initialization
+        print "Prologix init complete"
 
     def __del__(self):
-
+        """
+        Destructor, closes the serial port.
+        """
         # Close the serial port
         self.ser.close()
 
-    '''
-	Returns a GpibInstrument object.
-	
-	Arguments:
-	   gpibAddr - An integer representing the GPIB bus address of the instrument
-	'''
-
     def open_resource(self, gpibAddr):
-
-        # Return a GpibDeviceInterface, which needs to know its own address and the
-        # handle to its controller
+        """
+        Returns a GpibInstrument object.
+        :param gpibAddr: An integer representing the GPIB bus address of the instrument
+        """
+        # Return a GpibDeviceInterface, which needs to know its own address and a pointer to its controller
         return GpibDeviceInterface(gpibAddr, self)
 
-    '''
-	Sends a message to the Prologix
-
-	Arguments:
-	   msg - A string containing the message to send
-	   applyEscape - A bool which, if True, will cause the function to scan the 
-				 contents of msg and escape any reserved characters
-	'''
-
-    def write(self, msg, applyEscape=False):
-
-        # Escape any restricted characters
-        if applyEscape:
-            # TODO: Implement this
-            pass
-
+    def write(self, msg):
+        """
+        Sends a message to the Prologix
+        :param msg: A string containing the message to send
+        """
         # Write to the serial port
         self.ser.write(msg)
 
-    '''
-	Sets the current GPIB bus address that the Pologix is communicating with
-
-	Arguments:
-	   gpibAddr - An integer representing the GPIB bus address of the instrument
-	'''
-
-    def setGpibAddr(self, gpibAddr):
-
+    def set_gpib_address(self, gpib_address):
+        """
+        Sets the current GPIB bus address that the Pologix is communicating with
+        :param gpib_address: An integer representing the GPIB bus address of the instrument
+        """
+        # Wait until the current process has a lock to ensure that no other processes try to change the current address while the current process is setting it
         with self.cur_addr_lock:
-            if self.cur_addr.value != gpibAddr:
-                # Tell the Prologix to switch addresses
-                self.write("++addr %i\n" % int(gpibAddr))
-                self.cur_addr.value = gpibAddr
-
-    '''
-	Queries the currently selected GPIB bus address for a response and returns it (up to
-	the eol char, the max number of bytes, or the timeout)
-	
-	Arguments:
-	   eol - A character indicating the end of the message from the device
-	   size - The maximum number of bytes to read, or None for no limit.
-	Returns:
-	   msg - The response of the device.
-	'''
+            # Only change the current address if it is not equal to the address to set to
+            if self.cur_addr.value != gpib_address:
+                # Write the new address to the Prologix
+                self.write("++addr %i\n" % int(gpib_address))
+                # Update the current address value
+                self.cur_addr.value = gpib_address
 
     def read(self, eol='\n', size=None):
-
-        # Ask the controller to send us everything until the EOI, which indicates
-        # the end of a transmission
+        """
+        Queries the currently selected GPIB bus address for a response and returns it (up to the eol char, the max number of bytes, or the timeout)
+        :param eol: A character indicating the end of the message from the device
+        :param size: The maximum number of bytes to read, or None for no limit.
+        :return: The response of the device.
+        """
+        # Ask the controller to send us everything until the EOI,
         self.write("++read eoi\n")
-        return self.readNext(eol, size)
+        # Return what is read up until the end of line.
+        return self.read_next(eol, size)
 
-    '''
-	Doesn't query the currently selected GPIB bus address for a response, but simply returns
-	any response already in the buffer (up to the eol char, the max number of bytes, or the timeout)
-	
-	Arguments:
-	   eol - A character indicating the end of the message from the device
-	   size - The maximum number of bytes to read, or None for no limit.
-	   timeout - The maximum amount of time to allow this function to run
-	Returns:
-	   msg - The response of the device.
-	'''
-
-    def readNext(self, eol='\n', size=None, timeout=1):
-
-        # TODO: Optimize this function.
-
+    def read_next(self, eol='\n', size=None, timeout=1):
+        """
+        Doesn't query the currently selected GPIB bus address for a response, but simply returns any response already in the buffer (up to the eol char, the max number of bytes, or the timeout)
+        :param eol: A character indicating the end of the message from the device
+        :param size: The maximum number of bytes to read, or None for no limit.
+        :param timeout: The maximum amount of time to allow this function to run
+        :return: The response of the device.
+        """
+        # Create a bytearray to read data into
         msg = bytearray()
-
-        # Find the ASCII value of the eol char
+        # Find the ASCII value of the end of line character
         eolAscii = ord(eol)
-
-        # Read until the given end of line or size
+        # Get the current time, will be used to detect if operation has timed out
         startTime = time.clock()
-        while (True):
-
-            # Don't even try if we know there is nothing
-            if (self.ser.inWaiting() > 0):
-
-                # Read the next byte
+        while True:
+            # If nothing is waiting in the serial buffer, break
+            if self.ser.inWaiting() > 0:
+                # Read the next byte into the msg bytearray
                 msg.append(self.ser.read(1))
-
-                # See if we are done
+                # See if the last byte in the msg bytearray (i.e. the byte read on the previous line) is the end of line character. If so, break.
                 if int(msg[-1]) == eolAscii:
                     break
+                # If read_next was called with a size constraint and the msg bytearray is larger than that size, break.
                 if (size > 0) and (len(msg) >= size):
                     break
-
-            # Don't run on forever
-            if (time.clock() > (startTime + timeout)):
-                logging.error("Read timed out when attempting to receive data from the GPIB device with address " + str(
-                    self.cur_addr.value) + ".  Is the device connected and powered on?")
+            # Check for timeout. If timeout, break.
+            if time.clock() > (startTime + timeout):
+                print "Read timed out when attempting to receive data from the GPIB device with address " + str(self.cur_addr.value) + ".  Is the device connected and powered on?"
+                # If a message has been read, print the last character read and suggest that it might be the end of line character
                 if len(msg) > 0:
-                    logging.debug("Perhaps EOL should be ASCII " + bytes(msg[-1]))
+                    logging.debug("Perhaps the end of line character should be ASCII " + bytes(msg[-1]))
                 break
-
+        # Return the read message
         return msg
 
-    '''
-	Flush the communication buffer between the computer and the Prologix.
-	'''
-
     def flush(self):
+        """
+        Flush the communication buffer between the computer and the Prologix.
+        """
         self.ser.flush()
 
 
@@ -189,7 +140,7 @@ A class representing a single GPIB instrument hooked up to some controller.
 '''
 
 
-class GpibDeviceInterface:
+class GpibDeviceInterface(object):
     '''
 	Contructor - saves the information the instrument needs to know about itself.
 
@@ -216,7 +167,7 @@ class GpibDeviceInterface:
             self._write(msg, applyEscape)
 
     def _write(self, msg, applyEscape=False):
-        self.controller.setGpibAddr(self.gpibAddr)
+        self.controller.set_gpib_address(self.gpibAddr)
         self.controller.flush()  # Clear any gunk out
         self.controller.write(msg, applyEscape)
 
@@ -248,7 +199,7 @@ class GpibDeviceInterface:
             return self._read(eol, size)
 
     def _read(self, eol='\n', size=None):
-        self.controller.setGpibAddr(self.gpibAddr)
+        self.controller.set_gpib_address(self.gpibAddr)
         self.controller.flush()  # Clear any gunk out
         return self.controller.read(eol, size)
 
@@ -267,8 +218,8 @@ class GpibDeviceInterface:
 	'''
 
     def _readNext(self, eol='\n', size=None):
-        self.controller.setGpibAddr(self.gpibAddr)
-        return self.controller.readNext(eol, size)
+        self.controller.set_gpib_address(self.gpibAddr)
+        return self.controller.read_next(eol, size)
 
     '''
 	Sends a command to the currently selected GPIB bus address and returns the response.
