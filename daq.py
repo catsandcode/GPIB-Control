@@ -1,11 +1,12 @@
 """
 The daq module provides functions that might be useful for performing measurements and analyzing data. Some functions
-in the module are completely unrelated to data aquisition, and are purely analysis. It is essentially a module of code
+in the module are completely unrelated to data acquisition, and are purely analysis. It is essentially a module of code
 that would otherwise be repeated lots of times in experiment runs.
 """
 
 import time, experiment_wrapper
 import numpy as np
+from matplotlib import pyplot as plt
 
 
 def calculate_response_and_phase(sweep):
@@ -13,7 +14,7 @@ def calculate_response_and_phase(sweep):
     This function takes an array where the first column is frequency, the second is x, and the third is y and returns
     an array where the first column is frequency, the second column is response, and the third column is phase.
     :param sweep: The array where the first column is frequency, the second is x, and the third is y.
-    :return: An array where the first column is frequency, the second column is response, and the third column is phase.x
+    :return: An array where the first column is frequency, the second column is response, and the third column is phase.
     """
     # Extract data from the sweep array
     try:
@@ -67,29 +68,7 @@ def subtract_reference(reference, sweep):
     response = np.divide(test_response, ref_response)
     phase = np.subtract(test_phase, ref_phase)
 
-    return (response, phase)
-    # Plot the data
-    plt.subplot(2, 2, 1)
-    plt.plot(freq, ref_x, 'b--')
-    plt.plot(freq, test_x, 'k-')
-    plt.ylabel('X Amplitude [V]')
-
-    plt.subplot(2, 2, 2)
-    plt.plot(freq, ref_y, 'b--.')
-    plt.plot(freq, test_y, 'k-.')
-    plt.ylabel('Y Amplitude [V]')
-    plt.xlabel('Frequency [GHz]')
-
-    plt.subplot(2, 2, 3)
-    plt.plot(freq, response, 'k-')
-    plt.ylabel('Response')
-
-    plt.subplot(2, 2, 4)
-    plt.plot(freq, phase, 'k-')
-    plt.ylabel('Phase [degrees]')
-    plt.xlabel('Frequency [GHz]')
-
-    plt.show()
+    return response, phase
 
 
 def print_attributes(sweep):
@@ -124,7 +103,7 @@ def print_attributes(sweep):
         # If this is not the data key, add a new line
         if key != 'data':
             to_print += '\n'
-    print to_print
+    print(to_print)
 
 
 def save_x_and_y_graphs(sweep, path):
@@ -157,7 +136,7 @@ def generate_frequency_list(start, end, step):
     """
     to_return = []
     current_frequency = start
-    while(current_frequency <= end):
+    while current_frequency <= end:
         to_return.append(current_frequency)
         current_frequency += step
     return to_return
@@ -171,14 +150,12 @@ def sweep_parameter(parameter_set_func, values_to_sweep, time_constant=10, sensi
     :param time_constant: The lock-in amplifier time constant.
     :param sensitivity: The lock-in amplifier sensitivity.
     :param slope: The lock-in amplifier roll off slope in dB/octave.
-    :param sample_rate: The lock-in amplifier sample rate.
-    :param samples_to_collect: The number of samples to collect.
     :param load_time: The amount of time to give the instruments to finish setting up before data collection begins.
     :param lock_in_time: The amount of time to give the lock in amplifier to lock back onto the reference signal after a parameter is changed.
     :param chopper_amplitude: The amplitude of the chopper signal.
     :param chopper_frequency: The frequency of the chopper signal.
     :param power: The power of the sweeper.
-    :param sweeper_frequency: The frequency of the sweeper.
+    :param freq_synth_frequency: The frequency of the sweeper.
     :param multiplier: The multiplier (i.e. product of all frequency multipliers in the setup).
     :param save_path: If a non-empty string variable save_path is passed the the sweep will be saved as a .npy file with the sweep settings saved in metadata.
     :return: The data collected, where the first column is frequency, the second column is X, and the third column is Y.
@@ -211,7 +188,7 @@ def sweep_parameter(parameter_set_func, values_to_sweep, time_constant=10, sensi
 
     # Sweep the selected parameter and record data
     for value in values_to_sweep:
-        print 'At sweep value ' + str(value)
+        print('At sweep value ' + str(value))
 
         # Set selected parameter to the given value
         parameter_set_func(value)

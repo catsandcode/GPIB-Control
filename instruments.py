@@ -613,11 +613,11 @@ class SR830(Instrument):
         Returns a tuple of the channel 1 display and ratio, see the DISPLAY_CHANNEL1 and DISPLAY_CHANNEL1_RATIO
         constants.
         """
-        print "Querying to " + self.get_name() + " --> DDEF? 1"
+        print("Querying to " + self.get_name() + " --> DDEF? 1")
         response = self.query('DDEF? 1')
         if response.rfind('\n') != -1:
             response = response[:response.rfind('\n')]
-        print "Received from " + self.get_name() + " <-- " + response
+        print("Received from " + self.get_name() + " <-- " + response)
         parameter = int(response[:1])
         ratio = int(response[2:])
         return parameter, ratio
@@ -637,11 +637,11 @@ class SR830(Instrument):
         Returns a tuple of the channel 2 display and ratio, see the DISPLAY_CHANNEL2 and DISPLAY_CHANNEL2_RATIO
         constants.
         """
-        print "Querying to " + self.get_name() + " --> DDEF? 2"
+        print("Querying to " + self.get_name() + " --> DDEF? 2")
         response = self.query('DDEF? 2')
         if response.rfind('\n') != -1:
             response = response[:response.rfind('\n')]
-        print "Received from " + self.get_name() + " <-- " + response
+        print("Received from " + self.get_name() + " <-- " + response)
         parameter = int(response[:1])
         ratio = int(response[2:])
         return parameter, ratio
@@ -690,11 +690,11 @@ class SR830(Instrument):
         constants).
         :param parameter: The parameter to set the offset of (see _PARAMETER_? constants)
         """
-        print "Querying to " + self.get_name() + " --> OEXP? " + str(parameter)
+        print("Querying to " + self.get_name() + " --> OEXP? " + str(parameter))
         response = self.query('OEXP? ' + str(parameter))
         if response.rfind('\n') != -1:
             response = response[:response.rfind('\n')]
-        print "Received from " + self.get_name() + " <-- " + response
+        print("Received from " + self.get_name() + " <-- " + response)
         offset = float(response[:1])
         expand = int(response[2:])
         return offset, expand
@@ -1059,11 +1059,11 @@ class SR830(Instrument):
         for val in values:  # Add the integer associated with each value to the snaps string using the _SNAP_VALUES_MAP
             snaps += str(self._SNAP_VALUES_MAP.get(val)) + ','
         snaps = snaps[:len(snaps) - 1]  # Remove the trailing comma from the snaps string
-        print "Querying to " + self.get_name() + " --> SNAP? " + snaps
+        print("Querying to " + self.get_name() + " --> SNAP? " + snaps)
         response = str(self.query('SNAP? ' + snaps))  # Query the command and save the response as string response
         if response.rfind('\n') != -1:
             response = response[:response.rfind('\n')]  # Remove any newline f
-        print "Received from " + self.get_name() + " <-- " + response
+        print("Received from " + self.get_name() + " <-- " + response)
         measurements = response.split(',')  # Split the string response into a list using ',' as delimiters
         to_return = {}
         for i in range(len(measurements)):
@@ -1113,14 +1113,14 @@ class SR830(Instrument):
         number of bins than an error occurs.
         """
         # noinspection SpellCheckingInspection
-        print 'Querying to ' + self.get_name() + ' --> TRCL? ' + str(channel) + ',' + str(start_bin) + ',' + str(
-            bins_to_return)
+        print('Querying to ' + self.get_name() + ' --> TRCL? ' + str(channel) + ',' + str(start_bin) + ',' + str(
+            bins_to_return))
         # Write the command
         # noinspection SpellCheckingInspection
         self.write('TRCL? ' + str(channel) + ',' + str(start_bin) + ',' + str(bins_to_return))
         # Read the raw response to the command
         raw_response = self.read_raw()
-        print "Received from " + self.get_name() + " <-- " + raw_response
+        print("Received from " + self.get_name() + " <-- " + raw_response)
         # Convert the raw_response into a string of 0s and 1s
         bit_string = self._raw_to_bit_string(raw_response)
         # Convert the string of 0s and 1s into a list of numbers and return
@@ -1281,12 +1281,12 @@ class Agilent33220A(Instrument):
         return 'FUNC?'
 
     @write
-    def set_wave_type(self, type=WAVE_TYPE_SQUARE):
+    def set_wave_type(self, wave_type=WAVE_TYPE_SQUARE):
         """
         Sets the wave type using one of the WAVE_TYPE_?* constants.
-        :param type: The wave type to set, one of the WAVE_TYPE_?* constants
+        :param wave_type: The wave type to set, one of the WAVE_TYPE_?* constants
         """
-        return 'FUNC ' + type
+        return 'FUNC ' + wave_type
 
     @query
     def get_wave_frequency(self):
@@ -1314,7 +1314,7 @@ class Agilent33220A(Instrument):
     def set_wave_amplitude(self, amplitude=0.5):
         """
         Sets the wave RMS amplitude in volts.
-        :param freq: The wave amplitude in volts
+        :param amplitude: The wave amplitude in volts
         """
         return ['VOLT:HIGH ' + str(amplitude), 'VOLT:LOW 0']
 
