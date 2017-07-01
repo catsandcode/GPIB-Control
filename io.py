@@ -104,7 +104,7 @@ class Prologix(object):
         :param gpibAddr: An integer representing the GPIB bus address of the instrument
         """
         # Return a GpibDeviceInterface, which needs to know its own address and a pointer to its controller
-        return GpibDeviceInterface(gpibAddr, self)
+        return GPIBDeviceInterface(gpibAddr, self)
 
     def write(self, msg):
         """
@@ -183,7 +183,7 @@ class Prologix(object):
         self.ser.flush()
 
 
-class GpibDeviceInterface(object):
+class GPIBDeviceInterface(object):
     """
     A class representing a single GPIB instrument hooked up to some controller.
     """
