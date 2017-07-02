@@ -1,13 +1,21 @@
 """
 The daq module provides functions that might be useful for performing measurements and analyzing data. Some functions
+<<<<<<< HEAD:control/daq.py
 in the module are completely unrelated to data aquisition, and are purely analysis. It is essentially a module of code
+=======
+>>>>>>> 9754758e5841681524985c7d2b92ed739240c4b2:control/daq.py
 in the module are completely unrelated to data acquisition, and are purely analysis. It is essentially a module of code
 that would otherwise be repeated lots of times in experiment runs.
 """
 
 <<<<<<< HEAD:control/daq.py
+<<<<<<< HEAD:control/daq.py
 import time, experiment_wrapper
 from matplotlib import pyplot as plt
+=======
+import time
+import control.experiment_wrapper as experiment_wrapper
+>>>>>>> 9754758e5841681524985c7d2b92ed739240c4b2:control/daq.py
 =======
 import time
 import control.experiment_wrapper as experiment_wrapper
@@ -21,7 +29,10 @@ def calculate_response_and_phase(sweep):
     This function takes an array where the first column is frequency, the second is x, and the third is y and returns
     an array where the first column is frequency, the second column is response, and the third column is phase.
     :param sweep: The array where the first column is frequency, the second is x, and the third is y.
+<<<<<<< HEAD:control/daq.py
     :return: An array where the first column is frequency, the second column is response, and the third column is phase.x
+=======
+>>>>>>> 9754758e5841681524985c7d2b92ed739240c4b2:control/daq.py
     :return: An array where the first column is frequency, the second column is response, and the third column is phase.
     """
     # Extract data from the sweep array
@@ -111,7 +122,7 @@ def print_attributes(sweep):
         # If this is not the data key, add a new line
         if key != 'data':
             to_print += '\n'
-    print to_print
+    print(to_print)
 
 
 def save_x_and_y_graphs(sweep, path):
@@ -144,7 +155,7 @@ def generate_frequency_list(start, end, step):
     """
     to_return = []
     current_frequency = start
-    while(current_frequency <= end):
+    while current_frequency <= end:
         to_return.append(current_frequency)
         current_frequency += step
     return to_return
@@ -196,7 +207,7 @@ def sweep_parameter(parameter_set_func, values_to_sweep, time_constant=10, sensi
 
     # Sweep the selected parameter and record data
     for value in values_to_sweep:
-        print 'At sweep value ' + str(value)
+        print('At sweep value ' + str(value))
 
         # Set selected parameter to the given value
         parameter_set_func(value)

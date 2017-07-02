@@ -1,4 +1,4 @@
-from io import Instrument, write, query
+from control.io import Instrument, write, query
 
 
 class HP8350B(Instrument):
@@ -613,11 +613,11 @@ class SR830(Instrument):
         Returns a tuple of the channel 1 display and ratio, see the DISPLAY_CHANNEL1 and DISPLAY_CHANNEL1_RATIO
         constants.
         """
-        print "Querying to " + self.get_name() + " --> DDEF? 1"
+        print("Querying to " + self.get_name() + " --> DDEF? 1")
         response = self.query('DDEF? 1')
         if response.rfind('\n') != -1:
             response = response[:response.rfind('\n')]
-        print "Received from " + self.get_name() + " <-- " + response
+        print("Received from " + self.get_name() + " <-- " + response)
         parameter = int(response[:1])
         ratio = int(response[2:])
         return parameter, ratio
@@ -637,11 +637,11 @@ class SR830(Instrument):
         Returns a tuple of the channel 2 display and ratio, see the DISPLAY_CHANNEL2 and DISPLAY_CHANNEL2_RATIO
         constants.
         """
-        print "Querying to " + self.get_name() + " --> DDEF? 2"
+        print("Querying to " + self.get_name() + " --> DDEF? 2")
         response = self.query('DDEF? 2')
         if response.rfind('\n') != -1:
             response = response[:response.rfind('\n')]
-        print "Received from " + self.get_name() + " <-- " + response
+        print("Received from " + self.get_name() + " <-- " + response)
         parameter = int(response[:1])
         ratio = int(response[2:])
         return parameter, ratio
@@ -690,11 +690,11 @@ class SR830(Instrument):
         constants).
         :param parameter: The parameter to set the offset of (see _PARAMETER_? constants)
         """
-        print "Querying to " + self.get_name() + " --> OEXP? " + str(parameter)
+        print("Querying to " + self.get_name() + " --> OEXP? " + str(parameter))
         response = self.query('OEXP? ' + str(parameter))
         if response.rfind('\n') != -1:
             response = response[:response.rfind('\n')]
-        print "Received from " + self.get_name() + " <-- " + response
+        print("Received from " + self.get_name() + " <-- " + response)
         offset = float(response[:1])
         expand = int(response[2:])
         return offset, expand
@@ -1059,11 +1059,11 @@ class SR830(Instrument):
         for val in values:  # Add the integer associated with each value to the snaps string using the _SNAP_VALUES_MAP
             snaps += str(self._SNAP_VALUES_MAP.get(val)) + ','
         snaps = snaps[:len(snaps) - 1]  # Remove the trailing comma from the snaps string
-        print "Querying to " + self.get_name() + " --> SNAP? " + snaps
+        print("Querying to " + self.get_name() + " --> SNAP? " + snaps)
         response = str(self.query('SNAP? ' + snaps))  # Query the command and save the response as string response
         if response.rfind('\n') != -1:
             response = response[:response.rfind('\n')]  # Remove any newline f
-        print "Received from " + self.get_name() + " <-- " + response
+        print("Received from " + self.get_name() + " <-- " + response)
         measurements = response.split(',')  # Split the string response into a list using ',' as delimiters
         to_return = {}
         for i in range(len(measurements)):
@@ -1113,8 +1113,8 @@ class SR830(Instrument):
         number of bins than an error occurs.
         """
         # noinspection SpellCheckingInspection
-        print 'Querying to ' + self.get_name() + ' --> TRCL? ' + str(channel) + ',' + str(start_bin) + ',' + str(
-            bins_to_return)
+        print('Querying to ' + self.get_name() + ' --> TRCL? ' + str(channel) + ',' + str(start_bin) + ',' + str(
+            bins_to_return))
         # Write the command
         # noinspection SpellCheckingInspection
         self.write('TRCL? ' + str(channel) + ',' + str(start_bin) + ',' + str(bins_to_return))

@@ -5,8 +5,8 @@ settings like the lock-in reference input, the initialize_instruments() function
 """
 
 import numpy as np
-from instruments import SR830, Agilent33220A, PasternackPE11S390
-from io import Instrument, Prologix
+from control.instruments import SR830, Agilent33220A, PasternackPE11S390
+from control.io import Instrument, Prologix
 
 gpib_manager = None
 freq_synth = None
@@ -307,7 +307,7 @@ def snap_data():
     data_dict = lock_in.snap_values(['X', 'Y'])
     x = data_dict.get('X')
     y = data_dict.get('Y')
-    return (x, y)
+    return x, y
 
 def start_scan():
     """
@@ -440,16 +440,15 @@ def _command_line(address, connection_manager):
     inst = Instrument(connection_manager, address)
     inst.open()
     while True:
-        user_input = raw_input(
-            "Type 'EXIT' to stop, 'QUERY [command]' to query, 'WRITE [command]' to write, and 'READ' to read.\n(Note the prompt is not case sensitive.)\n")
+        user_input = input("Type 'EXIT' to stop, 'QUERY [command]' to query, 'WRITE [command]' to write, and 'READ' to read.\n(Note the prompt is not case sensitive.)\n")
         if user_input.lower() == 'exit':
             break
         elif user_input.lower() == 'read':
-            print inst.read()
+            print(inst.read())
         elif user_input.rfind(' ') != -1 and user_input.lower()[0:user_input.find(' ')] == 'query':
-            print inst.query(user_input[user_input.find(' ') + 1:])
+            print(inst.query(user_input[user_input.find(' ') + 1:]))
         elif user_input.rfind(' ') != -1 and user_input.lower()[0:user_input.find(' ')] == 'write':
-            print inst.write(user_input[user_input.find(' ') + 1:])
+            print(inst.write(user_input[user_input.find(' ') + 1:]))
         else:
-            print "Please use one of the commands specified"
+            print("Please use one of the commands specified")
     inst.close()

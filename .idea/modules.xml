@@ -3,6 +3,7 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/.idea/GPIB-Control.iml" filepath="$PROJECT_DIR$/.idea/GPIB-Control.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/Microwave-Transmission-Experiment.iml" filepath="$PROJECT_DIR$/.idea/Microwave-Transmission-Experiment.iml" />
     </modules>
   </component>
 </project>

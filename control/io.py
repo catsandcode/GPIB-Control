@@ -24,11 +24,11 @@ def write(func):
         content = func(self, *args, **kwargs)
         if type(content) is list:
             for command in content:
-                print "Writing to " + self.get_name() + " --> " + command
+                print("Writing to " + self.get_name() + " --> " + command)
                 self.write(command)
         else:
             command = content
-            print "Writing to " + self.get_name() + " --> " + command
+            print("Writing to " + self.get_name() + " --> " + command)
             self.write(command)
 
     return write_wrapper
@@ -43,11 +43,11 @@ def query(func):
 
     def query_wrapper(self, *args, **kwargs):
         command = func(self, *args, **kwargs)
-        print "Querying to " + self.get_name() + " --> " + command
+        print("Querying to " + self.get_name() + " --> " + command)
         response = str(self.query(command))
         if response.rfind('\n') != -1:
             response = response[:response.rfind('\n')]
-        print "Received from " + self.get_name() + " <-- " + response
+        print("Received from " + self.get_name() + " <-- " + response)
         # Try to cast the response as a float and then an int
         if response.rfind(';') != -1:
             response = response[:response.rfind(';')]
@@ -82,10 +82,10 @@ class Prologix(object):
         # Attempt to open a serial connection to the device
         try:
             self.ser = serial.Serial(port=port, baudrate=19200, timeout=read_timeout)
-            print "Prologix serial port opened successfully"
+            print("Prologix serial port opened successfully")
         except serial.SerialException:
             # Catch error and exit gracefully
-            print "Error while opening serial communication with Prologix."
+            print("Error while opening serial communication with Prologix.")
             sys.exit(0)
         # Set to Prologix to controller mode
         self.write("++mode 1\n")
@@ -98,7 +98,7 @@ class Prologix(object):
         # Clear out any gunk from the serial conneciton
         self.flush()
         # Notify user of successful initialization
-        print "Prologix init complete"
+        print("Prologix init complete")
 
     def __del__(self):
         """
@@ -177,10 +177,10 @@ class Prologix(object):
                     break
             # Check for timeout. If timeout, break.
             if time.clock() > (startTime + timeout):
-                print "Read timed out when attempting to receive data from the GPIB device with address " + str(self.cur_addr.value) + ".  Is the device connected and powered on?"
+                print("Read timed out when attempting to receive data from the GPIB device with address " + str(self.cur_addr.value) + ".  Is the device connected and powered on?")
                 # If a message has been read, print the last character read and suggest that it might be the end of line character
                 if len(msg) > 0:
-                    logging.debug("Perhaps the end of line character should be ASCII " + bytes(msg[-1]))
+                    print("Perhaps the end of line character should be ASCII " + msg[-1])
                 break
         # Return the read message
         return msg
@@ -308,7 +308,7 @@ class USBDevice(object):
         self._address = address
         # Open a device at the specified address, set to read/write mode
         self._device = open(self._address, 'w+')
-        print 'Successfully connected to ' + str(address) + '!'
+        print('Successfully connected to ' + str(address) + '!')
 
     def read(self):
         """
