@@ -309,7 +309,12 @@ class USBDevice(object):
         self._address = address
         # Open a device at the specified address, set to read/write mode
         self._device = open(self._address, 'w+')
-        print('Successfully connected to ' + str(address) + '!')
+        if self.query('*IDN?') != '':
+            print('Successfully connected to ' + str(address))
+        else:
+            print('Connection to ' + str(address) + ' failed')
+            self._device.close()
+            del self
 
     def read(self):
         """
