@@ -5,6 +5,7 @@ that would otherwise be repeated lots of times in experiment runs.
 """
 
 import time, experiment_wrapper
+from matplotlib import pyplot as plt
 import numpy as np
 
 
@@ -236,7 +237,3 @@ def sweep_parameter(parameter_set_func, values_to_sweep, time_constant=10, sensi
 
     # Return data
     return data
-
-
-if __name__ == '__main__':
-    sweep_parameter(experiment_wrapper.set_freq_synth_frequency, generate_frequency_list(12.5, 16.5, 0.005), save_path='no_virginia_diode_high_res', power=15, sensitivity=1000, multiplier=1)
