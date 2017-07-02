@@ -1525,6 +1525,9 @@ class PasternackPE11S390(Instrument):
     OUTPUT_STATE_OFF = 0
     OUTPUT_STATE_ON = 1
 
+    REFERENCE_FREQUENCY_INTERNAL = 0
+    REFERENCE_FREQUENCY_EXTERNAL = 1
+
     @write
     def set_output_state(self, output_state=OUTPUT_STATE_OFF):
         """
@@ -1539,6 +1542,21 @@ class PasternackPE11S390(Instrument):
         Gets the RF output, one of the OUTPUT_STATE_ constants.
         """
         return 'POWE:RF?;'
+
+    @write
+    def set_reference_frequency(self, ref_freq=REFERENCE_FREQUENCY_INTERNAL):
+        """
+        Sets the reference frequency to either internal or external.
+        :param ref_freq: The reference frequency to set, a REFERENCE_FREQUENCY_ constant.
+        """
+        return 'FREQ:REF:EXT ' + str(ref_freq) + ';'
+
+    @query
+    def get_reference_frequency(self):
+        """
+        Gets the reference frequency, either REFERENCE_FREQUENCY_INTERNAL or REFERENCE_FREQUENCY_EXTERNAL.
+        """
+        return 'FREQ:REF:EXT?;'
 
     @write
     def set_frequency(self, frequency=10):
