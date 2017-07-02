@@ -312,9 +312,9 @@ class USBDevice(object):
         if self.query('*IDN?') != '':
             print('Successfully connected to ' + str(address))
         else:
-            print('Connection to ' + str(address) + ' failed')
+            print('Connection to ' + str(address) + ' failed. Stopping...')
             self._device.close()
-            del self
+            sys.exit(0)
 
     def read(self):
         """
