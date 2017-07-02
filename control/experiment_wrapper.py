@@ -391,6 +391,7 @@ def initialize():
     global lock_in
     global func_gen
     global gpib_manager
+    global freq_multiple
     # Create new ConnectionManagers to deal with all of the instruments being used.
     gpib_manager = Prologix('/dev/ttyUSB0')
     # Instantiate each instrument
@@ -433,18 +434,6 @@ def close():
     freq_synth.close()
     lock_in.close()
     func_gen.close()
-
-
-def lock_in_command_line():
-    _command_line('GPIB0::8::INSTR')
-
-
-def func_gen_command_line():
-    _command_line('GPIB0::10::INSTR')
-
-
-def frequency_synthesizer_command_line():
-    _command_line('USB0::0x2012::0x0011::5001::INSTR')
 
 
 def _command_line(address, connection_manager):

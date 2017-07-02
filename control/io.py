@@ -8,7 +8,6 @@ basic functions–read, write, and query, as well as a few others made used to m
 convenient and straightforward.
 """
 
-import logging
 import multiprocessing
 import serial
 import sys
@@ -211,7 +210,6 @@ class GPIBDeviceInterface(object):
         """
         Sends a message to the instrument
         :param msg: A string containing the message to send
-        :param applyEscape: A bool which, if True, will cause the function to scan the contents of msg and escape any reserved characters
         """
         # Wait until a hardware lock is acquired
         with self.controller.hw_lock:
@@ -262,7 +260,7 @@ class GPIBDeviceInterface(object):
 
     def readNext(self, eol='\n', size=None):
         """
-        NOT SAFE IN MULTIPROCESSING ENVIORNMENTS!!!
+        NOT SAFE IN MULTIPROCESSING ENVIRONMENTS!!!
         Doesn't query the instrument for a response, but simply returns any response already in the buffer (up to the end of line character, the max number of bytes, or the timeout).
         :param eol: A character indicating the end of the message from the device
         :param size: The maximum number of bytes to read, or None for no limit.

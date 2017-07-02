@@ -1120,7 +1120,7 @@ class SR830(Instrument):
         self.write('TRCL? ' + str(channel) + ',' + str(start_bin) + ',' + str(bins_to_return))
         # Read the raw response to the command
         raw_response = self.read_raw()
-        print "Received from " + self.get_name() + " <-- " + raw_response
+        print("Received from " + self.get_name() + " <-- " + raw_response)
         # Convert the raw_response into a string of 0s and 1s
         bit_string = self._raw_to_bit_string(raw_response)
         # Convert the string of 0s and 1s into a list of numbers and return
@@ -1281,12 +1281,12 @@ class Agilent33220A(Instrument):
         return 'FUNC?'
 
     @write
-    def set_wave_type(self, type=WAVE_TYPE_SQUARE):
+    def set_wave_type(self, wave_type=WAVE_TYPE_SQUARE):
         """
         Sets the wave type using one of the WAVE_TYPE_?* constants.
-        :param type: The wave type to set, one of the WAVE_TYPE_?* constants
+        :param wave_type: The wave type to set, one of the WAVE_TYPE_?* constants
         """
-        return 'FUNC ' + type
+        return 'FUNC ' + wave_type
 
     @query
     def get_wave_frequency(self):
@@ -1314,7 +1314,7 @@ class Agilent33220A(Instrument):
     def set_wave_amplitude(self, amplitude=0.5):
         """
         Sets the wave RMS amplitude in volts.
-        :param freq: The wave amplitude in volts
+        :param amplitude: The wave amplitude in volts
         """
         return ['VOLT:HIGH ' + str(amplitude), 'VOLT:LOW 0']
 
