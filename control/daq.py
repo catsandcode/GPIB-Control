@@ -1,25 +1,11 @@
 """
 The daq module provides functions that might be useful for performing measurements and analyzing data. Some functions
-<<<<<<< HEAD:control/daq.py
-in the module are completely unrelated to data aquisition, and are purely analysis. It is essentially a module of code
-=======
->>>>>>> 9754758e5841681524985c7d2b92ed739240c4b2:control/daq.py
 in the module are completely unrelated to data acquisition, and are purely analysis. It is essentially a module of code
 that would otherwise be repeated lots of times in experiment runs.
 """
 
-<<<<<<< HEAD:control/daq.py
-<<<<<<< HEAD:control/daq.py
-import time, experiment_wrapper
-from matplotlib import pyplot as plt
-=======
 import time
 import control.experiment_wrapper as experiment_wrapper
->>>>>>> 9754758e5841681524985c7d2b92ed739240c4b2:control/daq.py
-=======
-import time
-import control.experiment_wrapper as experiment_wrapper
->>>>>>> 9754758e5841681524985c7d2b92ed739240c4b2:control/daq.py
 import numpy as np
 from matplotlib import pyplot as plt
 
@@ -29,10 +15,6 @@ def calculate_response_and_phase(sweep):
     This function takes an array where the first column is frequency, the second is x, and the third is y and returns
     an array where the first column is frequency, the second column is response, and the third column is phase.
     :param sweep: The array where the first column is frequency, the second is x, and the third is y.
-<<<<<<< HEAD:control/daq.py
-    :return: An array where the first column is frequency, the second column is response, and the third column is phase.x
-=======
->>>>>>> 9754758e5841681524985c7d2b92ed739240c4b2:control/daq.py
     :return: An array where the first column is frequency, the second column is response, and the third column is phase.
     """
     # Extract data from the sweep array
