@@ -2,8 +2,12 @@
 *.xml
 *.pyc
 *.ipynb
-doc/*
 figures/*
+doc/*.rst
+doc/*.py
+doc/Makefile
+doc/_static
+doc/_templates
 .DS_Store
 control/__init__.pyc
 control/daq.py

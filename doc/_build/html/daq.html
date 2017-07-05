@@ -1,0 +1,373 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>daq &mdash; control 0.1.0 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+        <link rel="index" title="Index"
+              href="genindex.html"/>
+        <link rel="search" title="Search" href="search.html"/>
+    <link rel="top" title="control 0.1.0 documentation" href="index.html"/>
+        <link rel="prev" title="instruments" href="instruments.html"/> 
+
+  
+  <script src="_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="index.html" class="icon icon-home"> control
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="experiment_wrapper.html">experiment_wrapper</a></li>
+<li class="toctree-l1"><a class="reference internal" href="inst_io.html">inst_io</a></li>
+<li class="toctree-l1"><a class="reference internal" href="instruments.html">instruments</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">daq</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">control</a>
+        
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html">Docs</a> &raquo;</li>
+        
+      <li>daq</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="_sources/daq.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="module-control.daq">
+<span id="daq"></span><h1>daq<a class="headerlink" href="#module-control.daq" title="Permalink to this headline">¶</a></h1>
+<p>The daq module provides functions that might be useful for performing measurements and analyzing data. Some functions
+in the module are completely unrelated to data acquisition, and are purely analysis. It is essentially a module of code
+that would otherwise be repeated lots of times in experiment runs.</p>
+<dl class="function">
+<dt id="control.daq.calculate_response_and_phase">
+<code class="descclassname">control.daq.</code><code class="descname">calculate_response_and_phase</code><span class="sig-paren">(</span><em>sweep</em><span class="sig-paren">)</span><a class="headerlink" href="#control.daq.calculate_response_and_phase" title="Permalink to this definition">¶</a></dt>
+<dd><p>This function takes an array where the first column is frequency, the second is x, and the third is y and returns
+an array where the first column is frequency, the second column is response, and the third column is phase.
+er</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>sweep</strong> – The array where the first column is frequency, the second is x, and the third is y.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">An array where the first column is frequency, the second column is response, and the third column is phase.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="control.daq.generate_frequency_list">
+<code class="descclassname">control.daq.</code><code class="descname">generate_frequency_list</code><span class="sig-paren">(</span><em>start</em>, <em>end</em>, <em>step</em><span class="sig-paren">)</span><a class="headerlink" href="#control.daq.generate_frequency_list" title="Permalink to this definition">¶</a></dt>
+<dd><p>Generates the list of frequencies between start and end with a step size of step.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>start</strong> – The start frequency</li>
+<li><strong>end</strong> – The end frequency</li>
+<li><strong>step</strong> – The step in between frequencies</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">The list of frequencies</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="control.daq.print_attributes">
+<code class="descclassname">control.daq.</code><code class="descname">print_attributes</code><span class="sig-paren">(</span><em>sweep</em><span class="sig-paren">)</span><a class="headerlink" href="#control.daq.print_attributes" title="Permalink to this definition">¶</a></dt>
+<dd><p>Prints the attributes associated with the sweep to the console. This should be included in notes about each sweep.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>sweep</strong> – The sweep to extract attributes from.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="control.daq.save_x_and_y_graphs">
+<code class="descclassname">control.daq.</code><code class="descname">save_x_and_y_graphs</code><span class="sig-paren">(</span><em>sweep</em>, <em>path</em><span class="sig-paren">)</span><a class="headerlink" href="#control.daq.save_x_and_y_graphs" title="Permalink to this definition">¶</a></dt>
+<dd><p>This function saves a graph of x versus frequency and a graph of y versus frequency to the specified path. The
+suffixes _x and _y are appended to the x and y graphs, respectively.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>sweep</strong> – The sweep to print the x and y graphs from.</li>
+<li><strong>path</strong> – The path to save the graphs at.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="control.daq.subtract_reference">
+<code class="descclassname">control.daq.</code><code class="descname">subtract_reference</code><span class="sig-paren">(</span><em>reference</em>, <em>sweep</em><span class="sig-paren">)</span><a class="headerlink" href="#control.daq.subtract_reference" title="Permalink to this definition">¶</a></dt>
+<dd><p>This function takes a reference sweep array and a sweep array. The reference sweep is subtracted from the sweep and
+displayed. Subtraction takes place by first finding the response and phase of the reference sweep and the sweep. The
+response of the sweep is then divided by the response of the reference. Finally the phase of the reference is
+subtracted from the phase of the sweep.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>reference</strong> – The reference sweep in an array where the first column is frequency, the second column is x, and</td>
+</tr>
+</tbody>
+</table>
+<p>the third column is y.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>sweep</strong> – The sweep  in an array where the first column is frequency, the second column is x, and the third</td>
+</tr>
+</tbody>
+</table>
+<p>column is y.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">A an</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="control.daq.sweep_parameter">
+<code class="descclassname">control.daq.</code><code class="descname">sweep_parameter</code><span class="sig-paren">(</span><em>parameter_set_func</em>, <em>values_to_sweep</em>, <em>time_constant=10</em>, <em>sensitivity=10</em>, <em>slope=12</em>, <em>load_time=5</em>, <em>lock_in_time=1.0</em>, <em>chopper_amplitude=5</em>, <em>chopper_frequency=5</em>, <em>power=15</em>, <em>freq_synth_frequency=250</em>, <em>multiplier=18</em>, <em>save_path=''</em><span class="sig-paren">)</span><a class="headerlink" href="#control.daq.sweep_parameter" title="Permalink to this definition">¶</a></dt>
+<dd><p>This method sweeps a parameter through a set of values. Any parameter can be chosen. If the chosen parameter is represented in one of this functions arguments, whatever is entered for that argument will be ignored,</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>parameter_set_func</strong> – The function that sets the parameter the user wishes to sweep through, i.e. wrapper.set_continuous_wave_freq.</li>
+<li><strong>values_to_sweep</strong> – The values to sweep the parameter through, i.e. range(200, 301, 2),</li>
+<li><strong>time_constant</strong> – The lock-in amplifier time constant.</li>
+<li><strong>sensitivity</strong> – The lock-in amplifier sensitivity.</li>
+<li><strong>slope</strong> – The lock-in amplifier roll off slope in dB/octave.</li>
+<li><strong>load_time</strong> – The amount of time to give the instruments to finish setting up before data collection begins.</li>
+<li><strong>lock_in_time</strong> – The amount of time to give the lock in amplifier to lock back onto the reference signal after a parameter is changed.</li>
+<li><strong>chopper_amplitude</strong> – The amplitude of the chopper signal.</li>
+<li><strong>chopper_frequency</strong> – The frequency of the chopper signal.</li>
+<li><strong>power</strong> – The power of the sweeper.</li>
+<li><strong>freq_synth_frequency</strong> – The frequency of the sweeper.</li>
+<li><strong>multiplier</strong> – The multiplier (i.e. product of all frequency multipliers in the setup).</li>
+<li><strong>save_path</strong> – If a non-empty string variable save_path is passed the the sweep will be saved as a .npy file with the sweep settings saved in metadata.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">The data collected, where the first column is frequency, the second column is X, and the third column is Y.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</div>
+
+
+           </div>
+           <div class="articleComments">
+            
+           </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+      
+        <a href="instruments.html" class="btn btn-neutral" title="instruments" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2017, Jack Roth.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'./',
+            VERSION:'0.1.0',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
+        };
+    </script>
+      <script type="text/javascript" src="_static/jquery.js"></script>
+      <script type="text/javascript" src="_static/underscore.js"></script>
+      <script type="text/javascript" src="_static/doctools.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

@@ -1,0 +1,5 @@
+instruments
+===========
+
+.. automodule:: control.instruments
+   :members:

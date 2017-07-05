@@ -1,0 +1,30 @@
+.. control documentation master file, created by
+   sphinx-quickstart on Wed Jul  5 13:30:58 2017.
+   You can adapt this file completely to your liking, but it should at least
+   contain the root `toctree` directive.
+
+Welcome to control's documentation!
+===================================
+
+.. toctree::
+   :maxdepth: 2
+   :caption: Contents:
+
+.. include:: README.rst
+
+Here are a list of classes included in the control package:
+
+.. toctree::
+   :maxdepth: 5
+
+   experiment_wrapper
+   inst_io
+   instruments
+   daq
+
+Indices and tables
+==================
+
+* :ref:`genindex`
+* :ref:`modindex`
+* :ref:`search`
