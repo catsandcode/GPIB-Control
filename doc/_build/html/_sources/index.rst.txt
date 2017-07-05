@@ -15,7 +15,7 @@ Welcome to control's documentation!
 Here are a list of classes included in the control package:
 
 .. toctree::
-   :maxdepth: 5
+   :maxdepth: 2
 
    experiment_wrapper
    inst_io

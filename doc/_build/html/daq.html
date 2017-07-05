@@ -277,15 +277,15 @@ subtracted from the phase of the sweep.</p>
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
 <li><strong>parameter_set_func</strong> – The function that sets the parameter the user wishes to sweep through, i.e. wrapper.set_continuous_wave_freq.</li>
 <li><strong>values_to_sweep</strong> – The values to sweep the parameter through, i.e. range(200, 301, 2),</li>
-<li><strong>time_constant</strong> – The lock-in amplifier time constant.</li>
-<li><strong>sensitivity</strong> – The lock-in amplifier sensitivity.</li>
+<li><strong>time_constant</strong> – The lock-in amplifier time constant in ms.</li>
+<li><strong>sensitivity</strong> – The lock-in amplifier sensitivity in mV.</li>
 <li><strong>slope</strong> – The lock-in amplifier roll off slope in dB/octave.</li>
 <li><strong>load_time</strong> – The amount of time to give the instruments to finish setting up before data collection begins.</li>
 <li><strong>lock_in_time</strong> – The amount of time to give the lock in amplifier to lock back onto the reference signal after a parameter is changed.</li>
-<li><strong>chopper_amplitude</strong> – The amplitude of the chopper signal.</li>
-<li><strong>chopper_frequency</strong> – The frequency of the chopper signal.</li>
-<li><strong>power</strong> – The power of the sweeper.</li>
-<li><strong>freq_synth_frequency</strong> – The frequency of the sweeper.</li>
+<li><strong>chopper_amplitude</strong> – The amplitude of the chopper signal in V.</li>
+<li><strong>chopper_frequency</strong> – The frequency of the chopper signal in kHz.</li>
+<li><strong>power</strong> – The power of the sweeper in dBm.</li>
+<li><strong>freq_synth_frequency</strong> – The frequency of the sweeper in GHz.</li>
 <li><strong>multiplier</strong> – The multiplier (i.e. product of all frequency multipliers in the setup).</li>
 <li><strong>save_path</strong> – If a non-empty string variable save_path is passed the the sweep will be saved as a .npy file with the sweep settings saved in metadata.</li>
 </ul>
