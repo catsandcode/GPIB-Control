@@ -14,6 +14,7 @@ def calculate_response_and_phase(sweep):
     """
     This function takes an array where the first column is frequency, the second is x, and the third is y and returns
     an array where the first column is frequency, the second column is response, and the third column is phase.
+    er
     :param sweep: The array where the first column is frequency, the second is x, and the third is y.
     :return: An array where the first column is frequency, the second column is response, and the third column is phase.
     """
