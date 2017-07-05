@@ -15,7 +15,9 @@ def calculate_response_and_phase(sweep):
     This function takes an array where the first column is frequency, the second is x, and the third is y and returns
     an array where the first column is frequency, the second column is response, and the third column is phase.
     er
+
     :param sweep: The array where the first column is frequency, the second is x, and the third is y.
+
     :return: An array where the first column is frequency, the second column is response, and the third column is phase.
     """
     # Extract data from the sweep array
@@ -38,10 +40,13 @@ def subtract_reference(reference, sweep):
     displayed. Subtraction takes place by first finding the response and phase of the reference sweep and the sweep. The
     response of the sweep is then divided by the response of the reference. Finally the phase of the reference is
     subtracted from the phase of the sweep.
+
     :param reference: The reference sweep in an array where the first column is frequency, the second column is x, and
     the third column is y.
+
     :param sweep: The sweep  in an array where the first column is frequency, the second column is x, and the third
     column is y.
+
     :return: A an
     """
     # Test array frequency equality
@@ -76,6 +81,7 @@ def subtract_reference(reference, sweep):
 def print_attributes(sweep):
     """
     Prints the attributes associated with the sweep to the console. This should be included in notes about each sweep.
+
     :param sweep: The sweep to extract attributes from.
     """
     to_print = ''
@@ -112,7 +118,9 @@ def save_x_and_y_graphs(sweep, path):
     """
     This function saves a graph of x versus frequency and a graph of y versus frequency to the specified path. The
     suffixes _x and _y are appended to the x and y graphs, respectively.
+
     :param sweep: The sweep to print the x and y graphs from.
+
     :param path: The path to save the graphs at.
     """
     data = sweep['data']
@@ -131,9 +139,13 @@ def save_x_and_y_graphs(sweep, path):
 def generate_frequency_list(start, end, step):
     """
     Generates the list of frequencies between start and end with a step size of step.
+
     :param start: The start frequency
+
     :param end: The end frequency
+
     :param step: The step in between frequencies
+
     :return: The list of frequencies
     """
     to_return = []
@@ -147,19 +159,33 @@ def generate_frequency_list(start, end, step):
 def sweep_parameter(parameter_set_func, values_to_sweep, time_constant=10, sensitivity=10, slope=12, load_time=5, lock_in_time=1.0, chopper_amplitude=5, chopper_frequency=5, power=15, freq_synth_frequency=250, multiplier=18, save_path=''):
     """
     This method sweeps a parameter through a set of values. Any parameter can be chosen. If the chosen parameter is represented in one of this functions arguments, whatever is entered for that argument will be ignored,
+
     :param parameter_set_func: The function that sets the parameter the user wishes to sweep through, i.e. wrapper.set_continuous_wave_freq.
+
     :param values_to_sweep: The values to sweep the parameter through, i.e. range(200, 301, 2),
+
     :param time_constant: The lock-in amplifier time constant.
+
     :param sensitivity: The lock-in amplifier sensitivity.
+
     :param slope: The lock-in amplifier roll off slope in dB/octave.
+
     :param load_time: The amount of time to give the instruments to finish setting up before data collection begins.
+
     :param lock_in_time: The amount of time to give the lock in amplifier to lock back onto the reference signal after a parameter is changed.
+
     :param chopper_amplitude: The amplitude of the chopper signal.
+
     :param chopper_frequency: The frequency of the chopper signal.
+
     :param power: The power of the sweeper.
+
     :param freq_synth_frequency: The frequency of the sweeper.
+
     :param multiplier: The multiplier (i.e. product of all frequency multipliers in the setup).
+
     :param save_path: If a non-empty string variable save_path is passed the the sweep will be saved as a .npy file with the sweep settings saved in metadata.
+
     :return: The data collected, where the first column is frequency, the second column is X, and the third column is Y.
     """
     experiment_wrapper.initialize()

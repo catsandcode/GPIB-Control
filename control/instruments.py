@@ -19,9 +19,13 @@ class HP8350B(Instrument):
     def start_stop_sweep(self, freq_start=11, unit_start=UNIT_GHZ, freq_stop=13, unit_stop=UNIT_GHZ):
         """
         Starts a sweep from freq_start to freq_stop.
+
         :param freq_start: The frequency to start sweeping from
+
         :param unit_start: The unit of the start frequency, either UNIT_GHZ, UNIT_MHZ, UNIT_KHZ, or UNIT_HZ
+
         :param freq_stop: The frequency to stop sweeping at
+
         :param unit_stop: The unit of the stop frequency, either UNIT_GHZ, UNIT_MHZ, UNIT_KHZ, or UNIT_HZ
         """
         return ['FA ' + str(freq_start) + unit_start, 'FB ' + str(freq_stop) + unit_stop]
@@ -65,9 +69,13 @@ class HP8350B(Instrument):
     def center_sweep(self, freq_center=12, unit_center=UNIT_GHZ, freq_width=500, unit_width=UNIT_MHZ):
         """
         Starts a sweep of width freq_width around freq_center.
+
         :param freq_center: The center frequency
+
         :param unit_center: The unit of the center frequency, either UNIT_GHZ, UNIT_MHZ, UNIT_KHZ, or UNIT_HZ
+
         :param freq_width: The width to sweep
+
         :param unit_width: The unit of the width frequency, either UNIT_GHZ, UNIT_MHZ, UNIT_KHZ, or UNIT_HZ
         """
         return ['CF ' + str(freq_center) + unit_center, 'DF ' + str(freq_width) + unit_width]
@@ -76,7 +84,9 @@ class HP8350B(Instrument):
     def continuous_wave_sweep(self, freq=12, unit=UNIT_GHZ):
         """
         Outputs at a constant frequency, freq
+
         :param freq: The frequency to output
+
         :param unit: The unit of the output frequency, either UNIT_GHZ, UNIT_MHZ, UNIT_KHZ, or UNIT_HZ
         """
         return 'CW ' + str(freq) + unit
@@ -85,7 +95,9 @@ class HP8350B(Instrument):
     def set_sweep_time(self, time=0.01, unit=UNIT_SECOND):
         """
         Sets the amount of time to complete each sweep in.
+
         :param time: The time
+
         :param unit: The unit of the time
         """
         return 'ST ' + str(time) + unit
@@ -101,6 +113,7 @@ class HP8350B(Instrument):
     def set_power_level(self, power=5):
         """
         Sets the power of the output in dBm.
+
         :param power: The power in dBm
         """
         return 'PL ' + str(power)
@@ -109,7 +122,6 @@ class HP8350B(Instrument):
     def set_trigger_mode_internal(self):
         """
         Sets the trigger mode to internal. That is, sweeps are triggered by the sweep oscillator's internal clock.
-        :return:
         """
         return 'T1'
 
@@ -117,7 +129,6 @@ class HP8350B(Instrument):
     def set_trigger_mode_external(self):
         """
         Sets the trigger mode to external. That is, sweeps are triggered by an external trigger.
-        :return:
         """
         return 'T3'
 
@@ -355,6 +366,7 @@ class SR830(Instrument):
         """
         Sets the reference phase shift (in degrees), rounded to 0.01. The phase may be programmed from -360.00 <= x <=
         729.99 and will be wrapped around at +/-180.
+
         :param phase: Phase in degrees
         """
         # noinspection SpellCheckingInspection
@@ -372,6 +384,7 @@ class SR830(Instrument):
     def set_reference_source(self, reference_source=REFERENCE_SOURCE_EXTERNAL):
         """
         Sets the reference source (either REFERENCE_SOURCE_EXTERNAL or REFERENCE_SOURCE_INTERNAL).
+
         :param reference_source: Either REFERENCE_SOURCE_EXTERNAL or REFERENCE_SOURCE_INTERNAL
         """
         # noinspection SpellCheckingInspection
@@ -388,7 +401,9 @@ class SR830(Instrument):
     def set_reference_frequency(self, reference_frequency, unit):
         """
         Sets the reference frequency, only used in internal mode.
+
         :param reference_frequency: The reference frequency to set (default 1)
+
         :param unit: The units of the reference frequency (default UNIT_KHZ)
         """
         return 'FREQ ' + str(self._scale_freq_to_unit(reference_frequency, unit))
@@ -407,6 +422,7 @@ class SR830(Instrument):
         """
         Sets the reference trigger mode to either REFERENCE_TRIGGER_MODE_SINE_ZERO_CROSSING,
         REFERENCE_TRIGGER_MODE_TTL_RISING_EDGE, or REFERENCE_TRIGGER_MODE_TTL_FALLING_EDGE.
+
         :param mode: Either REFERENCE_TRIGGER_MODE_SINE_ZERO_CROSSING, REFERENCE_TRIGGER_MODE_TTL_RISING_EDGE, or
         REFERENCE_TRIGGER_MODE_TTL_FALLING_EDGE
         """
@@ -425,6 +441,7 @@ class SR830(Instrument):
         """
         Sets the detection harmonic. Should be a value between 1 and 19999. Other values will be brought into this
         range. Defaults to 1.
+
         :param harmonic: The harmonic to set detection to.
         """
         if harmonic > 19999:
@@ -445,6 +462,7 @@ class SR830(Instrument):
     def set_sine_output_amplitude(self, amplitude=1):
         """
         The amplitude to set the sine output to in volts, rounded to 0.002V.
+
         :param amplitude: The amplitude (in volts) to set the sine output to, between 0.004V and 5.000V.
         """
         # noinspection SpellCheckingInspection
@@ -464,6 +482,7 @@ class SR830(Instrument):
         """
         Sets the input configuration to either INPUT_CONFIGURATION_A, INPUT_CONFIGURATION_A_MINUS_B,
         INPUT_CONFIGURATION_I_1M_OHM, or INPUT_CONFIGURATION_I_100M_OHM.
+
         :param configuration: The input configuraiton to set, either INPUT_CONFIGURATION_A,
         INPUT_CONFIGURATION_A_MINUS_B, INPUT_CONFIGURATION_I_1M_OHM, or INPUT_CONFIGURATION_I_100M_OHM
         """
@@ -482,6 +501,7 @@ class SR830(Instrument):
     def set_input_shield_grounding(self, mode=INPUT_SHIELD_GROUNDING_FLOAT):
         """
         Sets the input shield grounding to either INPUT_SHIELD_GROUNDING_FLOAT or INPUT_SHIELD_GROUNDING_GROUND.
+
         :param mode: The input shield grounding mode, either INPUT_SHIELD_GROUNDING_FLOAT or
         INPUT_SHIELD_GROUNDING_GROUND
         """
@@ -500,6 +520,7 @@ class SR830(Instrument):
     def set_input_coupling(self, coupling=INPUT_COUPLING_DC):
         """
         Sets the input coupling, either INPUT_COUPLING_AC or INPUT_COUPLING_DC.
+
         :param coupling: Either INPUT_COUPLING_AC or INPUT_COUPLING_DC
         """
         # noinspection SpellCheckingInspection
@@ -510,7 +531,6 @@ class SR830(Instrument):
         """
         Returns the input notch line filter status, either INPUT_NOTCH_OUT_OR_NO, INPUT_NOTCH_IN, INPUT_NOTCH_2X_IN, or
         INPUT_NOTCH_BOTH_IN.
-        :return:
         """
         # noinspection SpellCheckingInspection
         return 'ILIN?'
@@ -520,6 +540,7 @@ class SR830(Instrument):
         """
         Sets the input notch line filter to either INPUT_NOTCH_OUT_OR_NO, INPUT_NOTCH_IN, INPUT_NOTCH_2X_IN, or
         INPUT_NOTCH_BOTH_IN.
+
         :param mode: Either INPUT_NOTCH_OUT_OR_NO, INPUT_NOTCH_IN, INPUT_NOTCH_2X_IN, or INPUT_NOTCH_BOTH_IN
         """
         # noinspection SpellCheckingInspection
@@ -536,6 +557,7 @@ class SR830(Instrument):
     def set_sensitivity(self, sensitivity=SENSITIVITY_10uV_PER_pA):
         """
         Sets the sensitivity to one of the constants of form SENSITIVITY_?*V_per_?A.
+
         :param sensitivity: The sensitivity, one of the constants of form SENSITIVITY_?*V_per_?A
         """
         return 'SENS ' + str(sensitivity)
@@ -552,6 +574,7 @@ class SR830(Instrument):
         """
         Sets the reserve mode to either RESERVE_MODE_HIGH_RESERVE, RESERVE_MODE_NORMAL, or RESERVE_MODE_LOW_NOISE.
         :param mode: Either RESERVE_MODE_HIGH_RESERVE, RESERVE_MODE_NORMAL, or RESERVE_MODE_LOW_NOISE
+
         """
         return 'RMOD ' + str(mode)
 
@@ -567,6 +590,7 @@ class SR830(Instrument):
     def set_time_constant(self, time_constant=TIME_CONSTANT_100ms):
         """
         Sets the time constant, which will be one of the constants of form TIME_CONSTANT_?*s.
+
         :param time_constant: The time constant, one of the constants of form TIME_CONSTANT_?*s
         """
         # noinspection SpellCheckingInspection
@@ -586,6 +610,7 @@ class SR830(Instrument):
         """
         Sets the low pass filter slope, either LOW_PASS_FILTER_SLOPE_6dB_PER_OCT, LOW_PASS_FILTER_SLOPE_12dB_PER_OCT,
         LOW_PASS_FILTER_SLOPE_18dB_PER_OCT, or LOW_PASS_FILTER_SLOPE_24dB_PER_OCT.
+
         :param slope: Either LOW_PASS_FILTER_SLOPE_6dB_PER_OCT, LOW_PASS_FILTER_SLOPE_12dB_PER_OCT,
         LOW_PASS_FILTER_SLOPE_18dB_PER_OCT, or LOW_PASS_FILTER_SLOPE_24dB_PER_OCT
         """
@@ -596,7 +621,6 @@ class SR830(Instrument):
     def get_synchronous_filter_status(self):
         """
         Returns the synchronous filter status, either SYNC_FILTER_ON or SYNC_FILTER_OFF.
-        :return:
         """
         return 'SYNC?'
 
@@ -604,6 +628,7 @@ class SR830(Instrument):
     def set_synchronous_filter_status(self, on_off=SYNC_FILTER_OFF):
         """
         Sets the synchronous filter status, either SYNC_FILTER_ON or SYNC_FILTER_OFF.
+
         :param on_off: Either SYNC_FILTER_ON or SYNC_FILTER_OFF
         """
         return 'SYNC ' + str(on_off)
@@ -626,7 +651,9 @@ class SR830(Instrument):
     def set_channel1_display(self, display=DISPLAY_CHANNEL1_R, ratio=DISPLAY_CHANNEL1_RATIO_NONE):
         """
         Sets the channel one display and ratio, see the DISPLAY_CHANNEL1 and DISPLAY_CHANNEL1_RATIO constants.
+
         :param display: The display, see the DISPLAY_CHANNEL1 constants.
+
         :param ratio: The ratio, see the DISPLAY_CHANNEL1_RATIO constants.
         """
         # noinspection SpellCheckingInspection
@@ -650,7 +677,9 @@ class SR830(Instrument):
     def set_channel2_display(self, display=DISPLAY_CHANNEL2_THETA, ratio=DISPLAY_CHANNEL2_RATIO_NONE):
         """
         Sets the channel one display and ratio, see the DISPLAY_CHANNEL2 and DISPLAY_CHANNEL2_RATIO constants.
+
         :param display: The display, see the DISPLAY_CHANNEL2 constants.
+
         :param ratio: The ratio, see the DISPLAY_CHANNEL2_RATIO constants.
         """
         # noinspection SpellCheckingInspection
@@ -688,6 +717,7 @@ class SR830(Instrument):
         """
         Returns a tuple of the specified parameter's offset and expand (the expand will be one of the OFFSET_EXPAND_?*X
         constants).
+
         :param parameter: The parameter to set the offset of (see _PARAMETER_? constants)
         """
         print("Querying to " + self.get_name() + " --> OEXP? " + str(parameter))
@@ -703,8 +733,11 @@ class SR830(Instrument):
     def _set_offset(self, parameter, offset=0, expand=OFFSET_EXPAND_1X):
         """
         Sets the offset of the specified parameter.
+
         :param parameter: The parameter to set the offset of (see _PARAMETER_? constants)
+
         :param offset: The offset in percent from -105 to 105
+
         :param expand: Multiplier for the offset, will have form OFFSET_EXPAND_?*X
         """
         # noinspection SpellCheckingInspection
@@ -737,6 +770,7 @@ class SR830(Instrument):
     def _auto_offset(self, parameter):
         """
         Automatically adjusts the offset of the specified parameter to zero.
+
         :param parameter: The parameter to set the offset of (see _OFFSET_PARAMETER_? constants)
         """
         # noinspection SpellCheckingInspection
@@ -755,6 +789,7 @@ class SR830(Instrument):
     def get_aux_input_voltage(self, channel=CHANNEL_AUX1):
         """
         Gets the voltage at the specified auxiliary input in volts with a resolution of 1/3mV.
+
         :param channel: Constant of form CHANNEL_AUX?
         """
         return 'OAUX? ' + str(channel)
@@ -763,6 +798,7 @@ class SR830(Instrument):
     def get_aux_output_voltage(self, channel=CHANNEL_AUX1):
         """
         Gets the voltage at the specified auxiliary output in volts.
+
         :param channel: Constant of form CHANNEL_AUX?
         """
         return 'AUXV? ' + str(channel)
@@ -772,7 +808,9 @@ class SR830(Instrument):
         # noinspection SpellCheckingInspection
         """
         Gets the voltage at the specified auxiliary output in volts.
+
         :param channel: Constant of form CHANNEL_AUX?
+
         :param voltage: Voltage to set output at, to the nearest millivolt and between -10.5V and 10.5V
         """
         return 'AUXV ' + str(channel) + ',' + str(voltage)
@@ -790,6 +828,7 @@ class SR830(Instrument):
         """
         Sets the output interface of the SR830, either OUTPUT_INTERFACE_RS232 or OUTPUT_INTERFACE_GPIB. The output
         interface is where data communications are output to.
+
         :param output_interface: Either OUTPUT_INTERFACE_RS232 or OUTPUT_INTERFACE_GPIB
         """
         return 'OUTX ' + str(output_interface)
@@ -799,6 +838,7 @@ class SR830(Instrument):
         """
         Sets the front panel lock on or off to user input. By default the SR830 begins with the front panel locked to
         user input.
+
         :param lock_on_off: Either FRONT_PANEL_LOCK_ON or FRONT_PANEL_LOCK_OFF
         """
         return 'OVRM ' + str(lock_on_off)
@@ -814,6 +854,7 @@ class SR830(Instrument):
     def set_key_click_state(self, state=KEY_CLICK_OFF):
         """
         Sets the key click state using either KEY_CLICK_ON or KEY_CLICK_OFF.
+
         :param state: Either KEY_CLICK_ON or KEY_CLICK_OFF
         """
         return 'KCLK ' + str(state)
@@ -829,6 +870,7 @@ class SR830(Instrument):
     def set_alarm_state(self, state=ALARM_OFF):
         """
         Sets the alarm state using either ALARM_ON or ALARM_OFF.
+
         :param state: Either ALARM_ON or ALARM_OFF
         """
         return 'ALRM ' + str(state)
@@ -837,6 +879,7 @@ class SR830(Instrument):
     def save_instrument_state(self, index):
         """
         Saves the instrument settings to the buffer index.
+
         :param index: The index at which to store the system settings, an integer from 1 to 9
         """
         index = int(index)
@@ -848,6 +891,7 @@ class SR830(Instrument):
     def load_instrument_state(self, index):
         """
         Loads the instrument settings from the buffer index.
+
         :param index: The index at which to retrieve the system settings, an integer from 1 to 9
         """
         index = int(index)
@@ -899,6 +943,7 @@ class SR830(Instrument):
     def set_sample_rate(self, rate=SAMPLE_RATE_256_Hz):
         """
         Sets the sample rate using a SAMPLE_RATE_?* constant.
+
         :param rate: The rate, a SAMPLE_RATE_?* constant
         """
         return 'SRAT ' + str(rate)
@@ -1006,6 +1051,7 @@ class SR830(Instrument):
     def _get_output(self, parameter):
         """
         Gets the value of some parameter
+
         :param parameter: The parameter to set the output of (see _PARAMETER_? constants)
         """
         return 'OUTP? ' + str(parameter)
@@ -1040,6 +1086,7 @@ class SR830(Instrument):
     def _get_output(self, parameter):
         """
         Gets the value of some parameter
+
         :param parameter: The parameter to set the output of (see _PARAMETER_? constants)
         """
         return 'OUTP? ' + str(parameter)
@@ -1049,6 +1096,7 @@ class SR830(Instrument):
         Measures most of values specified in values at a single instant in time. Measurements are returned in a
         dictionary where the keys are the strings in the values list parameter. Please see the SR830 manual p 5-15 for
         more.
+
         :param values: A list containing up to 6 values to snap. The list can contain strings 'X', 'Y', 'R', 'THETA',
         'AUX1', 'AUX2', 'AUX3', 'AUX4', 'REF_FREQ' (for the reference frequency), 'CH1', and 'CH2' (for channels 1 and
         2, respectively). If the list is longer than 6 values, only the first 6 values will be snapped.
@@ -1089,7 +1137,9 @@ class SR830(Instrument):
         """
         Returns a list of data stored in the channel1 data buffer. This data is whatever has been selected by the
         set_channel1_output() function (see also the set_channel1_display() function).
+
         :param start_bin: The bin in the data buffer to start returning.
+
         :param bins_to_return: The number of bins to return. If start_bin + bins_to_return is greater than the total
         number of bins than an error occurs.
         """
@@ -1099,7 +1149,9 @@ class SR830(Instrument):
         """
         Returns a list of data stored in the channel2 data buffer. This data is whatever has been selected by the
         set_channel2_output() function (see also the set_channel2_display() function).
+
         :param start_bin: The bin in the data buffer to start returning.
+
         :param bins_to_return: The number of bins to return. If start_bin + bins_to_return is greater than the total
         number of bins than an error occurs.
         """
@@ -1108,7 +1160,9 @@ class SR830(Instrument):
     def _get_scanned_data(self, channel, start_bin=0, bins_to_return=0):
         """
         Returns a list of data stored in a channel data buffer.
+
         :param start_bin: The bin in the data buffer to start returning.
+
         :param bins_to_return: The number of bins to return. If start_bin + bins_to_return is greater than the total
         number of bins than an error occurs.
         """
@@ -1129,7 +1183,9 @@ class SR830(Instrument):
     def _raw_to_bit_string(self, raw):
         """
         This function takes a 'raw' string and converts it into a string of bits that represent the string.
+
         :param raw: The raw string to convert, i.e. 'h'
+
         :return: The binary string that represents the raw string, i.e. '01101000'
         """
         to_return = ''
@@ -1145,7 +1201,9 @@ class SR830(Instrument):
     def _bit_string_to_num_list(self, bit_string):
         """
         This function takes an arbitrarily long string composed of 0s and 1s, chops it into strings of length 32, and then converts each of these strings into a number using the encoding specified on page 5-17 of the SR830 Lock-In Amplifier manual. These numbers are returned as a list.
+
         :param bit_string: The string of 0s and 1s to convert.
+
         :return: The list of numbers represented by the string of 0s and 1s.
         """
         # Create an empty list bin_list to populate with strings of 32 0s and 1s (to represent each number using the encoding specified on page 5-17 of the SR830 Lock-In Amplifier manual).
@@ -1174,7 +1232,9 @@ class SR830(Instrument):
     def _32_bit_string_to_num(self, bit_string):
         """
         This function takes a 32 character string of 1s and 0s (to represent a binary number) and returns the number they represent. It uses the number encoding specified on page 5-17 of the SR830 Lock-In Amplifier manual.
+
         :param bit_string: The 32 character string that represents the number.
+
         :return: The number represented by the string as a float.
         """
         # Split up the 32-bits used to represent the number into four bytes
@@ -1197,7 +1257,9 @@ class SR830(Instrument):
     def _16_bit_string_to_signed_int(self, bit_string):
         """
         This function takes a 16-bit binary string and returns its signed integer value (signed using two's compliment).
+
         :param bit_string: The binary string to convert.
+
         :return: The signed integer
         """
         # First check if the bit_string represents a positive number.
@@ -1236,9 +1298,12 @@ class SR830(Instrument):
         """
         Takes a reference_frequency and a unit (either UNIT_GHZ, UNIT_MHZ, UNIT_KHZ, or UNIT_HZ) and returns the same
         frequency in Hz.
+
         :param reference_frequency: The frequency associated with a unit
+
         :param unit: The unit of frequency (either UNIT_GHZ, UNIT_MHZ, UNIT_KHZ, or UNIT_HZ). If no unit is supplied the
         method will assume UNIT_HZ
+
         :return: The reference_frequency in Hz
         """
         if unit == cls.UNIT_GHZ:
@@ -1284,6 +1349,7 @@ class Agilent33220A(Instrument):
     def set_wave_type(self, wave_type=WAVE_TYPE_SQUARE):
         """
         Sets the wave type using one of the WAVE_TYPE_?* constants.
+
         :param wave_type: The wave type to set, one of the WAVE_TYPE_?* constants
         """
         return 'FUNC ' + wave_type
@@ -1299,6 +1365,7 @@ class Agilent33220A(Instrument):
     def set_wave_frequency(self, freq=10000.0):
         """
         Sets the wave frequency in hertz.
+
         :param freq: The wave frequency in hertz
         """
         return 'FREQ ' + str(freq)
@@ -1314,6 +1381,7 @@ class Agilent33220A(Instrument):
     def set_wave_amplitude(self, amplitude=0.5):
         """
         Sets the wave RMS amplitude in volts.
+
         :param amplitude: The wave amplitude in volts
         """
         return ['VOLT:HIGH ' + str(amplitude), 'VOLT:LOW 0']
@@ -1329,6 +1397,7 @@ class Agilent33220A(Instrument):
     def _set_voltage_unit(self, unit=_VOLTAGE_UNIT_RMS):
         """
         Sets the voltage unit, either _VOLTAGE_UNIT_VPP or _VOLTAGE_UNIT_RMS.
+
         :param unit: The unit, either _VOLTAGE_UNIT_VPP or _VOLTAGE_UNIT_RMS
         """
         return 'UNIT ' + unit
@@ -1358,6 +1427,7 @@ class Agilent33220A(Instrument):
     def set_sweep_start(self, freq=1000.0):
         """
         Sets the frequency start frequency in hertz.
+
         :param freq: The start frequency in hertz
         """
         return 'FREQ:STAR ' + str(freq)
@@ -1373,6 +1443,7 @@ class Agilent33220A(Instrument):
     def set_sweep_stop(self, freq=100000.0):
         """
         Sets the frequency stop frequency in hertz.
+
         :param freq: The stop frequency in hertz
         """
         return 'FREQ:STOP ' + str(freq)
@@ -1388,6 +1459,7 @@ class Agilent33220A(Instrument):
     def set_sweep_time(self, time=10):
         """
         Sets the frequency sweep time in seconds.
+
         :param time: The frequency sweep time in seconds
         """
         return 'SWE:TIME ' + str(time)
@@ -1403,6 +1475,7 @@ class Agilent33220A(Instrument):
     def set_sweep_spacing(self, spacing=SWEEP_SPACING_LINEAR):
         """
         Sets the frequency spacing, either SWEEP_SPACING_LINEAR or SWEEP_SPACING_LOGARITHMIC.
+
         :param spacing: Either SWEEP_SPACING_LINEAR or SWEEP_SPACING_LOGARITHMIC
         """
         return 'SWE:SPAC ' + spacing
@@ -1418,6 +1491,7 @@ class Agilent33220A(Instrument):
     def set_sweep_state(self, state=STATE_OFF):
         """
         Sets the sweep state, either STATE_ON or STATE_OFF.
+
         :param state: Either STATE_ON or STATE_OFF
         """
         return 'SWE:STAT ' + str(state)
@@ -1437,6 +1511,7 @@ class Agilent33220A(Instrument):
     def set_trigger_source(self, source=SWEEP_TRIGGER_SOFTWARE):
         """
         Sets the trigger source, one of the SWEEP_TRIGGER_?* constants.
+
         :param source: The sweep trigger source, one of the SWEEP_TRIGGER_?* constants
         """
         return 'TRIG:SOUR ' + source
@@ -1464,8 +1539,11 @@ class AgilentE3631A(Instrument):
     def set_voltage(self, voltage=0, positive_25_voltage=5, negative_25_voltage=5):
         """
         Sets the voltage of the power source.
+
         :param voltage: The voltage to set the +6 volts source in volts
+
         :param positive_25_voltage: The voltage to set the +25 volts source in volts
+
         :param negative_25_voltage: The voltage to set the -25 volts source in volts (this voltage will be made negative automatically)
         """
         return ['APPL P6V,' + str(voltage), 'APPL P25V,' + str(positive_25_voltage),
@@ -1482,6 +1560,7 @@ class AgilentE3631A(Instrument):
     def set_output_state(self, state=STATE_OFF):
         """
         Sets the output state of the DC power source, either STATE_ON or STATE_OFF
+
         :param state: Either STATE_ON or STATE_OFF
         """
         return 'OUTP:STAT ' + str(state)
@@ -1500,6 +1579,7 @@ class AgilentE3633A(Instrument):
     def set_voltage(self, voltage=8):
         """
         Sets the voltage of the power source.
+
         :param voltage: The voltage to set the +6 volts source in volts
         """
         return 'APPL ' + str(voltage) + ',0'
@@ -1532,6 +1612,7 @@ class PasternackPE11S390(Instrument):
     def set_output_state(self, output_state=OUTPUT_STATE_OFF):
         """
         Turns the RF output either on or off using the OUTPUT_STATE_ constants.
+
         :param output_state: Either OUTPUT_STATE_ON or OUTPUT_STATE_OFF
         """
         return 'POWE:RF ' + str(output_state) + ';'
@@ -1547,6 +1628,7 @@ class PasternackPE11S390(Instrument):
     def set_reference_frequency(self, ref_freq=REFERENCE_FREQUENCY_INTERNAL):
         """
         Sets the reference frequency to either internal or external.
+
         :param ref_freq: The reference frequency to set, a REFERENCE_FREQUENCY_ constant.
         """
         return 'FREQ:REF:EXT ' + str(ref_freq) + ';'
@@ -1562,6 +1644,7 @@ class PasternackPE11S390(Instrument):
     def set_frequency(self, frequency=10):
         """
         Sets the frequency in GHz.
+
         :param frequency: The frequency in GHz
         """
         return 'FREQ:SET ' + str(frequency) + ';'
@@ -1577,6 +1660,7 @@ class PasternackPE11S390(Instrument):
     def set_power(self, power=10):
         """
         Sets the power in dBm.
+
         :param power: The power in dBm
         """
         return 'POWE:SET ' + str(power) + ';'

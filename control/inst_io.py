@@ -17,6 +17,7 @@ import time
 def write(func):
     """
     This function is intended to be used as a decorator. It takes a function in a subclass of Instrument that returns a string and wrties to that instrument with the returned string. The function also prints any communication with the instrument to the command line.
+
     :param func: An instance function of a subclass of Instrument that returns a string
     """
 
@@ -37,7 +38,9 @@ def write(func):
 def query(func):
     """
     This function is intended to be used as a decorator. It takes a function in a subclass of Instrument that returns a string and queries that instrument with the returned string. The function also prints any communication with the instrument to the command line.
+
     :param func: An instance function of a subclass of Instrument that returns a string
+
     :return: The response of the queried command
     """
 
@@ -74,7 +77,9 @@ class Prologix(object):
     def __init__(self, port=0, read_timeout=1):
         """
         Initializes serial communication with the GPIB-USB module.
+
         :param port: A string containing the name of the com port.  Defaults to the integer 0, which refers to the first available serial port.
+
         :param read_timeout: The number of seconds to wait before giving up while reading.
         """
         # Create a hardware lock, used to ensure multiple GpibDeviceInterface objects don't try to access their Prologix controller at once
@@ -111,6 +116,7 @@ class Prologix(object):
     def open_resource(self, gpibAddr):
         """
         Returns a GpibInstrument object.
+
         :param gpibAddr: An integer representing the GPIB bus address of the instrument
         """
         # Return a GpibDeviceInterface, which needs to know its own address and a pointer to its controller
@@ -119,6 +125,7 @@ class Prologix(object):
     def write(self, msg):
         """
         Sends a message to the Prologix
+
         :param msg: A string containing the message to send
         """
         # Write to the serial port
@@ -127,6 +134,7 @@ class Prologix(object):
     def set_gpib_address(self, gpib_address):
         """
         Sets the current GPIB bus address that the Pologix is communicating with
+
         :param gpib_address: An integer representing the GPIB bus address of the instrument
         """
         # Wait until the current process has a lock to ensure that no other processes try to change the current address while the current process is setting it
@@ -141,8 +149,11 @@ class Prologix(object):
     def read(self, eol='\n', size=None):
         """
         Queries the currently selected GPIB bus address for a response and returns it (up to the eol char, the max number of bytes, or the timeout)
+
         :param eol: A character indicating the end of the message from the device
+
         :param size: The maximum number of bytes to read, or None for no limit.
+
         :return: The response of the device.
         """
         # Ask the controller to send us everything until the EOI,
@@ -154,9 +165,13 @@ class Prologix(object):
         """
         NOT SAFE IN MULTIPROCESSING ENVIORNMENTS!!!
         Doesn't query the currently selected GPIB bus address for a response, but simply returns any response already in the buffer (up to the eol char, the max number of bytes, or the timeout)
+
         :param eol: A character indicating the end of the message from the device
+
         :param size: The maximum number of bytes to read, or None for no limit.
+
         :param timeout: The maximum amount of time to allow this function to run
+
         :return: The response of the device.
         """
         # Create a bytearray to read data into
@@ -201,7 +216,9 @@ class GPIBDeviceInterface(object):
     def __init__(self, gpibAddr, controller):
         """
         Saves the information the instrument needs to know about itself.
+
         :param gpibAddr: An integer representing the GPIB bus address of the instrument
+
         :param controller: A controller object (such as an instance of the Prologix class)
         """
         self.gpibAddr = gpibAddr
@@ -210,6 +227,7 @@ class GPIBDeviceInterface(object):
     def write(self, msg):
         """
         Sends a message to the instrument
+
         :param msg: A string containing the message to send
         """
         # Wait until a hardware lock is acquired
@@ -219,6 +237,7 @@ class GPIBDeviceInterface(object):
     def _write(self, msg):
         """
         This function writes a command to the Prologix controller (if there is no '++' prefixed to the command, the command will be passed on to whatever device the Prologix controller is addressed to). It does not wait for a hardware lock.
+
         :param msg: The message to write
         """
         # Set the gpib address
@@ -237,8 +256,11 @@ class GPIBDeviceInterface(object):
     def read(self, eol='\n', size=None):
         """
         Queries the instrument for a response and returns it (up to the end of line character, the max number of bytes, or the timeout)
+
         :param eol: A character indicating the end of the message from the device
+
         :param size: The maximum number of bytes to read, or None for no limit.
+
         :return: The response of the device.
         """
         # Wait until a hardware lock is acquired
@@ -248,8 +270,11 @@ class GPIBDeviceInterface(object):
     def _read(self, eol='\n', size=None):
         """
         Reads from a GPIB device at the current GPIB address. This function does not wait for a hardware lock.
+
         :param eol: A character indicating the end of the message from the device
+
         :param size: The maximum number of bytes to read, or None for no limit.
+
         :return: The response of the device.
         """
         # Set the gpib address
@@ -263,8 +288,11 @@ class GPIBDeviceInterface(object):
         """
         NOT SAFE IN MULTIPROCESSING ENVIRONMENTS!!!
         Doesn't query the instrument for a response, but simply returns any response already in the buffer (up to the end of line character, the max number of bytes, or the timeout).
+
         :param eol: A character indicating the end of the message from the device
+
         :param size: The maximum number of bytes to read, or None for no limit.
+
         :return: The response of the device.
         """
         # Set the gpib address
@@ -275,9 +303,13 @@ class GPIBDeviceInterface(object):
     def query(self, cmd, eol='\n', size=None):
         """
         Writes a command to the currently selected GPIB bus address and then returns the read response.
+
         :param cmd: A string containing the message to send
+
         :param eol: A character indicating the end of the message from the device
+
         :param size: The maximum number of bytes to read, or None for no limit.
+
         :return: The response of the device.
         """
         # Wait until a hardware lock is acquired
@@ -319,6 +351,7 @@ class USBDevice(object):
     def read(self):
         """
         Reads from the USB device
+
         :return: Returns the string that is read from the USB device
         """
         # Read from the device
@@ -327,6 +360,7 @@ class USBDevice(object):
     def write(self, command):
         """
         Writes a command to the USB device
+
         :param command: The command to write
         """
         # Write to the device
@@ -337,7 +371,9 @@ class USBDevice(object):
     def query(self, command):
         """
         Writes a command from the USB device and then reads the response.
+
         :param command: The command to write.
+
         :return: The response.
         """
         # Write to the device
@@ -374,8 +410,11 @@ class Instrument(object):
     def __init__(self, address, connection_type, connection_manager=None):
         """
         Initializes the instrument object.
+
         :param address: The GPIB address of the instrument.
+
         :param connection_type: The connection type, either CONNECTION_TYPE_GPIB or CONNECTION_TYPE_USB.
+
         :param connection_manager: The connection manager to use with the instrument, if one exists.
         """
         self._address = address
@@ -387,6 +426,7 @@ class Instrument(object):
     def get_name(self):
         """
         Returns the name of the device. The default name is the device address.
+
         :return: The current name of the device
         """
         return self._name
@@ -394,6 +434,7 @@ class Instrument(object):
     def set_name(self, name):
         """
         Sets the name of the device to something readable. The default name is the device address.
+
         :param name: The name to set the device name to
         """
         self._name = name
@@ -401,6 +442,7 @@ class Instrument(object):
     def read(self):
         """
         Reads a string from the instrument.
+
         :return: The string read from the instrument
         """
         return self._instrument.read()
@@ -408,6 +450,7 @@ class Instrument(object):
     def read_raw(self):
         """
         Reads raw values from the instrument.
+
         :return: The raw data read from the instrument
         """
         return self._instrument.read()
@@ -415,6 +458,7 @@ class Instrument(object):
     def write(self, command):
         """
         Writes a string to the instrument.
+
         :return: The number of bytes written
         """
         return self._instrument.write(command + '\n')
@@ -422,7 +466,9 @@ class Instrument(object):
     def query(self, command):
         """
         Queries a string from the instrument.
+
         :param command: The command to use to query the instrument
+
         :return: The string read from the instrument
         """
         return self._instrument.query(command + '\n')
@@ -430,6 +476,7 @@ class Instrument(object):
     def open(self):
         """
         Opens a connection to the instrument at the specified address.
+
         :return: True if connection successful, False otherwise.
         """
         if self._instrument is None:

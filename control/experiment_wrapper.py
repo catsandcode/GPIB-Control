@@ -28,6 +28,7 @@ def get_freq_synth_enable():
 def set_freq_synth_enable(enable=False):
     """
     Turns the frequency synthesizer output on or off.
+
     :param enable: True if the frequency synthesizer should be on, false if off.
     """
     if enable:
@@ -74,6 +75,7 @@ def get_freq_synth_power():
 def set_freq_synth_power(power_level=0.0):
     """
     Sets the power level of the frequency synthesizer in dBm.
+
     :param power_level: The power level in dBm
     """
     freq_synth.set_power(power_level)
@@ -83,6 +85,7 @@ def set_freq_synth_power(power_level=0.0):
 def get_chopper_frequency():
     """
     Gets the chopper frequency in kHz.
+
     :return: The chopper frequency in kHz
     """
     return func_gen.get_wave_frequency() / 1000.0
@@ -91,6 +94,7 @@ def get_chopper_frequency():
 def set_chopper_frequency(freq=10):
     """
     Sets the chopper frequency in kHz.
+
     :param freq: The frequency in kHz
     """
     func_gen.set_wave_frequency(freq * 1000.0)
@@ -106,6 +110,7 @@ def get_chopper_amplitude():
 def set_chopper_amplitude(amplitude=0.5):
     """
     Sets the chopper amplitude in volts.
+
     :param amplitude: The amplitude in volts
     """
     func_gen.set_wave_amplitude(amplitude)
@@ -114,6 +119,7 @@ def set_chopper_amplitude(amplitude=0.5):
 def set_chopper_on(turn_on=False):
     """
     Sets the chopper output on if turn_on is True.
+
     :param turn_on: Turns on if True
     """
     if turn_on:
@@ -154,6 +160,7 @@ _SENSITIVITY_DICT = {0: 0.000002,
 def get_sensitivity():
     """
     Returns the current sensitivity of the lock-in in mV.
+
     :return: The sensitivity in mV
     """
     return _SENSITIVITY_DICT.get(lock_in.get_sensitivity())
@@ -163,7 +170,9 @@ def set_sensitivity(sensitivity=1000.0):
     """
     Sets the sensitivity of the lock-in in mV. The lock-in has a set of allowed sensitivities. This method will choose
     the first allowed sensitivity that is larger than the one entered.
+
     :param sensitivity: The preferred sensitivity in mV
+
     :return: The chosen sensitivity
     """
     sens_key = 26
@@ -200,6 +209,7 @@ _TIME_CONSTANT_DICT = {0: 0.01,
 def get_time_constant():
     """
     Returns the current time constant of the lock-in in ms.
+
     :return: The sensitivity in ms
     """
     return _TIME_CONSTANT_DICT.get(lock_in.get_time_constant())
@@ -209,7 +219,9 @@ def set_time_constant(time_constant=1000):
     """
     Sets the time constant of the lock-in in ms. The lock-in has a set of allowed time constants. This method will
     choose the first allowed time constant that is larger than the one entered.
+
     :param time_constant: The preferred time constant in ms
+
     :return: The chosen time constant
     """
     time_const_key = 19
@@ -229,6 +241,7 @@ _LOW_PASS_SLOPE = {SR830.LOW_PASS_FILTER_SLOPE_6dB_PER_OCT: 6,
 def get_low_pass_slope():
     """
     Returns the current low pass filter slope of the lock-in in dB per octave.
+
     :return: The slope in dB per octave
     """
     return _LOW_PASS_SLOPE.get(lock_in.get_low_pass_filter_slope())
@@ -239,7 +252,9 @@ def set_low_pass_slope(slope=18):
     Sets the low pass filter slope of the lock-in in dB per octave. The lock-in has a set of allowed slopes. This method
     will choose the first allowed slope that is smaller than the one entered. If no allowed slope is smaller, 6dB per
     octave will be selected.
+
     :param slope: The preferred slope in dB per octave
+
     :return: The chosen slope in dB per octave
     """
     slope_key = SR830.LOW_PASS_FILTER_SLOPE_6dB_PER_OCT
@@ -271,6 +286,7 @@ _SAMPLE_RATE_DICT = {0: 0.0625,
 def get_sample_rate():
     """
     Returns the current sample rate of the lock-in in Hz.
+
     :return: The sample rate in Hz
     """
     return _SAMPLE_RATE_DICT.get(lock_in.get_sample_rate())
@@ -280,7 +296,9 @@ def set_sample_rate(sample_rate=512):
     """
     Sets the sample rate of the lock-in in Hz. The lock-in has a set of allowed sample rates. This method will choose
     the first allowed sample rate constant that is larger than the one entered.
+
     :param sample_rate: The preferred sample rate in Hz
+
     :return: The chosen time constant
     """
     sample_rate_key = 13
@@ -295,6 +313,7 @@ def set_sample_rate(sample_rate=512):
 def get_time_to_fill():
     """
     Returns the time needed to fill storage in seconds.
+
     :return: The time needed to fill storage in seconds
     """
     return lock_in.get_storage_time()
@@ -302,6 +321,7 @@ def get_time_to_fill():
 def snap_data():
     """
     Gets the current value in the X and Y readouts on the lock-in amplifier
+
     :return: A tuple of the form (x, y)
     """
     data_dict = lock_in.snap_values(['X', 'Y'])
@@ -312,6 +332,7 @@ def snap_data():
 def start_scan():
     """
     Starts data collection. Returns the time needed to fill storage in seconds.
+
     :return: The time needed to fill storage in seconds
     """
     lock_in.reset_scan()
@@ -330,6 +351,7 @@ def stop_scan():
 def get_data():
     """
     Gets the recorded data as a numpy array.
+
     :return: A numpy array object with frequency in the first column and R in the second column
     """
     length = lock_in.get_scanned_data_length()
@@ -342,7 +364,9 @@ def _convert_raw_sweep_data_to_frequency(raw_data):
     """
     Converts DC voltage data (where the voltage is proportional to the current frequency of the sweep oscillator) to
     frequency data in Hz.
+
     :param raw_data: A list of 'raw' data, in other words a list of DC voltages
+
     :return: A list of frequency data
     """
     frequency_data = []
@@ -355,7 +379,9 @@ def _convert_raw_sweep_data_to_frequency(raw_data):
 def set_data(col1='X', col2='Y'):
     """
     Sets the data to record in columns 1 and 2.
+
     :param col1: Either 'X', 'R', 'X noise', 'Aux1', or 'Aux2'
+
     :param col2: Either 'Y', 'Theta', 'Y noise', 'Aux3', or 'Aux4'
     """
     # Set column 1

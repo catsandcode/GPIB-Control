@@ -3,6 +3,7 @@
 *.pyc
 *.ipynb
 doc/*
+figures/*
 .DS_Store
 control/__init__.pyc
 control/daq.py
