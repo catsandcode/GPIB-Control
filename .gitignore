@@ -10,7 +10,6 @@ doc/_static
 doc/_templates
 .DS_Store
 control/__init__.pyc
-control/daq.py
 control/daq.pyc
 control/experiment_wrapper.pyc
 control/instruments.pyc

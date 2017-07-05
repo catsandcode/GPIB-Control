@@ -164,9 +164,9 @@ def sweep_parameter(parameter_set_func, values_to_sweep, time_constant=10, sensi
 
     :param values_to_sweep: The values to sweep the parameter through, i.e. range(200, 301, 2),
 
-    :param time_constant: The lock-in amplifier time constant.
+    :param time_constant: The lock-in amplifier time constant in ms.
 
-    :param sensitivity: The lock-in amplifier sensitivity.
+    :param sensitivity: The lock-in amplifier sensitivity in mV.
 
     :param slope: The lock-in amplifier roll off slope in dB/octave.
 
@@ -174,13 +174,13 @@ def sweep_parameter(parameter_set_func, values_to_sweep, time_constant=10, sensi
 
     :param lock_in_time: The amount of time to give the lock in amplifier to lock back onto the reference signal after a parameter is changed.
 
-    :param chopper_amplitude: The amplitude of the chopper signal.
+    :param chopper_amplitude: The amplitude of the chopper signal in V.
 
-    :param chopper_frequency: The frequency of the chopper signal.
+    :param chopper_frequency: The frequency of the chopper signal in kHz.
 
-    :param power: The power of the sweeper.
+    :param power: The power of the sweeper in dBm.
 
-    :param freq_synth_frequency: The frequency of the sweeper.
+    :param freq_synth_frequency: The frequency of the sweeper in GHz.
 
     :param multiplier: The multiplier (i.e. product of all frequency multipliers in the setup).
 
