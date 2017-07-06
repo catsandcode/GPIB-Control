@@ -50,7 +50,7 @@ while True:
 
     t_mins = ((t / 1000.0) / 60.0)
 
-    print(str(t_mins) + ' minutes since' + str_start_time)
+    print(str(t_mins) + ' minutes since ' + str_start_time)
 
     # Get data from the lock-in amplifier
     (x, y) = ew.snap_data()
@@ -64,7 +64,7 @@ while True:
         break
 
     # Sleep for 30 seconds
-    time.sleep(30000)
+    time.sleep(30)
 
 # Delete the first row in the collected data, as it was created to give the array shape earlier but holds no useful data
 data = np.delete(data, 0, 0)
