@@ -227,6 +227,12 @@ def sweep_parameter(parameter_set_func, values_to_sweep, time_constant=10, sensi
         # Get data from the lock-in amplifier and and add it to the data array
         (x, y) = experiment_wrapper.snap_data()
 
+        # If a blank string was read, replace will None
+        if x == '':
+            x = None
+        if y == '':
+            y = None
+
         data_row = np.array([value, x, y])
         data = np.vstack((data, data_row))
 
