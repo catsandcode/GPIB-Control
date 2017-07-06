@@ -48,7 +48,7 @@ str_start_time = str(start_hour) + ' hours ' + str(start_min) + ' mins ' + str(s
 while True:
     t = time.time() - start_time
 
-    t_mins = ((t / 1000.0) / 60.0)
+    t_mins = (t / 60.0)
 
     print(str(t_mins) + ' minutes since ' + str_start_time)
 
@@ -60,7 +60,7 @@ while True:
     data = np.vstack((data, data_row))
 
     # Check if the experiment has been running for 14 hours or more, if so stop
-    if t > (1000.0 * 60.0 * 60.0 * 14.0):
+    if t > (60.0 * 60.0 * 14.0):
         break
 
     # Sleep for 30 seconds
