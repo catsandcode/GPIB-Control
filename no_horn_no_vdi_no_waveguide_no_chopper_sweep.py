@@ -29,11 +29,10 @@ for i in range(0, 3):
         experiment_wrapper.set_freq_synth_frequency(freq)
 
         # Sleep to allow multimeter to adjust to the new voltage
-        time.sleep(0.8)  # Sleep for half a second
+        time.sleep(2)  # Sleep for two seconds
 
         # Get data from the multimeter and add it to the data array
         voltage = experiment_wrapper.get_multimeter_dc_measurement()
-        experiment_wrapper.multimeter.reset()
 
         data_row = np.array([freq, voltage])
         data = np.vstack((data, data_row))
