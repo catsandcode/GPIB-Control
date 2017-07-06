@@ -1691,4 +1691,7 @@ class Agilent34401A(Instrument):
 
         :return: The DC voltage measurement.
         """
-        return 'MEAS:VOLT:DC? ' + str(range) + ',' + str(res) + ';'
+        return 'MEAS:VOLT:DC? ' + str(range) + ';'
+
+    def initialize_instrument(self):
+        self.reset()

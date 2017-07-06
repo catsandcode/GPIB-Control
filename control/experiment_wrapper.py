@@ -446,6 +446,8 @@ def initialize():
     lock_in.open()
     func_gen.open()
     multimeter.open()
+    # Initialize the multimeter
+    multimeter.initialize_instrument()
     # Initialize the frequency synthesizer
     freq_synth.initialize_instrument()
     # Initialize the lock-in, reset, set the reference source and trigger, set what happens when the data buffer is full, and set the display and data recording settings.
