@@ -22,7 +22,7 @@ for i in range(0, 3):
     data = np.array([0, 0], float)  # This row will be deleted later
 
     # Sweep the selected parameter and record data
-    for freq in np.linspace(12.5, 16.5, num=500, endpoint=True):
+    for freq in np.linspace(12.5, 16.5, num=150, endpoint=True):
         print('At frequency ' + str(freq))
 
         # Set selected parameter to the given value
