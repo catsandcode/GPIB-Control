@@ -48,6 +48,8 @@ def query(func):
         command = func(self, *args, **kwargs)
         print("Querying to " + self.get_name() + " --> " + command)
         response = str(self.query(command))
+        if type(response) is bytearray: # Check to see if the response is a byte array. If it is, decode to string.
+            response = response.decode('utf-8')
         if response.rfind('\n') != -1:
             response = response[:response.rfind('\n')]
         print("Received from " + self.get_name() + " <-- " + response)
