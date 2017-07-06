@@ -1681,7 +1681,7 @@ class Agilent34401A(Instrument):
     """
 
     @query
-    def get_dc_voltage_measurement(self, range='DEF', res='MIN'):
+    def get_dc_voltage_measurement(self):
         """
         Makes a DC voltage measurement. By default the function will use the multimeter's autorange function and will use the best resolution avalible.
 
@@ -1691,7 +1691,7 @@ class Agilent34401A(Instrument):
 
         :return: The DC voltage measurement.
         """
-        return 'MEAS:VOLT:DC? ' + str(range) + ';'
+        return 'MEAS:VOLT:DC?'
 
     def initialize_instrument(self):
         self.reset()
