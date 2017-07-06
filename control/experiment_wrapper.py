@@ -5,13 +5,14 @@ settings like the lock-in reference input, the initialize_instruments() function
 """
 
 import numpy as np
-from control.instruments import SR830, Agilent33220A, PasternackPE11S390
+from control.instruments import SR830, Agilent33220A, PasternackPE11S390, Agilent34401A
 from control.inst_io import Instrument, Prologix
 
-gpib_manager = None
 freq_synth = None
 lock_in = None
 func_gen = None
+multimeter = None
+gpib_manager = None
 
 freq_multiple = None
 
@@ -318,6 +319,15 @@ def get_time_to_fill():
     """
     return lock_in.get_storage_time()
 
+
+def get_multimeter_dc_measurement():
+    """
+    Returns the DC voltage measured by the multimeter.
+
+    :return: The DC voltage.
+    """
+    return multimeter.make_dc_voltage_measurement()
+
 def snap_data():
     """
     Gets the current value in the X and Y readouts on the lock-in amplifier
@@ -416,6 +426,7 @@ def initialize():
     global freq_synth
     global lock_in
     global func_gen
+    global multimeter
     global gpib_manager
     global freq_multiple
     # Create new ConnectionManagers to deal with all of the instruments being used.
@@ -424,14 +435,17 @@ def initialize():
     freq_synth = PasternackPE11S390('/dev/usbtmc0', Instrument.CONNECTION_TYPE_USB)
     lock_in = SR830(8, Instrument.CONNECTION_TYPE_GPIB, gpib_manager)
     func_gen = Agilent33220A(10, Instrument.CONNECTION_TYPE_GPIB, gpib_manager)
+    multimeter = Agilent34401A(28, Instrument.CONNECTION_TYPE_GPIB, gpib_manager)
     # Name each instrument
     freq_synth.set_name('Frequency Synthesizer')
     lock_in.set_name('Lock-In')
     func_gen.set_name('Function Generator')
+    multimeter.set_name('Multimeter')
     # Open each instrument
     freq_synth.open()
     lock_in.open()
     func_gen.open()
+    multimeter.open()
     # Initialize the frequency synthesizer
     freq_synth.initialize_instrument()
     # Initialize the lock-in, reset, set the reference source and trigger, set what happens when the data buffer is full, and set the display and data recording settings.

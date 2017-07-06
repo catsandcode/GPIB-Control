@@ -1674,3 +1674,21 @@ class PasternackPE11S390(Instrument):
 
     def initialize_instrument(self):
         self.set_output_state(self.OUTPUT_STATE_OFF)
+
+class Agilent34401A(Instrument):
+    """
+    The Agilent34401A class is used to control a Agilent 34401A series multimeter via GPIB.
+    """
+
+    @query
+    def get_dc_voltage_measurement(self, range='DEF', res='MIN'):
+        """
+        Makes a DC voltage measurement. By default the function will use the multimeter's autorange function and will use the best resolution avalible.
+
+        :param range: The voltage range in volts. MIN and MAX accepted as well as DEF (which is autorange).
+
+        :param res: The resolution of the measurement. See manual page 117 for more info.
+
+        :return: The DC voltage measurement.
+        """
+        return 'MEAS:VOLT:DC? ' + str(range) + ',' + str(res) + ';'
