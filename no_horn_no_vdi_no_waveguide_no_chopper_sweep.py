@@ -16,7 +16,7 @@ for i in range(0, 3):
     experiment_wrapper.set_freq_synth_enable(True)
 
     # Sleep to allow instruments to adjust settings
-    time.sleep(0.5)
+    time.sleep(5)
 
     # Create a new array to save data to
     data = np.array([0, 0], float)  # This row will be deleted later
@@ -28,8 +28,12 @@ for i in range(0, 3):
         # Set selected parameter to the given value
         experiment_wrapper.set_freq_synth_frequency(freq)
 
+        # Sleep to allow multimeter to reset and then clear buffer
+        time.sleep(1)  # Sleep for 1 seconds
+        experiment_wrapper.multimeter.reset()
+
         # Sleep to allow multimeter to adjust to the new voltage
-        time.sleep(2)  # Sleep for two seconds
+        time.sleep(1)  # Sleep for 1 seconds
 
         # Get data from the multimeter and add it to the data array
         voltage = experiment_wrapper.get_multimeter_dc_measurement()
