@@ -33,6 +33,7 @@ for i in range(0, 3):
 
         # Get data from the multimeter and add it to the data array
         voltage = experiment_wrapper.get_multimeter_dc_measurement()
+        experiment_wrapper.multimeter.reset()
 
         data_row = np.array([freq, voltage])
         data = np.vstack((data, data_row))
