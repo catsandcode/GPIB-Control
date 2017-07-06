@@ -326,7 +326,7 @@ def get_multimeter_dc_measurement():
 
     :return: The DC voltage.
     """
-    return multimeter.make_dc_voltage_measurement()
+    return multimeter.get_dc_voltage_measurement()
 
 def snap_data():
     """
