@@ -45,7 +45,7 @@ str_start_time = str(start_hour) + ' hours ' + str(start_min) + ' mins ' + str(s
 
 
 # Sweep the selected parameter and record data
-while False:
+while True:
     t = time.time() - start_time
 
     t_mins = ((t / 1000.0) / 60.0)
