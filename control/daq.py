@@ -250,11 +250,15 @@ def sweep_parameter(parameter_set_func, values_to_sweep, time_constant=10, sensi
 
 
 # Define the clean data function, which replaces empty strings in the sweeps with None
-def clean_data(arr):
+def clean_data(arr, remove=False, rpl='nan'):
     """
     Cleans a data array, removing blank or non-number entries. Returns a numpy array populated with floats.
 
     :param arr: The array to clean.
+
+    :param remove: If true, rows with empty strings will simply be removed.
+
+    :param rpl: The string to replace empty strings with.
 
     :return: A cleaned numpy array populated with floats.
     """
@@ -275,15 +279,29 @@ def clean_data(arr):
             if not is_num(arr[i]):
                 return False
         return True
-
+    # Set array type to object
+    arr = arr.astype(dtype=object)
     # Iterate over the array
     r, c = arr.shape
-    for i in range(r):
-        if not are_cols_num(arr[i, :], c):  # If every column in array at row i is not a number, enter if block
-            print('error in ' + str(arr[i, :]) + ', fixing...')
-            for j in range(1, c):  # For each column (excluding the first column) in the row
-                arr.itemset((i, j), None)  # Set the value to None
-            print('fixed to ' + str(arr[i, :]))
+    i = 0
+    while i < r:
+        if remove:
+            if not are_cols_num(arr[i, :], c):  # If every column in array at row i is not a number, enter if block
+                print('error in ' + str(arr[i, :]) + ', removing...')
+                arr = np.delete(arr, i, 0)  # Set the value to whatever was passed to the function
+                # Reset r and c, as the remove operation has resized the array
+                r, c = arr.shape
+            else:
+                # Increment i if no deletion has occurred
+                i += 1
+        else:
+            if not are_cols_num(arr[i, :], c):  # If every column in array at row i is not a number, enter if block
+                print('error in ' + str(arr[i, :]) + ', fixing...')
+                for j in range(1, c):  # For each column (excluding the first column) in the row
+                    arr.itemset((i, j), rpl)  # Set the value to whatever was passed to the function
+                print('fixed to ' + str(arr[i, :]))
+            # Increment i
+            i += 1
     print('converting to a float array...')
     arr = np.array(arr, dtype=float)  # Return the new array, populated with float objects
     return arr
