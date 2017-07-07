@@ -175,7 +175,7 @@ convenient and straight forward.</p>
 <dl class="method">
 <dt id="control.inst_io.GPIBDeviceInterface.flush">
 <code class="descname">flush</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#control.inst_io.GPIBDeviceInterface.flush" title="Permalink to this definition">¶</a></dt>
-<dd><p>Flush the controller’s communication buffer</p>
+<dd><p>Flush the controller&#8217;s communication buffer</p>
 </dd></dl>
 
 <dl class="method">
@@ -187,9 +187,9 @@ convenient and straight forward.</p>
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>cmd</strong> – A string containing the message to send</li>
-<li><strong>eol</strong> – A character indicating the end of the message from the device</li>
-<li><strong>size</strong> – The maximum number of bytes to read, or None for no limit.</li>
+<li><strong>cmd</strong> &#8211; A string containing the message to send</li>
+<li><strong>eol</strong> &#8211; A character indicating the end of the message from the device</li>
+<li><strong>size</strong> &#8211; The maximum number of bytes to read, or None for no limit.</li>
 </ul>
 </td>
 </tr>
@@ -209,8 +209,8 @@ convenient and straight forward.</p>
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>eol</strong> – A character indicating the end of the message from the device</li>
-<li><strong>size</strong> – The maximum number of bytes to read, or None for no limit.</li>
+<li><strong>eol</strong> &#8211; A character indicating the end of the message from the device</li>
+<li><strong>size</strong> &#8211; The maximum number of bytes to read, or None for no limit.</li>
 </ul>
 </td>
 </tr>
@@ -225,14 +225,14 @@ convenient and straight forward.</p>
 <dt id="control.inst_io.GPIBDeviceInterface.readNext">
 <code class="descname">readNext</code><span class="sig-paren">(</span><em>eol='\n'</em>, <em>size=None</em><span class="sig-paren">)</span><a class="headerlink" href="#control.inst_io.GPIBDeviceInterface.readNext" title="Permalink to this definition">¶</a></dt>
 <dd><p>NOT SAFE IN MULTIPROCESSING ENVIRONMENTS!!!
-Doesn’t query the instrument for a response, but simply returns any response already in the buffer (up to the end of line character, the max number of bytes, or the timeout).</p>
+Doesn&#8217;t query the instrument for a response, but simply returns any response already in the buffer (up to the end of line character, the max number of bytes, or the timeout).</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>eol</strong> – A character indicating the end of the message from the device</li>
-<li><strong>size</strong> – The maximum number of bytes to read, or None for no limit.</li>
+<li><strong>eol</strong> &#8211; A character indicating the end of the message from the device</li>
+<li><strong>size</strong> &#8211; The maximum number of bytes to read, or None for no limit.</li>
 </ul>
 </td>
 </tr>
@@ -251,7 +251,7 @@ Doesn’t query the instrument for a response, but simply returns any response a
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>msg</strong> – A string containing the message to send</td>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>msg</strong> &#8211; A string containing the message to send</td>
 </tr>
 </tbody>
 </table>
@@ -311,7 +311,7 @@ Doesn’t query the instrument for a response, but simply returns any response a
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>command</strong> – The command to use to query the instrument</td>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>command</strong> &#8211; The command to use to query the instrument</td>
 </tr>
 <tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">The string read from the instrument</td>
 </tr>
@@ -361,7 +361,7 @@ Doesn’t query the instrument for a response, but simply returns any response a
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>name</strong> – The name to set the device name to</td>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>name</strong> &#8211; The name to set the device name to</td>
 </tr>
 </tbody>
 </table>
@@ -389,9 +389,9 @@ Doesn’t query the instrument for a response, but simply returns any response a
 <dd><blockquote>
 <div>A class which handles communication with a Prologix GPIB-USB module. This class is safe to use with multiprocessing,
 although it does not use multiprocessing itself (rather it is safe to use with multiprocessing implementations).
-Note that commands sent to the Prologix are terminated with a new line character (‘</div></blockquote>
+Note that commands sent to the Prologix are terminated with a new line character (&#8216;</div></blockquote>
 <dl class="docutils">
-<dt>‘). This must be appended to</dt>
+<dt>&#8216;). This must be appended to</dt>
 <dd>commands sent by the user.</dd>
 </dl>
 <dl class="method">
@@ -408,7 +408,7 @@ Note that commands sent to the Prologix are terminated with a new line character
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>gpibAddr</strong> – An integer representing the GPIB bus address of the instrument</td>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>gpibAddr</strong> &#8211; An integer representing the GPIB bus address of the instrument</td>
 </tr>
 </tbody>
 </table>
@@ -423,8 +423,8 @@ Note that commands sent to the Prologix are terminated with a new line character
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>eol</strong> – A character indicating the end of the message from the device</li>
-<li><strong>size</strong> – The maximum number of bytes to read, or None for no limit.</li>
+<li><strong>eol</strong> &#8211; A character indicating the end of the message from the device</li>
+<li><strong>size</strong> &#8211; The maximum number of bytes to read, or None for no limit.</li>
 </ul>
 </td>
 </tr>
@@ -439,15 +439,15 @@ Note that commands sent to the Prologix are terminated with a new line character
 <dt id="control.inst_io.Prologix.read_next">
 <code class="descname">read_next</code><span class="sig-paren">(</span><em>eol='\n'</em>, <em>size=None</em>, <em>timeout=1</em><span class="sig-paren">)</span><a class="headerlink" href="#control.inst_io.Prologix.read_next" title="Permalink to this definition">¶</a></dt>
 <dd><p>NOT SAFE IN MULTIPROCESSING ENVIORNMENTS!!!
-Doesn’t query the currently selected GPIB bus address for a response, but simply returns any response already in the buffer (up to the eol char, the max number of bytes, or the timeout)</p>
+Doesn&#8217;t query the currently selected GPIB bus address for a response, but simply returns any response already in the buffer (up to the eol char, the max number of bytes, or the timeout)</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>eol</strong> – A character indicating the end of the message from the device</li>
-<li><strong>size</strong> – The maximum number of bytes to read, or None for no limit.</li>
-<li><strong>timeout</strong> – The maximum amount of time to allow this function to run</li>
+<li><strong>eol</strong> &#8211; A character indicating the end of the message from the device</li>
+<li><strong>size</strong> &#8211; The maximum number of bytes to read, or None for no limit.</li>
+<li><strong>timeout</strong> &#8211; The maximum amount of time to allow this function to run</li>
 </ul>
 </td>
 </tr>
@@ -466,7 +466,7 @@ Doesn’t query the currently selected GPIB bus address for a response, but simp
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>gpib_address</strong> – An integer representing the GPIB bus address of the instrument</td>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>gpib_address</strong> &#8211; An integer representing the GPIB bus address of the instrument</td>
 </tr>
 </tbody>
 </table>
@@ -480,7 +480,7 @@ Doesn’t query the currently selected GPIB bus address for a response, but simp
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>msg</strong> – A string containing the message to send</td>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>msg</strong> &#8211; A string containing the message to send</td>
 </tr>
 </tbody>
 </table>
@@ -506,7 +506,7 @@ Doesn’t query the currently selected GPIB bus address for a response, but simp
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>command</strong> – The command to write.</td>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>command</strong> &#8211; The command to write.</td>
 </tr>
 <tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">The response.</td>
 </tr>
@@ -536,7 +536,7 @@ Doesn’t query the currently selected GPIB bus address for a response, but simp
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>command</strong> – The command to write</td>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>command</strong> &#8211; The command to write</td>
 </tr>
 </tbody>
 </table>
@@ -552,7 +552,7 @@ Doesn’t query the currently selected GPIB bus address for a response, but simp
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>func</strong> – An instance function of a subclass of Instrument that returns a string</td>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>func</strong> &#8211; An instance function of a subclass of Instrument that returns a string</td>
 </tr>
 <tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">The response of the queried command</td>
 </tr>
@@ -568,7 +568,7 @@ Doesn’t query the currently selected GPIB bus address for a response, but simp
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>func</strong> – An instance function of a subclass of Instrument that returns a string</td>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>func</strong> &#8211; An instance function of a subclass of Instrument that returns a string</td>
 </tr>
 </tbody>
 </table>

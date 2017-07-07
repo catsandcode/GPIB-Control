@@ -168,9 +168,31 @@ er</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>sweep</strong> – The array where the first column is frequency, the second is x, and the third is y.</td>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>sweep</strong> &#8211; The array where the first column is frequency, the second is x, and the third is y.</td>
 </tr>
 <tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">An array where the first column is frequency, the second column is response, and the third column is phase.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="control.daq.clean_data">
+<code class="descclassname">control.daq.</code><code class="descname">clean_data</code><span class="sig-paren">(</span><em>arr</em>, <em>remove=False</em>, <em>rpl='nan'</em><span class="sig-paren">)</span><a class="headerlink" href="#control.daq.clean_data" title="Permalink to this definition">¶</a></dt>
+<dd><p>Cleans a data array, removing blank or non-number entries. Any changes are documented by printing to the console. Returns a numpy array populated with floats.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>arr</strong> &#8211; The array to clean.</li>
+<li><strong>remove</strong> &#8211; If true, rows with empty strings will simply be removed.</li>
+<li><strong>rpl</strong> &#8211; The string to replace empty strings with.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">A cleaned numpy array populated with floats.</p>
+</td>
 </tr>
 </tbody>
 </table>
@@ -185,9 +207,9 @@ er</p>
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>start</strong> – The start frequency</li>
-<li><strong>end</strong> – The end frequency</li>
-<li><strong>step</strong> – The step in between frequencies</li>
+<li><strong>start</strong> &#8211; The start frequency</li>
+<li><strong>end</strong> &#8211; The end frequency</li>
+<li><strong>step</strong> &#8211; The step in between frequencies</li>
 </ul>
 </td>
 </tr>
@@ -206,7 +228,7 @@ er</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>sweep</strong> – The sweep to extract attributes from.</td>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>sweep</strong> &#8211; The sweep to extract attributes from.</td>
 </tr>
 </tbody>
 </table>
@@ -222,8 +244,8 @@ suffixes _x and _y are appended to the x and y graphs, respectively.</p>
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
-<li><strong>sweep</strong> – The sweep to print the x and y graphs from.</li>
-<li><strong>path</strong> – The path to save the graphs at.</li>
+<li><strong>sweep</strong> &#8211; The sweep to print the x and y graphs from.</li>
+<li><strong>path</strong> &#8211; The path to save the graphs at.</li>
 </ul>
 </td>
 </tr>
@@ -242,7 +264,7 @@ subtracted from the phase of the sweep.</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>reference</strong> – The reference sweep in an array where the first column is frequency, the second column is x, and</td>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>reference</strong> &#8211; The reference sweep in an array where the first column is frequency, the second column is x, and</td>
 </tr>
 </tbody>
 </table>
@@ -251,7 +273,7 @@ subtracted from the phase of the sweep.</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>sweep</strong> – The sweep  in an array where the first column is frequency, the second column is x, and the third</td>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>sweep</strong> &#8211; The sweep  in an array where the first column is frequency, the second column is x, and the third</td>
 </tr>
 </tbody>
 </table>
@@ -275,23 +297,23 @@ subtracted from the phase of the sweep.</p>
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>parameter_set_func</strong> – The function that sets the parameter the user wishes to sweep through, i.e. wrapper.set_continuous_wave_freq.</li>
-<li><strong>values_to_sweep</strong> – The values to sweep the parameter through, i.e. range(200, 301, 2),</li>
-<li><strong>time_constant</strong> – The lock-in amplifier time constant in ms.</li>
-<li><strong>sensitivity</strong> – The lock-in amplifier sensitivity in mV.</li>
-<li><strong>slope</strong> – The lock-in amplifier roll off slope in dB/octave.</li>
-<li><strong>load_time</strong> – The amount of time to give the instruments to finish setting up before data collection begins.</li>
-<li><strong>lock_in_time</strong> – The amount of time to give the lock in amplifier to lock back onto the reference signal after a parameter is changed.</li>
-<li><strong>chopper_amplitude</strong> – The amplitude of the chopper signal in V.</li>
-<li><strong>chopper_frequency</strong> – The frequency of the chopper signal in kHz.</li>
-<li><strong>power</strong> – The power of the sweeper in dBm.</li>
-<li><strong>freq_synth_frequency</strong> – The frequency of the sweeper in GHz.</li>
-<li><strong>multiplier</strong> – The multiplier (i.e. product of all frequency multipliers in the setup).</li>
-<li><strong>save_path</strong> – If a non-empty string variable save_path is passed the the sweep will be saved as a .npy file with the sweep settings saved in metadata.</li>
+<li><strong>parameter_set_func</strong> &#8211; The function that sets the parameter the user wishes to sweep through, i.e. wrapper.set_continuous_wave_freq.</li>
+<li><strong>values_to_sweep</strong> &#8211; The values to sweep the parameter through, i.e. range(200, 301, 2),</li>
+<li><strong>time_constant</strong> &#8211; The lock-in amplifier time constant in ms.</li>
+<li><strong>sensitivity</strong> &#8211; The lock-in amplifier sensitivity in mV.</li>
+<li><strong>slope</strong> &#8211; The lock-in amplifier roll off slope in dB/octave.</li>
+<li><strong>load_time</strong> &#8211; The amount of time to give the instruments to finish setting up before data collection begins.</li>
+<li><strong>lock_in_time</strong> &#8211; The amount of time to give the lock in amplifier to lock back onto the reference signal after a parameter is changed.</li>
+<li><strong>chopper_amplitude</strong> &#8211; The amplitude of the chopper signal in V.</li>
+<li><strong>chopper_frequency</strong> &#8211; The frequency of the chopper signal in kHz.</li>
+<li><strong>power</strong> &#8211; The power of the sweeper in dBm.</li>
+<li><strong>freq_synth_frequency</strong> &#8211; The frequency of the sweeper in GHz.</li>
+<li><strong>multiplier</strong> &#8211; The multiplier (i.e. product of all frequency multipliers in the setup).</li>
+<li><strong>save_path</strong> &#8211; If a non-empty string variable save_path is passed the the sweep will be saved as a .npy file with the sweep settings saved in metadata.</li>
 </ul>
 </td>
 </tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">The data collected, where the first column is frequency, the second column is X, and the third column is Y.</p>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">The data collected, where the first column is frequency, the second column is X, and the third column is Y. X and Y are in volts.</p>
 </td>
 </tr>
 </tbody>

@@ -213,8 +213,8 @@ set_channel1_output() function (see also the set_channel1_display() function).</
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
-<li><strong>start_bin</strong> – The bin in the data buffer to start returning.</li>
-<li><strong>bins_to_return</strong> – The number of bins to return. If start_bin + bins_to_return is greater than the total</li>
+<li><strong>start_bin</strong> &#8211; The bin in the data buffer to start returning.</li>
+<li><strong>bins_to_return</strong> &#8211; The number of bins to return. If start_bin + bins_to_return is greater than the total</li>
 </ul>
 </td>
 </tr>
@@ -240,8 +240,8 @@ set_channel2_output() function (see also the set_channel2_display() function).</
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
-<li><strong>start_bin</strong> – The bin in the data buffer to start returning.</li>
-<li><strong>bins_to_return</strong> – The number of bins to return. If start_bin + bins_to_return is greater than the total</li>
+<li><strong>start_bin</strong> &#8211; The bin in the data buffer to start returning.</li>
+<li><strong>bins_to_return</strong> &#8211; The number of bins to return. If start_bin + bins_to_return is greater than the total</li>
 </ul>
 </td>
 </tr>
@@ -261,16 +261,16 @@ set_channel2_output() function (see also the set_channel2_display() function).</
 <code class="descname">snap_values</code><span class="sig-paren">(</span><em>values</em><span class="sig-paren">)</span><a class="headerlink" href="#control.instruments.SR830.snap_values" title="Permalink to this definition">¶</a></dt>
 <dd><p>Measures most of values specified in values at a single instant in time. Measurements are returned in a
 dictionary where the keys are the strings in the values list parameter. Please see the SR830 manual p 5-15 for
-more.</p>
+more. Values (excluding THETA) are returned in volts.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>values</strong> – A list containing up to 6 values to snap. The list can contain strings ‘X’, ‘Y’, ‘R’, ‘THETA’,</td>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>values</strong> &#8211; A list containing up to 6 values to snap. The list can contain strings &#8216;X&#8217;, &#8216;Y&#8217;, &#8216;R&#8217;, &#8216;THETA&#8217;,</td>
 </tr>
 </tbody>
 </table>
-<p>‘AUX1’, ‘AUX2’, ‘AUX3’, ‘AUX4’, ‘REF_FREQ’ (for the reference frequency), ‘CH1’, and ‘CH2’ (for channels 1 and
+<p>&#8216;AUX1&#8217;, &#8216;AUX2&#8217;, &#8216;AUX3&#8217;, &#8216;AUX4&#8217;, &#8216;REF_FREQ&#8217; (for the reference frequency), &#8216;CH1&#8217;, and &#8216;CH2&#8217; (for channels 1 and
 2, respectively). If the list is longer than 6 values, only the first 6 values will be snapped.</p>
 </dd></dl>
 
