@@ -73,4 +73,4 @@ data = np.delete(data, 0, 0)
 ew.close()
 
 # Save data
-np.savez('overnight_test', data=data)
+np.savez('overnight_test1', data=data)
