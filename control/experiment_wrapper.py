@@ -433,9 +433,9 @@ def initialize():
     gpib_manager = Prologix('/dev/ttyUSB0')
     # Instantiate each instrument
     freq_synth = PasternackPE11S390('/dev/usbtmc0', Instrument.CONNECTION_TYPE_USB)
-    lock_in = SR830(8, Instrument.CONNECTION_TYPE_GPIB, gpib_manager)
-    func_gen = Agilent33220A(10, Instrument.CONNECTION_TYPE_GPIB, gpib_manager)
-    multimeter = Agilent34401A(28, Instrument.CONNECTION_TYPE_GPIB, gpib_manager)
+    lock_in = SR830(8, Instrument.CONNECTION_TYPE_PROLOGIX_GPIB, gpib_manager)
+    func_gen = Agilent33220A(10, Instrument.CONNECTION_TYPE_PROLOGIX_GPIB, gpib_manager)
+    multimeter = Agilent34401A(28, Instrument.CONNECTION_TYPE_PROLOGIX_GPIB, gpib_manager)
     # Name each instrument
     freq_synth.set_name('Frequency Synthesizer')
     lock_in.set_name('Lock-In')

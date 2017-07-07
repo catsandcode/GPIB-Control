@@ -12,6 +12,7 @@ import multiprocessing
 import serial
 import sys
 import time
+import visa
 
 
 def write(func):
@@ -406,8 +407,9 @@ class Instrument(object):
     The instrument class wraps basic instrument functions, providing abstraction between different instrument connection interfaces (i.e. USB, GPIB).
     """
 
-    CONNECTION_TYPE_GPIB = 0
+    CONNECTION_TYPE_PROLOGIX_GPIB = 0
     CONNECTION_TYPE_USB = 1
+    CONNECTION_TYPE_NI_GPIB = 1
 
     def __init__(self, address, connection_type, connection_manager=None):
         """
@@ -482,10 +484,12 @@ class Instrument(object):
         :return: True if connection successful, False otherwise.
         """
         if self._instrument is None:
-            if self._connection_type == self.CONNECTION_TYPE_GPIB:
+            if self._connection_type == self.CONNECTION_TYPE_PROLOGIX_GPIB:
                 self._instrument = self._connection_manager.open_resource(self._address)
             elif self._connection_type == self.CONNECTION_TYPE_USB:
                 self._instrument = USBDevice(self._address)
+            elif self._connection_type == self.CONNECTION_TYPE_PROLOGIX_GPIB:
+                self._instrument = self._connection_manager.open_resource(self._address)
             if self._instrument is None:
                 return False
         return True
@@ -495,6 +499,8 @@ class Instrument(object):
         Closes a connection to the instrument at the specified address.
         """
         if self._connection_type == self.CONNECTION_TYPE_USB:
+            self._instrument.close()
+        elif self._connection_type == self.CONNECTION_TYPE_NI_GPIB:
             self._instrument.close()
 
     def reset(self):
