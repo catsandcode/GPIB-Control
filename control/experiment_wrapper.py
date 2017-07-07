@@ -431,12 +431,12 @@ def initialize():
     global gpib_manager
     global freq_multiple
     # Create new ConnectionManagers to deal with all of the instruments being used.
-    gpib_manager = visa.ResourceManager()
+    gpib_manager = Prologix(port='/dev/ttyUSB0')
     # Instantiate each instrument
-    freq_synth = PasternackPE11S390('USB0::0x2012::0x0011::5001::INSTR', Instrument.CONNECTION_TYPE_NI_USB, gpib_manager)
-    lock_in = SR830(8, Instrument.CONNECTION_TYPE_NI_GPIB, gpib_manager)
-    func_gen = Agilent33220A(10, Instrument.CONNECTION_TYPE_NI_GPIB, gpib_manager)
-    multimeter = Agilent34401A(28, Instrument.CONNECTION_TYPE_NI_GPIB, gpib_manager)
+    freq_synth = PasternackPE11S390('/dev/usbtmc0', Instrument.CONNECTION_TYPE_USB, gpib_manager)
+    lock_in = SR830(8, Instrument.CONNECTION_TYPE_PROLOGIX_GPIB_GPIB, gpib_manager)
+    func_gen = Agilent33220A(10, Instrument.CONNECTION_TYPE_PROLOGIX_GPIB_GPIB, gpib_manager)
+    multimeter = Agilent34401A(28, Instrument.CONNECTION_TYPE_PROLOGIX_GPIB_GPIB, gpib_manager)
     # Name each instrument
     freq_synth.set_name('Frequency Synthesizer')
     lock_in.set_name('Lock-In')
