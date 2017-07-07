@@ -409,7 +409,8 @@ class Instrument(object):
 
     CONNECTION_TYPE_PROLOGIX_GPIB = 0
     CONNECTION_TYPE_USB = 1
-    CONNECTION_TYPE_NI_GPIB = 1
+    CONNECTION_TYPE_NI_GPIB = 2
+    CONNECTION_TYPE_NI_USB = 3
 
     def __init__(self, address, connection_type, connection_manager=None):
         """
@@ -488,7 +489,9 @@ class Instrument(object):
                 self._instrument = self._connection_manager.open_resource(self._address)
             elif self._connection_type == self.CONNECTION_TYPE_USB:
                 self._instrument = USBDevice(self._address)
-            elif self._connection_type == self.CONNECTION_TYPE_PROLOGIX_GPIB:
+            elif self._connection_type == self.CONNECTION_TYPE_NI_GPIB:
+                self._instrument = self._connection_manager.open_resource('GPIB0::' + str(self._address) + '::INSTR')
+            elif self._connection_type == self.CONNECTION_TYPE_NI_USB:
                 self._instrument = self._connection_manager.open_resource(self._address)
             if self._instrument is None:
                 return False
