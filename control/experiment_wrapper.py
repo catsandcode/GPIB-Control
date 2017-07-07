@@ -52,13 +52,13 @@ def set_freq_synth_frequency(freq=200):
     automatically divide the ranges by freq_multiple (as the source is attached to a set of frequency multipliers).
     """
     freq_synth.set_frequency(freq / freq_multiple)
-    
+
 def get_freq_multiplier():
     """
     Returns the frequency multiplier, which can be changed depending on the experimental setup.
     """
     return freq_multiple
-    
+
 def set_freq_multiplier(multiple = 18):
     """
     Sets the frequency multiplier, which should be equal to the product of the frequency multipliers present in the experimental setup.
@@ -434,9 +434,9 @@ def initialize():
     gpib_manager = Prologix(port='/dev/ttyUSB0')
     # Instantiate each instrument
     freq_synth = PasternackPE11S390('/dev/usbtmc0', Instrument.CONNECTION_TYPE_USB, gpib_manager)
-    lock_in = SR830(8, Instrument.CONNECTION_TYPE_PROLOGIX_GPIB_GPIB, gpib_manager)
-    func_gen = Agilent33220A(10, Instrument.CONNECTION_TYPE_PROLOGIX_GPIB_GPIB, gpib_manager)
-    multimeter = Agilent34401A(28, Instrument.CONNECTION_TYPE_PROLOGIX_GPIB_GPIB, gpib_manager)
+    lock_in = SR830(8, Instrument.CONNECTION_TYPE_PROLOGIX_GPIB, gpib_manager)
+    func_gen = Agilent33220A(10, Instrument.CONNECTION_TYPE_PROLOGIX_GPIB, gpib_manager)
+    multimeter = Agilent34401A(28, Instrument.CONNECTION_TYPE_PROLOGIX_GPIB, gpib_manager)
     # Name each instrument
     freq_synth.set_name('Frequency Synthesizer')
     lock_in.set_name('Lock-In')
