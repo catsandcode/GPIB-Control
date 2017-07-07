@@ -247,3 +247,43 @@ def sweep_parameter(parameter_set_func, values_to_sweep, time_constant=10, sensi
 
     # Return data
     return data
+
+
+# Define the clean data function, which replaces empty strings in the sweeps with None
+def clean_data(arr):
+    """
+    Cleans a data array, removing blank or non-number entries. Returns a numpy array populated with floats.
+
+    :param arr: The array to clean.
+
+    :return: A cleaned numpy array populated with floats.
+    """
+    # Define is_num function, which returns true if num is in fact a string representation of a number
+    def is_num(num):
+        if num == '':
+            return False
+        else:
+            try:
+                num = float(num)
+            except ValueError:
+                return False
+            return True
+
+    # Define are_cols_num function, which returns true if every column in array can be respresented by a number
+    def are_cols_num(arr, c):
+        for i in range(c):
+            if not is_num(arr[i]):
+                return False
+        return True
+
+    # Iterate over the array
+    r, c = arr.shape
+    for i in range(r):
+        if not are_cols_num(arr[i, :], c):  # If every column in array at row i is not a number, enter if block
+            print('error in ' + str(arr[i, :]) + ', fixing...')
+            for j in range(1, c):  # For each column (excluding the first column) in the row
+                arr.itemset((i, j), None)  # Set the value to None
+            print('fixed to ' + str(arr[i, :]))
+    print('converting to a float array...')
+    arr = np.array(arr, dtype=float)  # Return the new array, populated with float objects
+    return arr
