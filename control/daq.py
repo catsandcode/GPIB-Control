@@ -252,7 +252,7 @@ def sweep_parameter(parameter_set_func, values_to_sweep, time_constant=10, sensi
 # Define the clean data function, which replaces empty strings in the sweeps with None
 def clean_data(arr, remove=False, rpl='nan'):
     """
-    Cleans a data array, removing blank or non-number entries. Returns a numpy array populated with floats.
+    Cleans a data array, removing blank or non-number entries. Any changes are documented by printing to the console. Returns a numpy array populated with floats.
 
     :param arr: The array to clean.
 
