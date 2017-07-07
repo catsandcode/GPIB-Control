@@ -2,6 +2,10 @@ from control import experiment_wrapper
 import numpy as np
 import time
 
+"""
+Sweeps from 12.5GHz to 16.5GHz in 25MHz steps. Power of the frequency synthesizer is set to 8dBm in an attempt to get out of the diode's saturation range. Returns values in volts.
+"""
+
 for i in range(0, 3):
     experiment_wrapper.initialize()
 
@@ -12,7 +16,7 @@ for i in range(0, 3):
     experiment_wrapper.set_freq_multiplier(1)
 
     # Setup the frequency synthesizer
-    experiment_wrapper.set_freq_synth_power(15.0)
+    experiment_wrapper.set_freq_synth_power(8.0)
     experiment_wrapper.set_freq_synth_enable(True)
 
     # Sleep to allow instruments to adjust settings
@@ -22,18 +26,18 @@ for i in range(0, 3):
     data = np.array([0, 0], float)  # This row will be deleted later
 
     # Sweep the selected parameter and record data
-    for freq in np.linspace(12.5, 16.5, num=150, endpoint=True):
+    for freq in np.linspace(12.5, 16.5, num=160, endpoint=True):
         print('At frequency ' + str(freq))
 
         # Set selected parameter to the given value
         experiment_wrapper.set_freq_synth_frequency(freq)
 
         # Sleep to allow multimeter to reset and then clear buffer
-        time.sleep(1)  # Sleep for 1 seconds
+        time.sleep(2)  # Sleep for 1 seconds
         experiment_wrapper.multimeter.reset()
 
         # Sleep to allow multimeter to adjust to the new voltage
-        time.sleep(1)  # Sleep for 1 seconds
+        time.sleep(3)  # Sleep for 1 seconds
 
         # Get data from the multimeter and add it to the data array
         voltage = experiment_wrapper.get_multimeter_dc_measurement()
