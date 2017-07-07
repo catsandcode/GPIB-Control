@@ -1095,7 +1095,7 @@ class SR830(Instrument):
         """
         Measures most of values specified in values at a single instant in time. Measurements are returned in a
         dictionary where the keys are the strings in the values list parameter. Please see the SR830 manual p 5-15 for
-        more.
+        more. Values (excluding THETA) are returned in volts.
 
         :param values: A list containing up to 6 values to snap. The list can contain strings 'X', 'Y', 'R', 'THETA',
         'AUX1', 'AUX2', 'AUX3', 'AUX4', 'REF_FREQ' (for the reference frequency), 'CH1', and 'CH2' (for channels 1 and

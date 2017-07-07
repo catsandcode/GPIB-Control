@@ -186,7 +186,7 @@ def sweep_parameter(parameter_set_func, values_to_sweep, time_constant=10, sensi
 
     :param save_path: If a non-empty string variable save_path is passed the the sweep will be saved as a .npy file with the sweep settings saved in metadata.
 
-    :return: The data collected, where the first column is frequency, the second column is X, and the third column is Y.
+    :return: The data collected, where the first column is frequency, the second column is X, and the third column is Y. X and Y are in volts.
     """
     experiment_wrapper.initialize()
     

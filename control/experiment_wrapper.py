@@ -333,7 +333,7 @@ def snap_data():
     """
     Gets the current value in the X and Y readouts on the lock-in amplifier
 
-    :return: A tuple of the form (x, y)
+    :return: A tuple of the form (x, y) in volts.
     """
     data_dict = lock_in.snap_values(['X', 'Y'])
     x = data_dict.get('X')
