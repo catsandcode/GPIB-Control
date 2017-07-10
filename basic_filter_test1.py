@@ -23,12 +23,10 @@ def wait_for_user_confirmation(instruction):
 
 wait_for_user_confirmation('please ensure that no filter is between the two antenna horns')
 
-for i in range(0, 3):
-    sweep_parameter(set_freq_synth_frequency, np.linspace(12.5, 16.5, num=160, endpoint=True), time_constant=1000,  sensitivity=0.2, load_time=4, lock_in_time=4, multiplier=1,
-                    save_path='basic_filter_test1/no_filter_sweep_num_' + str(i))
+sweep_parameter(set_freq_synth_frequency, np.linspace(12.5, 16.5, num=160, endpoint=True), time_constant=1000,  sensitivity=0.2, load_time=4, lock_in_time=4, multiplier=1,
+                save_path='basic_filter_test1/no_filter')
 
 wait_for_user_confirmation('please place the filter between the two antenna horns')
 
-for i in range(0, 3):
-    sweep_parameter(set_freq_synth_frequency, np.linspace(12.5, 16.5, num=160, endpoint=True), time_constant=1000,  sensitivity=0.2, load_time=4, lock_in_time=4, multiplier=1,
-                    save_path='basic_filter_test1/with_filter_sweep_num_' + str(i))
+sweep_parameter(set_freq_synth_frequency, np.linspace(12.5, 16.5, num=160, endpoint=True), time_constant=1000,  sensitivity=0.2, load_time=4, lock_in_time=4, multiplier=1,
+                save_path='basic_filter_test1/with_filter')
