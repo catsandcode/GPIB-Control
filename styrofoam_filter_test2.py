@@ -26,9 +26,9 @@ def wait_for_user_confirmation(instruction):
 wait_for_user_confirmation('please ensure that no filter is between the two antenna horns')
 
 sweep_parameter(set_freq_synth_frequency, np.linspace(225, 300, num=150, endpoint=True), time_constant=100, chopper_frequency=1, sensitivity=0.2, load_time=4, lock_in_time=0, multiplier=18,
-                    save_path='sweep_tuning_test3/no_filter')
+                    save_path='styrofoam_filter_test2/no_filter')
 
 wait_for_user_confirmation('please place the filter between the two antenna horns')
 
 sweep_parameter(set_freq_synth_frequency, np.linspace(225, 300, num=150, endpoint=True), time_constant=100, chopper_frequency=1, sensitivity=0.2, load_time=4, lock_in_time=0, multiplier=18,
-                    save_path='sweep_tuning_test3/with_filter')
+                    save_path='styrofoam_filter_test2/with_filter')
