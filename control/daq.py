@@ -156,7 +156,7 @@ def generate_frequency_list(start, end, step):
     return to_return
 
 
-def sweep_parameter(parameter_set_func, values_to_sweep, time_constant=10, sensitivity=10, slope=12, load_time=5, lock_in_time=1.0, chopper_amplitude=5, chopper_frequency=5, power=15, freq_synth_frequency=250, multiplier=18, save_path=''):
+def sweep_parameter(parameter_set_func, values_to_sweep, time_constant=100, sensitivity=0.2, slope=12, load_time=4, lock_in_time=0, chopper_amplitude=5, chopper_frequency=5, power=15, freq_synth_frequency=250, multiplier=18, save_path=''):
     """
     This method sweeps a parameter through a set of values. Any parameter can be chosen. If the chosen parameter is represented in one of this functions arguments, whatever is entered for that argument will be ignored,
 
