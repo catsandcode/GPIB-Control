@@ -4,8 +4,6 @@ import numpy as np
 import sys
 
 """
-Horns are 98.67mm apart.
-
 Uses a time constant of 100ms, 12dB/oct, 0.2mV sensitivity, load time of 4s, lock in time of 0s. Sweeps from 225GHz to 275GHz in 250MHz steps. Returns values in volts.
 
 Takes four sweeps, one without filter, then two with filter and finally one without.
