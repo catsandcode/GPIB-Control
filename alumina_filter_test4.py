@@ -6,7 +6,7 @@ import sys
 """
 Uses a time constant of 100ms, 12dB/oct, 0.2mV sensitivity, load time of 4s, lock in time of 0s. Sweeps from 225GHz to 275GHz in 250MHz steps. Returns values in volts.
 
-Takes twelve sweeps, three without filter, then six with filter, and finally three without the filter. Each successive set of three sweeps is are at the powers 15dBm, 12dBm, 9dBm.
+Takes twelve sweeps, three without filter, then six with filter, and finally three without the filter. Each successive set of three sweeps are at the powers 15dBm, 12dBm, 9dBm.
 """
 
 
