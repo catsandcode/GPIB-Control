@@ -38,15 +38,15 @@ multiplier = 18
 wait_for_user_confirmation('please ensure that no filter is between the two antenna horns')
 
 sweep_parameter(set_freq_synth_frequency, np.linspace(freq_start, freq_end, num=num_steps, endpoint=True), time_constant=time_const, chopper_frequency=chop_freq, sensitivity=sens, load_time=load_time, lock_in_time=lock_time, multiplier=multiplier,
-                    save_path='alumina_filter_test3/no_filter0')
+                    save_path='alumina_filter_test5/no_filter0')
 
 wait_for_user_confirmation('please place the filter between the two antenna horns')
 
 sweep_parameter(set_freq_synth_frequency, np.linspace(freq_start, freq_end, num=num_steps, endpoint=True), time_constant=time_const, chopper_frequency=chop_freq, sensitivity=sens, load_time=load_time, lock_in_time=lock_time, multiplier=multiplier,
-                    save_path='alumina_filter_test3/with_filter0')
+                    save_path='alumina_filter_test5/with_filter0')
 
 sweep_parameter(set_freq_synth_frequency, np.linspace(freq_start, freq_end, num=num_steps, endpoint=True), time_constant=time_const, chopper_frequency=chop_freq, sensitivity=sens, load_time=load_time, lock_in_time=lock_time, multiplier=multiplier,
-                    save_path='alumina_filter_test3/with_filter1')
+                    save_path='alumina_filter_test5/with_filter1')
 
 wait_for_user_confirmation('please remove the filter between the two antenna horns')
 
