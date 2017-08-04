@@ -32,25 +32,40 @@ load_time = 4
 lock_time = 0
 multiplier = 18
 
-# Get name of script
-script_name = str(__file__)
-script_name = script_name[:script_name.find('.py')]
 
-# Start tests
-wait_for_user_confirmation('please ensure that nothing is between the two antenna horns')
+def sweep(title):
+    # Get name of script
+    script_name = str(__file__)
+    script_name = script_name[:script_name.find('.py')]
+    # Sweep
+    sweep_parameter(set_freq_synth_frequency, np.linspace(freq_start, freq_end, num=num_steps, endpoint=True),
+                    time_constant=time_const, chopper_frequency=chop_freq, sensitivity=sens, load_time=load_time,
+                    lock_in_time=lock_time, multiplier=multiplier,
+                    save_path=script_name + '/' + title)
 
-sweep_parameter(set_freq_synth_frequency, np.linspace(freq_start, freq_end, num=num_steps, endpoint=True), time_constant=time_const, chopper_frequency=chop_freq, sensitivity=sens, load_time=load_time, lock_in_time=lock_time, multiplier=multiplier,
-                    save_path=script_name + '/no_filter0')
+# Sample holder test
+wait_for_user_confirmation('please ensure that nothing is between the two antenna horns and the two mirrors')
 
-wait_for_user_confirmation('please place the sample holder between the two antenna horns')
+sweep('test0_nothing')
 
-sweep_parameter(set_freq_synth_frequency, np.linspace(freq_start, freq_end, num=num_steps, endpoint=True), time_constant=time_const, chopper_frequency=chop_freq, sensitivity=sens, load_time=load_time, lock_in_time=lock_time, multiplier=multiplier,
-                    save_path=script_name + '/with_filter0')
+wait_for_user_confirmation('please place the sample holder between the two mirrors')
 
-sweep_parameter(set_freq_synth_frequency, np.linspace(freq_start, freq_end, num=num_steps, endpoint=True), time_constant=time_const, chopper_frequency=chop_freq, sensitivity=sens, load_time=load_time, lock_in_time=lock_time, multiplier=multiplier,
-                    save_path=script_name + '/with_filter1')
+sweep('test0_holder')
 
-wait_for_user_confirmation('please remove the sample holder between the two antenna horns')
+# Eccosorb cover test
+wait_for_user_confirmation('please ensure that nothing is between the two antenna horns and the two mirrors')
 
-sweep_parameter(set_freq_synth_frequency, np.linspace(freq_start, freq_end, num=num_steps, endpoint=True), time_constant=time_const, chopper_frequency=chop_freq, sensitivity=sens, load_time=load_time, lock_in_time=lock_time, multiplier=multiplier,
-                    save_path=script_name + '/no_filter1')
+sweep('test1_nothing')
+
+wait_for_user_confirmation('please place the eccosorb on the table between the two mirrors')
+
+sweep('test1_eccosorb_cover')
+
+# Eccosorb cover and sample holder test
+wait_for_user_confirmation('please ensure that nothing is between the two antenna horns and the two mirrors')
+
+sweep('test2_nothing')
+
+wait_for_user_confirmation('please place the eccosorb on the table between the two mirrors')
+
+sweep('test2_both')
