@@ -66,6 +66,6 @@ wait_for_user_confirmation('please ensure that nothing is between the two antenn
 
 sweep('test2_nothing')
 
-wait_for_user_confirmation('please place the eccosorb on the table between the two mirrors')
+wait_for_user_confirmation('please place the sample holder and eccosorb on the table between the two mirrors')
 
 sweep('test2_both')
