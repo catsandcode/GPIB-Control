@@ -22,12 +22,12 @@ def wait_for_user_confirmation(instruction):
             sys.exit(0)
 
 # Settings
-freq_start = 225
-freq_end = 275
+freq_start = 225.0
+freq_end = 275.0
 num_steps = 200
 time_const = 100.0
 chop_freq = 1.0
-sens = 0.2
+sens = 10.0
 load_time = 4
 lock_time = 0
 multiplier = 18
