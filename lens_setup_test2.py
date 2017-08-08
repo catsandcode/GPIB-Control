@@ -34,4 +34,7 @@ script_name = script_name[:script_name.find('.py')]
 wait_for_user_confirmation('please ensure that there is sufficient attenuation in front of the detector')
 
 sweep_parameter(set_freq_synth_frequency, np.linspace(freq_start, freq_end, num=num_steps, endpoint=True), time_constant=time_const, chopper_frequency=chop_freq, sensitivity=sens, load_time=load_time, lock_in_time=lock_time, multiplier=multiplier,
-                    save_path=script_name)
+                    save_path=script_name + '/sweep0')
+
+sweep_parameter(set_freq_synth_frequency, np.linspace(freq_start, freq_end, num=num_steps, endpoint=True), time_constant=time_const, chopper_frequency=chop_freq, sensitivity=sens, load_time=load_time, lock_in_time=lock_time, multiplier=multiplier,
+                    save_path=script_name + '/sweep1')
