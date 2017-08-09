@@ -1,10 +1,10 @@
-from control.inst_io import Instrument, write, query
+from inst_io import Instrument, write, query
 
 
 class HP8350B(Instrument):
     # noinspection SpellCheckingInspection
     """
-    The HP8350B class is used to control an HP8350B Sweep Oscillator via GPIB (now owned by Keysight).
+    The HP8350B class is used to setup_control an HP8350B Sweep Oscillator via GPIB (now owned by Keysight).
     """
 
     UNIT_GHZ = 'GZ'
@@ -178,7 +178,7 @@ class HP8350B(Instrument):
 class SR830(Instrument):
     # noinspection SpellCheckingInspection
     """
-    The SR830 class is used to control a Stanford Research Systems SR830 Lock-In Amplifier via GPIB.
+    The SR830 class is used to setup_control a Stanford Research Systems SR830 Lock-In Amplifier via GPIB.
     """
 
     UNIT_GHZ = 'GZ'
@@ -1319,7 +1319,7 @@ class SR830(Instrument):
 class Agilent33220A(Instrument):
     # noinspection SpellCheckingInspection
     """
-    The Agilent33220A class is used to control a Agilent 33220A function generator via GPIB.
+    The Agilent33220A class is used to setup_control a Agilent 33220A function generator via GPIB.
     """
 
     WAVE_TYPE_SINE = 'SIN'
@@ -1529,7 +1529,7 @@ class Agilent33220A(Instrument):
 
 class AgilentE3631A(Instrument):
     """
-    The AgilentE3631A class is used to control a Agilent E3631A DC power source via GPIB.
+    The AgilentE3631A class is used to setup_control a Agilent E3631A DC power source via GPIB.
     """
 
     STATE_OFF = 0
@@ -1572,7 +1572,7 @@ class AgilentE3631A(Instrument):
 
 class AgilentE3633A(Instrument):
     """
-    The AgilentE3633A class is used to control a Agilent E3633A DC power source via GPIB.
+    The AgilentE3633A class is used to setup_control a Agilent E3633A DC power source via GPIB.
     """
 
     @write
@@ -1599,7 +1599,7 @@ class AgilentE3633A(Instrument):
 
 class PasternackPE11S390(Instrument):
     """
-    The PasternackPE11S390 class is used to control a Pasternack PE11S390 series frequency synthesizers via USB.
+    The PasternackPE11S390 class is used to setup_control a Pasternack PE11S390 series frequency synthesizers via USB.
     """
 
     OUTPUT_STATE_OFF = 0
@@ -1677,7 +1677,7 @@ class PasternackPE11S390(Instrument):
 
 class Agilent34401A(Instrument):
     """
-    The Agilent34401A class is used to control a Agilent 34401A series multimeter via GPIB.
+    The Agilent34401A class is used to setup_control a Agilent 34401A series multimeter via GPIB.
     """
 
     @query

@@ -1,0 +1,12 @@
+setup.py
+setup_control/__init__.py
+setup_control/experiment_wrapper.py
+setup_control/inst_io.py
+setup_control/instruments.py
+setup_control/snippets.py
+setup_control.egg-info/PKG-INFO
+setup_control.egg-info/SOURCES.txt
+setup_control.egg-info/dependency_links.txt
+setup_control.egg-info/not-zip-safe
+setup_control.egg-info/requires.txt
+setup_control.egg-info/top_level.txt

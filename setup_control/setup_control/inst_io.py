@@ -8,11 +8,10 @@ basic functions-read, write, and query, as well as a few others made used to mak
 convenient and straight forward.
 """
 
-import multiprocessing
 import serial
 import sys
 import time
-import visa
+import multiprocessing
 
 
 def write(func):
@@ -514,6 +513,6 @@ class Instrument(object):
 
     def initialize_instrument(self):
         """
-        Issues any commands that need to be issued before control of the instrument begins.
+        Issues any commands that need to be issued before setup_control of the instrument begins.
         """
         pass

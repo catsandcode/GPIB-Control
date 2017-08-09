@@ -5,9 +5,8 @@ that would otherwise be repeated lots of times in experiment runs.
 """
 
 import time
-import control.experiment_wrapper as experiment_wrapper
+import experiment_wrapper as experiment_wrapper
 import numpy as np
-from matplotlib import pyplot as plt
 
 
 def print_attributes(sweep):
@@ -44,28 +43,6 @@ def print_attributes(sweep):
         if key != 'data':
             to_print += '\n'
     print(to_print)
-
-
-def save_x_and_y_graphs(sweep, path):
-    """
-    This function saves a graph of x versus frequency and a graph of y versus frequency to the specified path. The
-    suffixes _x and _y are appended to the x and y graphs, respectively.
-
-    :param sweep: The sweep to print the x and y graphs from.
-
-    :param path: The path to save the graphs at.
-    """
-    data = sweep['data']
-    plt.figure(0)
-    plt.plot(data[:,0], data[:,1])
-    plt.xlabel('Frequency [GHz]')
-    plt.ylabel('X Amplitude [V]')
-    plt.savefig(path + '_x')
-    plt.figure(1)
-    plt.plot(data[:,0], data[:,2])
-    plt.xlabel('Frequency [GHz]')
-    plt.ylabel('Y Amplitude [V]')
-    plt.savefig(path + '_y')
 
 
 def sweep_parameter(parameter_set_func, values_to_sweep, time_constant=100, sensitivity=0.2, slope=12, load_time=4, lock_in_time=0, chopper_amplitude=5, chopper_frequency=1, power=15, freq_synth_frequency=250, multiplier=18, save_path=''):

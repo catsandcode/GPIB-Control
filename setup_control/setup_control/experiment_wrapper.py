@@ -5,9 +5,8 @@ settings like the lock-in reference input, the initialize_instruments() function
 """
 
 import numpy as np
-from control.instruments import SR830, Agilent33220A, PasternackPE11S390, Agilent34401A
-from control.inst_io import Instrument, Prologix
-import visa
+from instruments import SR830, Agilent33220A, PasternackPE11S390, Agilent34401A
+from inst_io import Instrument, Prologix
 
 freq_synth = None
 lock_in = None

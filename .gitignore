@@ -9,7 +9,7 @@ doc/Makefile
 doc/_static
 doc/_templates
 .DS_Store
-control/__init__.pyc
-control/daq.pyc
-control/experiment_wrapper.pyc
-control/instruments.pyc
+setup_control/setup_control/__init__.pyc
+setup_control/setup_control/daq.pyc
+setup_control/setup_control/experiment_wrapper.pyc
+setup_control/setup_control/instruments.pyc
