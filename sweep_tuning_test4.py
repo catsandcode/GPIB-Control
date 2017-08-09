@@ -1,4 +1,4 @@
-from control.daq import sweep_parameter
+from control.snippets import sweep_parameter
 from control.experiment_wrapper import set_freq_synth_frequency
 import numpy as np
 
