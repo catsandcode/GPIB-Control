@@ -1,5 +1,5 @@
-from control.snippets import sweep_parameter
-from control.experiment_wrapper import set_freq_synth_frequency
+from setup_control.snippets import sweep_parameter
+from setup_control.experiment_wrapper import set_freq_synth_frequency
 import numpy as np
 
 """

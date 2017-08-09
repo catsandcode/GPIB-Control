@@ -1,4 +1,4 @@
-from control import experiment_wrapper
+from setup_control import experiment_wrapper
 import numpy as np
 import time
 

@@ -1,4 +1,4 @@
-from control import snippets, experiment_wrapper
+from setup_control import snippets, experiment_wrapper
 import numpy as np
 
 for power in np.arange(8.0, 15.0, 0.5):
