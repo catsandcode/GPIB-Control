@@ -10,74 +10,6 @@ import numpy as np
 from matplotlib import pyplot as plt
 
 
-def calculate_response_and_phase(sweep):
-    """
-    This function takes an array where the first column is frequency, the second is x, and the third is y and returns
-    an array where the first column is frequency, the second column is response, and the third column is phase.
-    er
-
-    :param sweep: The array where the first column is frequency, the second is x, and the third is y.
-
-    :return: An array where the first column is frequency, the second column is response, and the third column is phase.
-    """
-    # Extract data from the sweep array
-    try:
-        freq = sweep[:, 0]
-        x = sweep[:, 1]
-        y = sweep[:, 2]
-    except IndexError:
-        raise ValueError('Array does not have three columns.')
-    # Calculate response and phase
-    response = np.sqrt(np.add(np.square(x), np.square(y)))  # r=sqrt(x^2+y^2)
-    phase = np.degrees(np.arctan2(y, x))  # theta=arctan(y/x)]
-    # Return a new array where the first column is frequency, the second is response, and the third is phase
-    return np.vstack((freq, response, phase)).transpose()
-
-
-def subtract_reference(reference, sweep):
-    """
-    This function takes a reference sweep array and a sweep array. The reference sweep is subtracted from the sweep and
-    displayed. Subtraction takes place by first finding the response and phase of the reference sweep and the sweep. The
-    response of the sweep is then divided by the response of the reference. Finally the phase of the reference is
-    subtracted from the phase of the sweep.
-
-    :param reference: The reference sweep in an array where the first column is frequency, the second column is x, and
-    the third column is y.
-
-    :param sweep: The sweep  in an array where the first column is frequency, the second column is x, and the third
-    column is y.
-
-    :return: A an
-    """
-    # Test array frequency equality
-    ref_freq = reference[:, 0]
-    test_freq = sweep[:, 0]
-    if np.array_equal(ref_freq, test_freq) is not True:
-        raise ValueError('Passed arrays do not have the same frequency values.')
-
-    # Extract data from the reference and test arrays
-    freq = ref_freq
-    ref_x = reference[:, 1]
-    ref_y = reference[:, 2]
-
-    test_x = sweep[:, 1]
-    test_y = sweep[:, 2]
-
-    # Calculate the response and phase
-    ref_response = np.sqrt(np.add(np.square(ref_x), np.square(ref_y))) # r=sqrt(x^2+y^2)
-    test_response = np.sqrt(np.add(np.square(test_x), np.square(test_y))) # r=sqrt(x^2+y^2)
-
-    ref_phase = np.degrees(np.arctan2(ref_y, ref_x)) # theta=arctan(y/x)]
-    test_phase = np.degrees(np.arctan2(test_y, test_x)) # theta=arctan(y/x)]
-
-    #Subtract the reference from the test
-
-    response = np.divide(test_response, ref_response)
-    phase = np.subtract(test_phase, ref_phase)
-
-    return response, phase
-
-
 def print_attributes(sweep):
     """
     Prints the attributes associated with the sweep to the console. This should be included in notes about each sweep.
@@ -134,26 +66,6 @@ def save_x_and_y_graphs(sweep, path):
     plt.xlabel('Frequency [GHz]')
     plt.ylabel('Y Amplitude [V]')
     plt.savefig(path + '_y')
-
-
-def generate_frequency_list(start, end, step):
-    """
-    Generates the list of frequencies between start and end with a step size of step.
-
-    :param start: The start frequency
-
-    :param end: The end frequency
-
-    :param step: The step in between frequencies
-
-    :return: The list of frequencies
-    """
-    to_return = []
-    current_frequency = start
-    while current_frequency <= end:
-        to_return.append(current_frequency)
-        current_frequency += step
-    return to_return
 
 
 def sweep_parameter(parameter_set_func, values_to_sweep, time_constant=100, sensitivity=0.2, slope=12, load_time=4, lock_in_time=0, chopper_amplitude=5, chopper_frequency=1, power=15, freq_synth_frequency=250, multiplier=18, save_path=''):
