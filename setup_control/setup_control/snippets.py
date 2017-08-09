@@ -1,5 +1,5 @@
 """
-The daq module provides functions that might be useful for performing measurements and analyzing data. Some functions
+The snippets module provides functions that might be useful for performing measurements and analyzing data. Some functions
 in the module are completely unrelated to data acquisition, and are purely analysis. It is essentially a module of code
 that would otherwise be repeated lots of times in experiment runs.
 """
@@ -78,7 +78,7 @@ def sweep_parameter(parameter_set_func, values_to_sweep, time_constant=100, sens
     :return: The data collected, where the first column is frequency, the second column is X, and the third column is Y. X and Y are in volts.
     """
     experiment_wrapper.initialize()
-    
+
     # Set the frequency multiplier, as it is particular to the experiment
     experiment_wrapper.set_freq_multiplier(multiplier)
 
@@ -130,7 +130,7 @@ def sweep_parameter(parameter_set_func, values_to_sweep, time_constant=100, sens
 
     # Close instruments
     experiment_wrapper.close()
-    
+
     if save_path != '':
         np.savez(save_path, data = data, parameter_set_func=str(parameter_set_func), time_constant=time_constant, sensitivity=sensitivity, slope=slope, load_time=load_time, lock_in_time=lock_in_time, chopper_amplitude=chopper_amplitude, chopper_frequency=chopper_frequency, power=power, freq_synth_frequency=freq_synth_frequency, multiplier=multiplier)
 

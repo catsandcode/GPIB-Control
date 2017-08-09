@@ -12,7 +12,7 @@ Welcome to control's documentation!
 
 .. include:: README.rst
 
-Here are a list of classes included in the control package:
+Here are a list of classes included in the setup_control package:
 
 .. toctree::
    :maxdepth: 2
@@ -20,7 +20,7 @@ Here are a list of classes included in the control package:
    experiment_wrapper
    inst_io
    instruments
-   daq
+   snippets
 
 Indices and tables
 ==================

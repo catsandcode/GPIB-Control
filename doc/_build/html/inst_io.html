@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>inst_io &mdash; control 0.1.0 documentation</title>
+  <title>inst_io &mdash; setup_control 0.1.0 documentation</title>
   
 
   
@@ -35,7 +35,7 @@
         <link rel="index" title="Index"
               href="genindex.html"/>
         <link rel="search" title="Search" href="search.html"/>
-    <link rel="top" title="control 0.1.0 documentation" href="index.html"/>
+    <link rel="top" title="setup_control 0.1.0 documentation" href="index.html"/>
         <link rel="next" title="instruments" href="instruments.html"/>
         <link rel="prev" title="experiment_wrapper" href="experiment_wrapper.html"/> 
 
@@ -56,7 +56,7 @@
           
 
           
-            <a href="index.html" class="icon icon-home"> control
+            <a href="index.html" class="icon icon-home"> setup_control
           
 
           
@@ -90,7 +90,7 @@
 <li class="toctree-l1"><a class="reference internal" href="experiment_wrapper.html">experiment_wrapper</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">inst_io</a></li>
 <li class="toctree-l1"><a class="reference internal" href="instruments.html">instruments</a></li>
-<li class="toctree-l1"><a class="reference internal" href="daq.html">daq</a></li>
+<li class="toctree-l1"><a class="reference internal" href="snippets.html">snippets</a></li>
 </ul>
 
             
@@ -105,7 +105,7 @@
       <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
         
           <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-          <a href="index.html">control</a>
+          <a href="index.html">setup_control</a>
         
       </nav>
 
@@ -154,8 +154,8 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <div class="section" id="module-control.inst_io">
-<span id="inst-io"></span><h1>inst_io<a class="headerlink" href="#module-control.inst_io" title="Permalink to this headline">¶</a></h1>
+  <div class="section" id="module-setup_control.inst_io">
+<span id="inst-io"></span><h1>inst_io<a class="headerlink" href="#module-setup_control.inst_io" title="Permalink to this headline">¶</a></h1>
 <p>The io module deals with all connections coming in and out of the computer. It provides decorator functions to enable
 higher level programming of instruments in the instruments module. It abstracts between basic IO functions (i.e. dealing
 with the serial connection used with the Prologix controller, dealing with the file connection with a USB device) using
@@ -163,24 +163,24 @@ the Instrument class, which should be used as the parent class for actual instru
 basic functions-read, write, and query, as well as a few others made used to make programming instruments more
 convenient and straight forward.</p>
 <dl class="class">
-<dt id="control.inst_io.GPIBDeviceInterface">
-<em class="property">class </em><code class="descclassname">control.inst_io.</code><code class="descname">GPIBDeviceInterface</code><span class="sig-paren">(</span><em>gpibAddr</em>, <em>controller</em><span class="sig-paren">)</span><a class="headerlink" href="#control.inst_io.GPIBDeviceInterface" title="Permalink to this definition">¶</a></dt>
+<dt id="setup_control.inst_io.GPIBDeviceInterface">
+<em class="property">class </em><code class="descclassname">setup_control.inst_io.</code><code class="descname">GPIBDeviceInterface</code><span class="sig-paren">(</span><em>gpibAddr</em>, <em>controller</em><span class="sig-paren">)</span><a class="headerlink" href="#setup_control.inst_io.GPIBDeviceInterface" title="Permalink to this definition">¶</a></dt>
 <dd><p>A class representing a single GPIB instrument hooked up to some controller.</p>
 <dl class="method">
-<dt id="control.inst_io.GPIBDeviceInterface.clear">
-<code class="descname">clear</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#control.inst_io.GPIBDeviceInterface.clear" title="Permalink to this definition">¶</a></dt>
+<dt id="setup_control.inst_io.GPIBDeviceInterface.clear">
+<code class="descname">clear</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#setup_control.inst_io.GPIBDeviceInterface.clear" title="Permalink to this definition">¶</a></dt>
 <dd><p>Sends the command to clear the currently selected GPIB bus address. See the manual for each specific instrument to see how it responds to this command.</p>
 </dd></dl>
 
 <dl class="method">
-<dt id="control.inst_io.GPIBDeviceInterface.flush">
-<code class="descname">flush</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#control.inst_io.GPIBDeviceInterface.flush" title="Permalink to this definition">¶</a></dt>
+<dt id="setup_control.inst_io.GPIBDeviceInterface.flush">
+<code class="descname">flush</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#setup_control.inst_io.GPIBDeviceInterface.flush" title="Permalink to this definition">¶</a></dt>
 <dd><p>Flush the controller&#8217;s communication buffer</p>
 </dd></dl>
 
 <dl class="method">
-<dt id="control.inst_io.GPIBDeviceInterface.query">
-<code class="descname">query</code><span class="sig-paren">(</span><em>cmd</em>, <em>eol='\n'</em>, <em>size=None</em><span class="sig-paren">)</span><a class="headerlink" href="#control.inst_io.GPIBDeviceInterface.query" title="Permalink to this definition">¶</a></dt>
+<dt id="setup_control.inst_io.GPIBDeviceInterface.query">
+<code class="descname">query</code><span class="sig-paren">(</span><em>cmd</em>, <em>eol='\n'</em>, <em>size=None</em><span class="sig-paren">)</span><a class="headerlink" href="#setup_control.inst_io.GPIBDeviceInterface.query" title="Permalink to this definition">¶</a></dt>
 <dd><p>Writes a command to the currently selected GPIB bus address and then returns the read response.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -201,8 +201,8 @@ convenient and straight forward.</p>
 </dd></dl>
 
 <dl class="method">
-<dt id="control.inst_io.GPIBDeviceInterface.read">
-<code class="descname">read</code><span class="sig-paren">(</span><em>eol='\n'</em>, <em>size=None</em><span class="sig-paren">)</span><a class="headerlink" href="#control.inst_io.GPIBDeviceInterface.read" title="Permalink to this definition">¶</a></dt>
+<dt id="setup_control.inst_io.GPIBDeviceInterface.read">
+<code class="descname">read</code><span class="sig-paren">(</span><em>eol='\n'</em>, <em>size=None</em><span class="sig-paren">)</span><a class="headerlink" href="#setup_control.inst_io.GPIBDeviceInterface.read" title="Permalink to this definition">¶</a></dt>
 <dd><p>Queries the instrument for a response and returns it (up to the end of line character, the max number of bytes, or the timeout)</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -222,8 +222,8 @@ convenient and straight forward.</p>
 </dd></dl>
 
 <dl class="method">
-<dt id="control.inst_io.GPIBDeviceInterface.readNext">
-<code class="descname">readNext</code><span class="sig-paren">(</span><em>eol='\n'</em>, <em>size=None</em><span class="sig-paren">)</span><a class="headerlink" href="#control.inst_io.GPIBDeviceInterface.readNext" title="Permalink to this definition">¶</a></dt>
+<dt id="setup_control.inst_io.GPIBDeviceInterface.readNext">
+<code class="descname">readNext</code><span class="sig-paren">(</span><em>eol='\n'</em>, <em>size=None</em><span class="sig-paren">)</span><a class="headerlink" href="#setup_control.inst_io.GPIBDeviceInterface.readNext" title="Permalink to this definition">¶</a></dt>
 <dd><p>NOT SAFE IN MULTIPROCESSING ENVIRONMENTS!!!
 Doesn&#8217;t query the instrument for a response, but simply returns any response already in the buffer (up to the end of line character, the max number of bytes, or the timeout).</p>
 <table class="docutils field-list" frame="void" rules="none">
@@ -244,8 +244,8 @@ Doesn&#8217;t query the instrument for a response, but simply returns any respon
 </dd></dl>
 
 <dl class="method">
-<dt id="control.inst_io.GPIBDeviceInterface.write">
-<code class="descname">write</code><span class="sig-paren">(</span><em>msg</em><span class="sig-paren">)</span><a class="headerlink" href="#control.inst_io.GPIBDeviceInterface.write" title="Permalink to this definition">¶</a></dt>
+<dt id="setup_control.inst_io.GPIBDeviceInterface.write">
+<code class="descname">write</code><span class="sig-paren">(</span><em>msg</em><span class="sig-paren">)</span><a class="headerlink" href="#setup_control.inst_io.GPIBDeviceInterface.write" title="Permalink to this definition">¶</a></dt>
 <dd><p>Sends a message to the instrument</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -260,18 +260,18 @@ Doesn&#8217;t query the instrument for a response, but simply returns any respon
 </dd></dl>
 
 <dl class="class">
-<dt id="control.inst_io.Instrument">
-<em class="property">class </em><code class="descclassname">control.inst_io.</code><code class="descname">Instrument</code><span class="sig-paren">(</span><em>address</em>, <em>connection_type</em>, <em>connection_manager=None</em><span class="sig-paren">)</span><a class="headerlink" href="#control.inst_io.Instrument" title="Permalink to this definition">¶</a></dt>
+<dt id="setup_control.inst_io.Instrument">
+<em class="property">class </em><code class="descclassname">setup_control.inst_io.</code><code class="descname">Instrument</code><span class="sig-paren">(</span><em>address</em>, <em>connection_type</em>, <em>connection_manager=None</em><span class="sig-paren">)</span><a class="headerlink" href="#setup_control.inst_io.Instrument" title="Permalink to this definition">¶</a></dt>
 <dd><p>The instrument class wraps basic instrument functions, providing abstraction between different instrument connection interfaces (i.e. USB, GPIB).</p>
 <dl class="method">
-<dt id="control.inst_io.Instrument.close">
-<code class="descname">close</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#control.inst_io.Instrument.close" title="Permalink to this definition">¶</a></dt>
+<dt id="setup_control.inst_io.Instrument.close">
+<code class="descname">close</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#setup_control.inst_io.Instrument.close" title="Permalink to this definition">¶</a></dt>
 <dd><p>Closes a connection to the instrument at the specified address.</p>
 </dd></dl>
 
 <dl class="method">
-<dt id="control.inst_io.Instrument.get_name">
-<code class="descname">get_name</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#control.inst_io.Instrument.get_name" title="Permalink to this definition">¶</a></dt>
+<dt id="setup_control.inst_io.Instrument.get_name">
+<code class="descname">get_name</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#setup_control.inst_io.Instrument.get_name" title="Permalink to this definition">¶</a></dt>
 <dd><p>Returns the name of the device. The default name is the device address.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -284,14 +284,14 @@ Doesn&#8217;t query the instrument for a response, but simply returns any respon
 </dd></dl>
 
 <dl class="method">
-<dt id="control.inst_io.Instrument.initialize_instrument">
-<code class="descname">initialize_instrument</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#control.inst_io.Instrument.initialize_instrument" title="Permalink to this definition">¶</a></dt>
-<dd><p>Issues any commands that need to be issued before control of the instrument begins.</p>
+<dt id="setup_control.inst_io.Instrument.initialize_instrument">
+<code class="descname">initialize_instrument</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#setup_control.inst_io.Instrument.initialize_instrument" title="Permalink to this definition">¶</a></dt>
+<dd><p>Issues any commands that need to be issued before setup_control of the instrument begins.</p>
 </dd></dl>
 
 <dl class="method">
-<dt id="control.inst_io.Instrument.open">
-<code class="descname">open</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#control.inst_io.Instrument.open" title="Permalink to this definition">¶</a></dt>
+<dt id="setup_control.inst_io.Instrument.open">
+<code class="descname">open</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#setup_control.inst_io.Instrument.open" title="Permalink to this definition">¶</a></dt>
 <dd><p>Opens a connection to the instrument at the specified address.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -304,8 +304,8 @@ Doesn&#8217;t query the instrument for a response, but simply returns any respon
 </dd></dl>
 
 <dl class="method">
-<dt id="control.inst_io.Instrument.query">
-<code class="descname">query</code><span class="sig-paren">(</span><em>command</em><span class="sig-paren">)</span><a class="headerlink" href="#control.inst_io.Instrument.query" title="Permalink to this definition">¶</a></dt>
+<dt id="setup_control.inst_io.Instrument.query">
+<code class="descname">query</code><span class="sig-paren">(</span><em>command</em><span class="sig-paren">)</span><a class="headerlink" href="#setup_control.inst_io.Instrument.query" title="Permalink to this definition">¶</a></dt>
 <dd><p>Queries a string from the instrument.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -320,8 +320,8 @@ Doesn&#8217;t query the instrument for a response, but simply returns any respon
 </dd></dl>
 
 <dl class="method">
-<dt id="control.inst_io.Instrument.read">
-<code class="descname">read</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#control.inst_io.Instrument.read" title="Permalink to this definition">¶</a></dt>
+<dt id="setup_control.inst_io.Instrument.read">
+<code class="descname">read</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#setup_control.inst_io.Instrument.read" title="Permalink to this definition">¶</a></dt>
 <dd><p>Reads a string from the instrument.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -334,8 +334,8 @@ Doesn&#8217;t query the instrument for a response, but simply returns any respon
 </dd></dl>
 
 <dl class="method">
-<dt id="control.inst_io.Instrument.read_raw">
-<code class="descname">read_raw</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#control.inst_io.Instrument.read_raw" title="Permalink to this definition">¶</a></dt>
+<dt id="setup_control.inst_io.Instrument.read_raw">
+<code class="descname">read_raw</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#setup_control.inst_io.Instrument.read_raw" title="Permalink to this definition">¶</a></dt>
 <dd><p>Reads raw values from the instrument.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -348,14 +348,14 @@ Doesn&#8217;t query the instrument for a response, but simply returns any respon
 </dd></dl>
 
 <dl class="method">
-<dt id="control.inst_io.Instrument.reset">
-<code class="descname">reset</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#control.inst_io.Instrument.reset" title="Permalink to this definition">¶</a></dt>
+<dt id="setup_control.inst_io.Instrument.reset">
+<code class="descname">reset</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#setup_control.inst_io.Instrument.reset" title="Permalink to this definition">¶</a></dt>
 <dd><p>Resets the instrument.</p>
 </dd></dl>
 
 <dl class="method">
-<dt id="control.inst_io.Instrument.set_name">
-<code class="descname">set_name</code><span class="sig-paren">(</span><em>name</em><span class="sig-paren">)</span><a class="headerlink" href="#control.inst_io.Instrument.set_name" title="Permalink to this definition">¶</a></dt>
+<dt id="setup_control.inst_io.Instrument.set_name">
+<code class="descname">set_name</code><span class="sig-paren">(</span><em>name</em><span class="sig-paren">)</span><a class="headerlink" href="#setup_control.inst_io.Instrument.set_name" title="Permalink to this definition">¶</a></dt>
 <dd><p>Sets the name of the device to something readable. The default name is the device address.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -368,8 +368,8 @@ Doesn&#8217;t query the instrument for a response, but simply returns any respon
 </dd></dl>
 
 <dl class="method">
-<dt id="control.inst_io.Instrument.write">
-<code class="descname">write</code><span class="sig-paren">(</span><em>command</em><span class="sig-paren">)</span><a class="headerlink" href="#control.inst_io.Instrument.write" title="Permalink to this definition">¶</a></dt>
+<dt id="setup_control.inst_io.Instrument.write">
+<code class="descname">write</code><span class="sig-paren">(</span><em>command</em><span class="sig-paren">)</span><a class="headerlink" href="#setup_control.inst_io.Instrument.write" title="Permalink to this definition">¶</a></dt>
 <dd><p>Writes a string to the instrument.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -384,8 +384,8 @@ Doesn&#8217;t query the instrument for a response, but simply returns any respon
 </dd></dl>
 
 <dl class="class">
-<dt id="control.inst_io.Prologix">
-<em class="property">class </em><code class="descclassname">control.inst_io.</code><code class="descname">Prologix</code><span class="sig-paren">(</span><em>port=0</em>, <em>read_timeout=1</em><span class="sig-paren">)</span><a class="headerlink" href="#control.inst_io.Prologix" title="Permalink to this definition">¶</a></dt>
+<dt id="setup_control.inst_io.Prologix">
+<em class="property">class </em><code class="descclassname">setup_control.inst_io.</code><code class="descname">Prologix</code><span class="sig-paren">(</span><em>port=0</em>, <em>read_timeout=1</em><span class="sig-paren">)</span><a class="headerlink" href="#setup_control.inst_io.Prologix" title="Permalink to this definition">¶</a></dt>
 <dd><blockquote>
 <div>A class which handles communication with a Prologix GPIB-USB module. This class is safe to use with multiprocessing,
 although it does not use multiprocessing itself (rather it is safe to use with multiprocessing implementations).
@@ -395,14 +395,14 @@ Note that commands sent to the Prologix are terminated with a new line character
 <dd>commands sent by the user.</dd>
 </dl>
 <dl class="method">
-<dt id="control.inst_io.Prologix.flush">
-<code class="descname">flush</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#control.inst_io.Prologix.flush" title="Permalink to this definition">¶</a></dt>
+<dt id="setup_control.inst_io.Prologix.flush">
+<code class="descname">flush</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#setup_control.inst_io.Prologix.flush" title="Permalink to this definition">¶</a></dt>
 <dd><p>Flush the communication buffer between the computer and the Prologix.</p>
 </dd></dl>
 
 <dl class="method">
-<dt id="control.inst_io.Prologix.open_resource">
-<code class="descname">open_resource</code><span class="sig-paren">(</span><em>gpibAddr</em><span class="sig-paren">)</span><a class="headerlink" href="#control.inst_io.Prologix.open_resource" title="Permalink to this definition">¶</a></dt>
+<dt id="setup_control.inst_io.Prologix.open_resource">
+<code class="descname">open_resource</code><span class="sig-paren">(</span><em>gpibAddr</em><span class="sig-paren">)</span><a class="headerlink" href="#setup_control.inst_io.Prologix.open_resource" title="Permalink to this definition">¶</a></dt>
 <dd><p>Returns a GpibInstrument object.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -415,8 +415,8 @@ Note that commands sent to the Prologix are terminated with a new line character
 </dd></dl>
 
 <dl class="method">
-<dt id="control.inst_io.Prologix.read">
-<code class="descname">read</code><span class="sig-paren">(</span><em>eol='\n'</em>, <em>size=None</em><span class="sig-paren">)</span><a class="headerlink" href="#control.inst_io.Prologix.read" title="Permalink to this definition">¶</a></dt>
+<dt id="setup_control.inst_io.Prologix.read">
+<code class="descname">read</code><span class="sig-paren">(</span><em>eol='\n'</em>, <em>size=None</em><span class="sig-paren">)</span><a class="headerlink" href="#setup_control.inst_io.Prologix.read" title="Permalink to this definition">¶</a></dt>
 <dd><p>Queries the currently selected GPIB bus address for a response and returns it (up to the eol char, the max number of bytes, or the timeout)</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -436,8 +436,8 @@ Note that commands sent to the Prologix are terminated with a new line character
 </dd></dl>
 
 <dl class="method">
-<dt id="control.inst_io.Prologix.read_next">
-<code class="descname">read_next</code><span class="sig-paren">(</span><em>eol='\n'</em>, <em>size=None</em>, <em>timeout=1</em><span class="sig-paren">)</span><a class="headerlink" href="#control.inst_io.Prologix.read_next" title="Permalink to this definition">¶</a></dt>
+<dt id="setup_control.inst_io.Prologix.read_next">
+<code class="descname">read_next</code><span class="sig-paren">(</span><em>eol='\n'</em>, <em>size=None</em>, <em>timeout=1</em><span class="sig-paren">)</span><a class="headerlink" href="#setup_control.inst_io.Prologix.read_next" title="Permalink to this definition">¶</a></dt>
 <dd><p>NOT SAFE IN MULTIPROCESSING ENVIORNMENTS!!!
 Doesn&#8217;t query the currently selected GPIB bus address for a response, but simply returns any response already in the buffer (up to the eol char, the max number of bytes, or the timeout)</p>
 <table class="docutils field-list" frame="void" rules="none">
@@ -459,8 +459,8 @@ Doesn&#8217;t query the currently selected GPIB bus address for a response, but 
 </dd></dl>
 
 <dl class="method">
-<dt id="control.inst_io.Prologix.set_gpib_address">
-<code class="descname">set_gpib_address</code><span class="sig-paren">(</span><em>gpib_address</em><span class="sig-paren">)</span><a class="headerlink" href="#control.inst_io.Prologix.set_gpib_address" title="Permalink to this definition">¶</a></dt>
+<dt id="setup_control.inst_io.Prologix.set_gpib_address">
+<code class="descname">set_gpib_address</code><span class="sig-paren">(</span><em>gpib_address</em><span class="sig-paren">)</span><a class="headerlink" href="#setup_control.inst_io.Prologix.set_gpib_address" title="Permalink to this definition">¶</a></dt>
 <dd><p>Sets the current GPIB bus address that the Pologix is communicating with</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -473,8 +473,8 @@ Doesn&#8217;t query the currently selected GPIB bus address for a response, but 
 </dd></dl>
 
 <dl class="method">
-<dt id="control.inst_io.Prologix.write">
-<code class="descname">write</code><span class="sig-paren">(</span><em>msg</em><span class="sig-paren">)</span><a class="headerlink" href="#control.inst_io.Prologix.write" title="Permalink to this definition">¶</a></dt>
+<dt id="setup_control.inst_io.Prologix.write">
+<code class="descname">write</code><span class="sig-paren">(</span><em>msg</em><span class="sig-paren">)</span><a class="headerlink" href="#setup_control.inst_io.Prologix.write" title="Permalink to this definition">¶</a></dt>
 <dd><p>Sends a message to the Prologix</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -489,18 +489,18 @@ Doesn&#8217;t query the currently selected GPIB bus address for a response, but 
 </dd></dl>
 
 <dl class="class">
-<dt id="control.inst_io.USBDevice">
-<em class="property">class </em><code class="descclassname">control.inst_io.</code><code class="descname">USBDevice</code><span class="sig-paren">(</span><em>address</em><span class="sig-paren">)</span><a class="headerlink" href="#control.inst_io.USBDevice" title="Permalink to this definition">¶</a></dt>
+<dt id="setup_control.inst_io.USBDevice">
+<em class="property">class </em><code class="descclassname">setup_control.inst_io.</code><code class="descname">USBDevice</code><span class="sig-paren">(</span><em>address</em><span class="sig-paren">)</span><a class="headerlink" href="#setup_control.inst_io.USBDevice" title="Permalink to this definition">¶</a></dt>
 <dd><p>This class is used to connect to USB devices using a file object (as you would read or write to a USB drive).</p>
 <dl class="method">
-<dt id="control.inst_io.USBDevice.close">
-<code class="descname">close</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#control.inst_io.USBDevice.close" title="Permalink to this definition">¶</a></dt>
+<dt id="setup_control.inst_io.USBDevice.close">
+<code class="descname">close</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#setup_control.inst_io.USBDevice.close" title="Permalink to this definition">¶</a></dt>
 <dd><p>Closes the connection with the device.</p>
 </dd></dl>
 
 <dl class="method">
-<dt id="control.inst_io.USBDevice.query">
-<code class="descname">query</code><span class="sig-paren">(</span><em>command</em><span class="sig-paren">)</span><a class="headerlink" href="#control.inst_io.USBDevice.query" title="Permalink to this definition">¶</a></dt>
+<dt id="setup_control.inst_io.USBDevice.query">
+<code class="descname">query</code><span class="sig-paren">(</span><em>command</em><span class="sig-paren">)</span><a class="headerlink" href="#setup_control.inst_io.USBDevice.query" title="Permalink to this definition">¶</a></dt>
 <dd><p>Writes a command from the USB device and then reads the response.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -515,8 +515,8 @@ Doesn&#8217;t query the currently selected GPIB bus address for a response, but 
 </dd></dl>
 
 <dl class="method">
-<dt id="control.inst_io.USBDevice.read">
-<code class="descname">read</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#control.inst_io.USBDevice.read" title="Permalink to this definition">¶</a></dt>
+<dt id="setup_control.inst_io.USBDevice.read">
+<code class="descname">read</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#setup_control.inst_io.USBDevice.read" title="Permalink to this definition">¶</a></dt>
 <dd><p>Reads from the USB device</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -529,8 +529,8 @@ Doesn&#8217;t query the currently selected GPIB bus address for a response, but 
 </dd></dl>
 
 <dl class="method">
-<dt id="control.inst_io.USBDevice.write">
-<code class="descname">write</code><span class="sig-paren">(</span><em>command</em><span class="sig-paren">)</span><a class="headerlink" href="#control.inst_io.USBDevice.write" title="Permalink to this definition">¶</a></dt>
+<dt id="setup_control.inst_io.USBDevice.write">
+<code class="descname">write</code><span class="sig-paren">(</span><em>command</em><span class="sig-paren">)</span><a class="headerlink" href="#setup_control.inst_io.USBDevice.write" title="Permalink to this definition">¶</a></dt>
 <dd><p>Writes a command to the USB device</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -545,8 +545,8 @@ Doesn&#8217;t query the currently selected GPIB bus address for a response, but 
 </dd></dl>
 
 <dl class="function">
-<dt id="control.inst_io.query">
-<code class="descclassname">control.inst_io.</code><code class="descname">query</code><span class="sig-paren">(</span><em>func</em><span class="sig-paren">)</span><a class="headerlink" href="#control.inst_io.query" title="Permalink to this definition">¶</a></dt>
+<dt id="setup_control.inst_io.query">
+<code class="descclassname">setup_control.inst_io.</code><code class="descname">query</code><span class="sig-paren">(</span><em>func</em><span class="sig-paren">)</span><a class="headerlink" href="#setup_control.inst_io.query" title="Permalink to this definition">¶</a></dt>
 <dd><p>This function is intended to be used as a decorator. It takes a function in a subclass of Instrument that returns a string and queries that instrument with the returned string. The function also prints any communication with the instrument to the command line.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -561,8 +561,8 @@ Doesn&#8217;t query the currently selected GPIB bus address for a response, but 
 </dd></dl>
 
 <dl class="function">
-<dt id="control.inst_io.write">
-<code class="descclassname">control.inst_io.</code><code class="descname">write</code><span class="sig-paren">(</span><em>func</em><span class="sig-paren">)</span><a class="headerlink" href="#control.inst_io.write" title="Permalink to this definition">¶</a></dt>
+<dt id="setup_control.inst_io.write">
+<code class="descclassname">setup_control.inst_io.</code><code class="descname">write</code><span class="sig-paren">(</span><em>func</em><span class="sig-paren">)</span><a class="headerlink" href="#setup_control.inst_io.write" title="Permalink to this definition">¶</a></dt>
 <dd><p>This function is intended to be used as a decorator. It takes a function in a subclass of Instrument that returns a string and wrties to that instrument with the returned string. The function also prints any communication with the instrument to the command line.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />

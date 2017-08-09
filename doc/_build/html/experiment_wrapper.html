@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>experiment_wrapper &mdash; control 0.1.0 documentation</title>
+  <title>experiment_wrapper &mdash; setup_control 0.1.0 documentation</title>
   
 
   
@@ -35,7 +35,7 @@
         <link rel="index" title="Index"
               href="genindex.html"/>
         <link rel="search" title="Search" href="search.html"/>
-    <link rel="top" title="control 0.1.0 documentation" href="index.html"/>
+    <link rel="top" title="setup_control 0.1.0 documentation" href="index.html"/>
         <link rel="next" title="inst_io" href="inst_io.html"/>
         <link rel="prev" title="Welcome to control’s documentation!" href="index.html"/> 
 
@@ -56,7 +56,7 @@
           
 
           
-            <a href="index.html" class="icon icon-home"> control
+            <a href="index.html" class="icon icon-home"> setup_control
           
 
           
@@ -90,7 +90,7 @@
 <li class="toctree-l1 current"><a class="current reference internal" href="#">experiment_wrapper</a></li>
 <li class="toctree-l1"><a class="reference internal" href="inst_io.html">inst_io</a></li>
 <li class="toctree-l1"><a class="reference internal" href="instruments.html">instruments</a></li>
-<li class="toctree-l1"><a class="reference internal" href="daq.html">daq</a></li>
+<li class="toctree-l1"><a class="reference internal" href="snippets.html">snippets</a></li>
 </ul>
 
             
@@ -105,7 +105,7 @@
       <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
         
           <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-          <a href="index.html">control</a>
+          <a href="index.html">setup_control</a>
         
       </nav>
 
@@ -154,20 +154,20 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <div class="section" id="module-control.experiment_wrapper">
-<span id="experiment-wrapper"></span><h1>experiment_wrapper<a class="headerlink" href="#module-control.experiment_wrapper" title="Permalink to this headline">¶</a></h1>
+  <div class="section" id="module-setup_control.experiment_wrapper">
+<span id="experiment-wrapper"></span><h1>experiment_wrapper<a class="headerlink" href="#module-setup_control.experiment_wrapper" title="Permalink to this headline">¶</a></h1>
 <p>The experiment_wrapper module creates a level of abstraction between the control of actual instruments and control of
 the entire experiment as a whole. For example, instead of initializing each instrument on its own and then setting
 settings like the lock-in reference input, the initialize_instruments() function does all of this automatically.</p>
 <dl class="function">
-<dt id="control.experiment_wrapper.get_chopper_amplitude">
-<code class="descclassname">control.experiment_wrapper.</code><code class="descname">get_chopper_amplitude</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#control.experiment_wrapper.get_chopper_amplitude" title="Permalink to this definition">¶</a></dt>
+<dt id="setup_control.experiment_wrapper.get_chopper_amplitude">
+<code class="descclassname">setup_control.experiment_wrapper.</code><code class="descname">get_chopper_amplitude</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#setup_control.experiment_wrapper.get_chopper_amplitude" title="Permalink to this definition">¶</a></dt>
 <dd><p>Returns the chopper amplitude in volts.</p>
 </dd></dl>
 
 <dl class="function">
-<dt id="control.experiment_wrapper.get_chopper_frequency">
-<code class="descclassname">control.experiment_wrapper.</code><code class="descname">get_chopper_frequency</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#control.experiment_wrapper.get_chopper_frequency" title="Permalink to this definition">¶</a></dt>
+<dt id="setup_control.experiment_wrapper.get_chopper_frequency">
+<code class="descclassname">setup_control.experiment_wrapper.</code><code class="descname">get_chopper_frequency</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#setup_control.experiment_wrapper.get_chopper_frequency" title="Permalink to this definition">¶</a></dt>
 <dd><p>Gets the chopper frequency in kHz.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -180,8 +180,8 @@ settings like the lock-in reference input, the initialize_instruments() function
 </dd></dl>
 
 <dl class="function">
-<dt id="control.experiment_wrapper.get_data">
-<code class="descclassname">control.experiment_wrapper.</code><code class="descname">get_data</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#control.experiment_wrapper.get_data" title="Permalink to this definition">¶</a></dt>
+<dt id="setup_control.experiment_wrapper.get_data">
+<code class="descclassname">setup_control.experiment_wrapper.</code><code class="descname">get_data</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#setup_control.experiment_wrapper.get_data" title="Permalink to this definition">¶</a></dt>
 <dd><p>Gets the recorded data as a numpy array.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -194,32 +194,32 @@ settings like the lock-in reference input, the initialize_instruments() function
 </dd></dl>
 
 <dl class="function">
-<dt id="control.experiment_wrapper.get_freq_multiplier">
-<code class="descclassname">control.experiment_wrapper.</code><code class="descname">get_freq_multiplier</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#control.experiment_wrapper.get_freq_multiplier" title="Permalink to this definition">¶</a></dt>
+<dt id="setup_control.experiment_wrapper.get_freq_multiplier">
+<code class="descclassname">setup_control.experiment_wrapper.</code><code class="descname">get_freq_multiplier</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#setup_control.experiment_wrapper.get_freq_multiplier" title="Permalink to this definition">¶</a></dt>
 <dd><p>Returns the frequency multiplier, which can be changed depending on the experimental setup.</p>
 </dd></dl>
 
 <dl class="function">
-<dt id="control.experiment_wrapper.get_freq_synth_enable">
-<code class="descclassname">control.experiment_wrapper.</code><code class="descname">get_freq_synth_enable</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#control.experiment_wrapper.get_freq_synth_enable" title="Permalink to this definition">¶</a></dt>
+<dt id="setup_control.experiment_wrapper.get_freq_synth_enable">
+<code class="descclassname">setup_control.experiment_wrapper.</code><code class="descname">get_freq_synth_enable</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#setup_control.experiment_wrapper.get_freq_synth_enable" title="Permalink to this definition">¶</a></dt>
 <dd><p>Returns true if the frequency sythesizer is enabled, false otherwise.</p>
 </dd></dl>
 
 <dl class="function">
-<dt id="control.experiment_wrapper.get_freq_synth_freq">
-<code class="descclassname">control.experiment_wrapper.</code><code class="descname">get_freq_synth_freq</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#control.experiment_wrapper.get_freq_synth_freq" title="Permalink to this definition">¶</a></dt>
+<dt id="setup_control.experiment_wrapper.get_freq_synth_freq">
+<code class="descclassname">setup_control.experiment_wrapper.</code><code class="descname">get_freq_synth_freq</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#setup_control.experiment_wrapper.get_freq_synth_freq" title="Permalink to this definition">¶</a></dt>
 <dd><p>Returns the frequency in GHz.</p>
 </dd></dl>
 
 <dl class="function">
-<dt id="control.experiment_wrapper.get_freq_synth_power">
-<code class="descclassname">control.experiment_wrapper.</code><code class="descname">get_freq_synth_power</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#control.experiment_wrapper.get_freq_synth_power" title="Permalink to this definition">¶</a></dt>
+<dt id="setup_control.experiment_wrapper.get_freq_synth_power">
+<code class="descclassname">setup_control.experiment_wrapper.</code><code class="descname">get_freq_synth_power</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#setup_control.experiment_wrapper.get_freq_synth_power" title="Permalink to this definition">¶</a></dt>
 <dd><p>Gets the power level of the frequency synthesizer in dBm.</p>
 </dd></dl>
 
 <dl class="function">
-<dt id="control.experiment_wrapper.get_low_pass_slope">
-<code class="descclassname">control.experiment_wrapper.</code><code class="descname">get_low_pass_slope</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#control.experiment_wrapper.get_low_pass_slope" title="Permalink to this definition">¶</a></dt>
+<dt id="setup_control.experiment_wrapper.get_low_pass_slope">
+<code class="descclassname">setup_control.experiment_wrapper.</code><code class="descname">get_low_pass_slope</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#setup_control.experiment_wrapper.get_low_pass_slope" title="Permalink to this definition">¶</a></dt>
 <dd><p>Returns the current low pass filter slope of the lock-in in dB per octave.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -232,8 +232,8 @@ settings like the lock-in reference input, the initialize_instruments() function
 </dd></dl>
 
 <dl class="function">
-<dt id="control.experiment_wrapper.get_multimeter_dc_measurement">
-<code class="descclassname">control.experiment_wrapper.</code><code class="descname">get_multimeter_dc_measurement</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#control.experiment_wrapper.get_multimeter_dc_measurement" title="Permalink to this definition">¶</a></dt>
+<dt id="setup_control.experiment_wrapper.get_multimeter_dc_measurement">
+<code class="descclassname">setup_control.experiment_wrapper.</code><code class="descname">get_multimeter_dc_measurement</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#setup_control.experiment_wrapper.get_multimeter_dc_measurement" title="Permalink to this definition">¶</a></dt>
 <dd><p>Returns the DC voltage measured by the multimeter.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -246,8 +246,8 @@ settings like the lock-in reference input, the initialize_instruments() function
 </dd></dl>
 
 <dl class="function">
-<dt id="control.experiment_wrapper.get_sample_rate">
-<code class="descclassname">control.experiment_wrapper.</code><code class="descname">get_sample_rate</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#control.experiment_wrapper.get_sample_rate" title="Permalink to this definition">¶</a></dt>
+<dt id="setup_control.experiment_wrapper.get_sample_rate">
+<code class="descclassname">setup_control.experiment_wrapper.</code><code class="descname">get_sample_rate</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#setup_control.experiment_wrapper.get_sample_rate" title="Permalink to this definition">¶</a></dt>
 <dd><p>Returns the current sample rate of the lock-in in Hz.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -260,8 +260,8 @@ settings like the lock-in reference input, the initialize_instruments() function
 </dd></dl>
 
 <dl class="function">
-<dt id="control.experiment_wrapper.get_sensitivity">
-<code class="descclassname">control.experiment_wrapper.</code><code class="descname">get_sensitivity</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#control.experiment_wrapper.get_sensitivity" title="Permalink to this definition">¶</a></dt>
+<dt id="setup_control.experiment_wrapper.get_sensitivity">
+<code class="descclassname">setup_control.experiment_wrapper.</code><code class="descname">get_sensitivity</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#setup_control.experiment_wrapper.get_sensitivity" title="Permalink to this definition">¶</a></dt>
 <dd><p>Returns the current sensitivity of the lock-in in mV.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -274,8 +274,8 @@ settings like the lock-in reference input, the initialize_instruments() function
 </dd></dl>
 
 <dl class="function">
-<dt id="control.experiment_wrapper.get_time_constant">
-<code class="descclassname">control.experiment_wrapper.</code><code class="descname">get_time_constant</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#control.experiment_wrapper.get_time_constant" title="Permalink to this definition">¶</a></dt>
+<dt id="setup_control.experiment_wrapper.get_time_constant">
+<code class="descclassname">setup_control.experiment_wrapper.</code><code class="descname">get_time_constant</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#setup_control.experiment_wrapper.get_time_constant" title="Permalink to this definition">¶</a></dt>
 <dd><p>Returns the current time constant of the lock-in in ms.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -288,8 +288,8 @@ settings like the lock-in reference input, the initialize_instruments() function
 </dd></dl>
 
 <dl class="function">
-<dt id="control.experiment_wrapper.get_time_to_fill">
-<code class="descclassname">control.experiment_wrapper.</code><code class="descname">get_time_to_fill</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#control.experiment_wrapper.get_time_to_fill" title="Permalink to this definition">¶</a></dt>
+<dt id="setup_control.experiment_wrapper.get_time_to_fill">
+<code class="descclassname">setup_control.experiment_wrapper.</code><code class="descname">get_time_to_fill</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#setup_control.experiment_wrapper.get_time_to_fill" title="Permalink to this definition">¶</a></dt>
 <dd><p>Returns the time needed to fill storage in seconds.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -302,14 +302,14 @@ settings like the lock-in reference input, the initialize_instruments() function
 </dd></dl>
 
 <dl class="function">
-<dt id="control.experiment_wrapper.initialize">
-<code class="descclassname">control.experiment_wrapper.</code><code class="descname">initialize</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#control.experiment_wrapper.initialize" title="Permalink to this definition">¶</a></dt>
+<dt id="setup_control.experiment_wrapper.initialize">
+<code class="descclassname">setup_control.experiment_wrapper.</code><code class="descname">initialize</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#setup_control.experiment_wrapper.initialize" title="Permalink to this definition">¶</a></dt>
 <dd><p>Initializes the instruments and prepares the relevant settings.</p>
 </dd></dl>
 
 <dl class="function">
-<dt id="control.experiment_wrapper.set_chopper_amplitude">
-<code class="descclassname">control.experiment_wrapper.</code><code class="descname">set_chopper_amplitude</code><span class="sig-paren">(</span><em>amplitude=0.5</em><span class="sig-paren">)</span><a class="headerlink" href="#control.experiment_wrapper.set_chopper_amplitude" title="Permalink to this definition">¶</a></dt>
+<dt id="setup_control.experiment_wrapper.set_chopper_amplitude">
+<code class="descclassname">setup_control.experiment_wrapper.</code><code class="descname">set_chopper_amplitude</code><span class="sig-paren">(</span><em>amplitude=0.5</em><span class="sig-paren">)</span><a class="headerlink" href="#setup_control.experiment_wrapper.set_chopper_amplitude" title="Permalink to this definition">¶</a></dt>
 <dd><p>Sets the chopper amplitude in volts.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -322,8 +322,8 @@ settings like the lock-in reference input, the initialize_instruments() function
 </dd></dl>
 
 <dl class="function">
-<dt id="control.experiment_wrapper.set_chopper_frequency">
-<code class="descclassname">control.experiment_wrapper.</code><code class="descname">set_chopper_frequency</code><span class="sig-paren">(</span><em>freq=10</em><span class="sig-paren">)</span><a class="headerlink" href="#control.experiment_wrapper.set_chopper_frequency" title="Permalink to this definition">¶</a></dt>
+<dt id="setup_control.experiment_wrapper.set_chopper_frequency">
+<code class="descclassname">setup_control.experiment_wrapper.</code><code class="descname">set_chopper_frequency</code><span class="sig-paren">(</span><em>freq=10</em><span class="sig-paren">)</span><a class="headerlink" href="#setup_control.experiment_wrapper.set_chopper_frequency" title="Permalink to this definition">¶</a></dt>
 <dd><p>Sets the chopper frequency in kHz.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -336,8 +336,8 @@ settings like the lock-in reference input, the initialize_instruments() function
 </dd></dl>
 
 <dl class="function">
-<dt id="control.experiment_wrapper.set_chopper_on">
-<code class="descclassname">control.experiment_wrapper.</code><code class="descname">set_chopper_on</code><span class="sig-paren">(</span><em>turn_on=False</em><span class="sig-paren">)</span><a class="headerlink" href="#control.experiment_wrapper.set_chopper_on" title="Permalink to this definition">¶</a></dt>
+<dt id="setup_control.experiment_wrapper.set_chopper_on">
+<code class="descclassname">setup_control.experiment_wrapper.</code><code class="descname">set_chopper_on</code><span class="sig-paren">(</span><em>turn_on=False</em><span class="sig-paren">)</span><a class="headerlink" href="#setup_control.experiment_wrapper.set_chopper_on" title="Permalink to this definition">¶</a></dt>
 <dd><p>Sets the chopper output on if turn_on is True.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -350,8 +350,8 @@ settings like the lock-in reference input, the initialize_instruments() function
 </dd></dl>
 
 <dl class="function">
-<dt id="control.experiment_wrapper.set_data">
-<code class="descclassname">control.experiment_wrapper.</code><code class="descname">set_data</code><span class="sig-paren">(</span><em>col1='X'</em>, <em>col2='Y'</em><span class="sig-paren">)</span><a class="headerlink" href="#control.experiment_wrapper.set_data" title="Permalink to this definition">¶</a></dt>
+<dt id="setup_control.experiment_wrapper.set_data">
+<code class="descclassname">setup_control.experiment_wrapper.</code><code class="descname">set_data</code><span class="sig-paren">(</span><em>col1='X'</em>, <em>col2='Y'</em><span class="sig-paren">)</span><a class="headerlink" href="#setup_control.experiment_wrapper.set_data" title="Permalink to this definition">¶</a></dt>
 <dd><p>Sets the data to record in columns 1 and 2.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -368,14 +368,14 @@ settings like the lock-in reference input, the initialize_instruments() function
 </dd></dl>
 
 <dl class="function">
-<dt id="control.experiment_wrapper.set_freq_multiplier">
-<code class="descclassname">control.experiment_wrapper.</code><code class="descname">set_freq_multiplier</code><span class="sig-paren">(</span><em>multiple=18</em><span class="sig-paren">)</span><a class="headerlink" href="#control.experiment_wrapper.set_freq_multiplier" title="Permalink to this definition">¶</a></dt>
+<dt id="setup_control.experiment_wrapper.set_freq_multiplier">
+<code class="descclassname">setup_control.experiment_wrapper.</code><code class="descname">set_freq_multiplier</code><span class="sig-paren">(</span><em>multiple=18</em><span class="sig-paren">)</span><a class="headerlink" href="#setup_control.experiment_wrapper.set_freq_multiplier" title="Permalink to this definition">¶</a></dt>
 <dd><p>Sets the frequency multiplier, which should be equal to the product of the frequency multipliers present in the experimental setup.</p>
 </dd></dl>
 
 <dl class="function">
-<dt id="control.experiment_wrapper.set_freq_synth_enable">
-<code class="descclassname">control.experiment_wrapper.</code><code class="descname">set_freq_synth_enable</code><span class="sig-paren">(</span><em>enable=False</em><span class="sig-paren">)</span><a class="headerlink" href="#control.experiment_wrapper.set_freq_synth_enable" title="Permalink to this definition">¶</a></dt>
+<dt id="setup_control.experiment_wrapper.set_freq_synth_enable">
+<code class="descclassname">setup_control.experiment_wrapper.</code><code class="descname">set_freq_synth_enable</code><span class="sig-paren">(</span><em>enable=False</em><span class="sig-paren">)</span><a class="headerlink" href="#setup_control.experiment_wrapper.set_freq_synth_enable" title="Permalink to this definition">¶</a></dt>
 <dd><p>Turns the frequency synthesizer output on or off.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -388,15 +388,15 @@ settings like the lock-in reference input, the initialize_instruments() function
 </dd></dl>
 
 <dl class="function">
-<dt id="control.experiment_wrapper.set_freq_synth_frequency">
-<code class="descclassname">control.experiment_wrapper.</code><code class="descname">set_freq_synth_frequency</code><span class="sig-paren">(</span><em>freq=200</em><span class="sig-paren">)</span><a class="headerlink" href="#control.experiment_wrapper.set_freq_synth_frequency" title="Permalink to this definition">¶</a></dt>
+<dt id="setup_control.experiment_wrapper.set_freq_synth_frequency">
+<code class="descclassname">setup_control.experiment_wrapper.</code><code class="descname">set_freq_synth_frequency</code><span class="sig-paren">(</span><em>freq=200</em><span class="sig-paren">)</span><a class="headerlink" href="#setup_control.experiment_wrapper.set_freq_synth_frequency" title="Permalink to this definition">¶</a></dt>
 <dd><p>Sets the frequency synthesizer to continuous wave mode at the specified frequency where units are in GHz. This will
 automatically divide the ranges by freq_multiple (as the source is attached to a set of frequency multipliers).</p>
 </dd></dl>
 
 <dl class="function">
-<dt id="control.experiment_wrapper.set_freq_synth_power">
-<code class="descclassname">control.experiment_wrapper.</code><code class="descname">set_freq_synth_power</code><span class="sig-paren">(</span><em>power_level=0.0</em><span class="sig-paren">)</span><a class="headerlink" href="#control.experiment_wrapper.set_freq_synth_power" title="Permalink to this definition">¶</a></dt>
+<dt id="setup_control.experiment_wrapper.set_freq_synth_power">
+<code class="descclassname">setup_control.experiment_wrapper.</code><code class="descname">set_freq_synth_power</code><span class="sig-paren">(</span><em>power_level=0.0</em><span class="sig-paren">)</span><a class="headerlink" href="#setup_control.experiment_wrapper.set_freq_synth_power" title="Permalink to this definition">¶</a></dt>
 <dd><p>Sets the power level of the frequency synthesizer in dBm.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -409,8 +409,8 @@ automatically divide the ranges by freq_multiple (as the source is attached to a
 </dd></dl>
 
 <dl class="function">
-<dt id="control.experiment_wrapper.set_low_pass_slope">
-<code class="descclassname">control.experiment_wrapper.</code><code class="descname">set_low_pass_slope</code><span class="sig-paren">(</span><em>slope=18</em><span class="sig-paren">)</span><a class="headerlink" href="#control.experiment_wrapper.set_low_pass_slope" title="Permalink to this definition">¶</a></dt>
+<dt id="setup_control.experiment_wrapper.set_low_pass_slope">
+<code class="descclassname">setup_control.experiment_wrapper.</code><code class="descname">set_low_pass_slope</code><span class="sig-paren">(</span><em>slope=18</em><span class="sig-paren">)</span><a class="headerlink" href="#setup_control.experiment_wrapper.set_low_pass_slope" title="Permalink to this definition">¶</a></dt>
 <dd><p>Sets the low pass filter slope of the lock-in in dB per octave. The lock-in has a set of allowed slopes. This method
 will choose the first allowed slope that is smaller than the one entered. If no allowed slope is smaller, 6dB per
 octave will be selected.</p>
@@ -427,8 +427,8 @@ octave will be selected.</p>
 </dd></dl>
 
 <dl class="function">
-<dt id="control.experiment_wrapper.set_sample_rate">
-<code class="descclassname">control.experiment_wrapper.</code><code class="descname">set_sample_rate</code><span class="sig-paren">(</span><em>sample_rate=512</em><span class="sig-paren">)</span><a class="headerlink" href="#control.experiment_wrapper.set_sample_rate" title="Permalink to this definition">¶</a></dt>
+<dt id="setup_control.experiment_wrapper.set_sample_rate">
+<code class="descclassname">setup_control.experiment_wrapper.</code><code class="descname">set_sample_rate</code><span class="sig-paren">(</span><em>sample_rate=512</em><span class="sig-paren">)</span><a class="headerlink" href="#setup_control.experiment_wrapper.set_sample_rate" title="Permalink to this definition">¶</a></dt>
 <dd><p>Sets the sample rate of the lock-in in Hz. The lock-in has a set of allowed sample rates. This method will choose
 the first allowed sample rate constant that is larger than the one entered.</p>
 <table class="docutils field-list" frame="void" rules="none">
@@ -444,8 +444,8 @@ the first allowed sample rate constant that is larger than the one entered.</p>
 </dd></dl>
 
 <dl class="function">
-<dt id="control.experiment_wrapper.set_sensitivity">
-<code class="descclassname">control.experiment_wrapper.</code><code class="descname">set_sensitivity</code><span class="sig-paren">(</span><em>sensitivity=1000.0</em><span class="sig-paren">)</span><a class="headerlink" href="#control.experiment_wrapper.set_sensitivity" title="Permalink to this definition">¶</a></dt>
+<dt id="setup_control.experiment_wrapper.set_sensitivity">
+<code class="descclassname">setup_control.experiment_wrapper.</code><code class="descname">set_sensitivity</code><span class="sig-paren">(</span><em>sensitivity=1000.0</em><span class="sig-paren">)</span><a class="headerlink" href="#setup_control.experiment_wrapper.set_sensitivity" title="Permalink to this definition">¶</a></dt>
 <dd><p>Sets the sensitivity of the lock-in in mV. The lock-in has a set of allowed sensitivities. This method will choose
 the first allowed sensitivity that is larger than the one entered.</p>
 <table class="docutils field-list" frame="void" rules="none">
@@ -461,8 +461,8 @@ the first allowed sensitivity that is larger than the one entered.</p>
 </dd></dl>
 
 <dl class="function">
-<dt id="control.experiment_wrapper.set_time_constant">
-<code class="descclassname">control.experiment_wrapper.</code><code class="descname">set_time_constant</code><span class="sig-paren">(</span><em>time_constant=1000</em><span class="sig-paren">)</span><a class="headerlink" href="#control.experiment_wrapper.set_time_constant" title="Permalink to this definition">¶</a></dt>
+<dt id="setup_control.experiment_wrapper.set_time_constant">
+<code class="descclassname">setup_control.experiment_wrapper.</code><code class="descname">set_time_constant</code><span class="sig-paren">(</span><em>time_constant=1000</em><span class="sig-paren">)</span><a class="headerlink" href="#setup_control.experiment_wrapper.set_time_constant" title="Permalink to this definition">¶</a></dt>
 <dd><p>Sets the time constant of the lock-in in ms. The lock-in has a set of allowed time constants. This method will
 choose the first allowed time constant that is larger than the one entered.</p>
 <table class="docutils field-list" frame="void" rules="none">
@@ -478,8 +478,8 @@ choose the first allowed time constant that is larger than the one entered.</p>
 </dd></dl>
 
 <dl class="function">
-<dt id="control.experiment_wrapper.snap_data">
-<code class="descclassname">control.experiment_wrapper.</code><code class="descname">snap_data</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#control.experiment_wrapper.snap_data" title="Permalink to this definition">¶</a></dt>
+<dt id="setup_control.experiment_wrapper.snap_data">
+<code class="descclassname">setup_control.experiment_wrapper.</code><code class="descname">snap_data</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#setup_control.experiment_wrapper.snap_data" title="Permalink to this definition">¶</a></dt>
 <dd><p>Gets the current value in the X and Y readouts on the lock-in amplifier</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -492,8 +492,8 @@ choose the first allowed time constant that is larger than the one entered.</p>
 </dd></dl>
 
 <dl class="function">
-<dt id="control.experiment_wrapper.start_scan">
-<code class="descclassname">control.experiment_wrapper.</code><code class="descname">start_scan</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#control.experiment_wrapper.start_scan" title="Permalink to this definition">¶</a></dt>
+<dt id="setup_control.experiment_wrapper.start_scan">
+<code class="descclassname">setup_control.experiment_wrapper.</code><code class="descname">start_scan</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#setup_control.experiment_wrapper.start_scan" title="Permalink to this definition">¶</a></dt>
 <dd><p>Starts data collection. Returns the time needed to fill storage in seconds.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -506,8 +506,8 @@ choose the first allowed time constant that is larger than the one entered.</p>
 </dd></dl>
 
 <dl class="function">
-<dt id="control.experiment_wrapper.stop_scan">
-<code class="descclassname">control.experiment_wrapper.</code><code class="descname">stop_scan</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#control.experiment_wrapper.stop_scan" title="Permalink to this definition">¶</a></dt>
+<dt id="setup_control.experiment_wrapper.stop_scan">
+<code class="descclassname">setup_control.experiment_wrapper.</code><code class="descname">stop_scan</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#setup_control.experiment_wrapper.stop_scan" title="Permalink to this definition">¶</a></dt>
 <dd><p>Stops the current scan.</p>
 </dd></dl>
 
