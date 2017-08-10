@@ -1,4 +1,3 @@
-
 import time
 import numpy as np
 import os
@@ -57,16 +56,17 @@ def query():
     print ask('POWE:RF?')
 
 while True:
-    inp_str = str(input('"q" for query, "w" for write'))
-    split_loc = inp_str.find(' ')
-    if split_loc == -1:
+    inp_str = raw_input('"q" for query, "w" for write, "e" for end\n')
+    if len(inp_str) < 1:
         print 'Invalid input'
     else:
-        q_or_w = inp_str[:split_loc]
-        command = inp_str[split_loc:]
-        if q_or_w == 'q':
+        qwe = inp_str[:1]
+        command = inp_str[1:]
+        if qwe == 'q':
             print ask(command)
-        elif q_or_w == 'w':
+        elif qwe == 'w':
             w(command)
+        elif qwe == 'e':
+            break
         else:
             print 'Invalid input'
