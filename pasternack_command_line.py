@@ -56,17 +56,18 @@ def query():
     print ask('POWE:RF?')
 
 while True:
-    inp_str = raw_input('"q" for query, "w" for write, "e" for end\n')
+    inp_str = raw_input('"Q" for query, "W" for write, "E" for end\n')
+    inp_str = inp_str.upper()
     if len(inp_str) < 1:
         print 'Invalid input'
     else:
         qwe = inp_str[:1]
         command = inp_str[1:]
-        if qwe == 'q':
+        if qwe == 'Q':
             print ask(command)
-        elif qwe == 'w':
+        elif qwe == 'W':
             w(command)
-        elif qwe == 'e':
+        elif qwe == 'E':
             break
         else:
             print 'Invalid input'
