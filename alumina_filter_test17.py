@@ -33,17 +33,17 @@ script_name = script_name[:script_name.find('.py')]
 wait_for_user_confirmation('please ensure that nothing is between the two lenses')
 
 sweep_parameter(set_freq_synth_frequency, np.linspace(freq_start, freq_end, num=num_steps, endpoint=True), time_constant=time_const, chopper_frequency=chop_freq, sensitivity=sens, load_time=load_time, lock_in_time=lock_time, multiplier=multiplier,
-                    save_path=script_name + '/no_filter0')
+                    save_path=script_name + '/no_sample0')
 
 wait_for_user_confirmation('please place the sample between the two lenses')
 
 sweep_parameter(set_freq_synth_frequency, np.linspace(freq_start, freq_end, num=num_steps, endpoint=True), time_constant=time_const, chopper_frequency=chop_freq, sensitivity=sens, load_time=load_time, lock_in_time=lock_time, multiplier=multiplier,
-                    save_path=script_name + '/with_filter0')
+                    save_path=script_name + '/with_sample0')
 
 sweep_parameter(set_freq_synth_frequency, np.linspace(freq_start, freq_end, num=num_steps, endpoint=True), time_constant=time_const, chopper_frequency=chop_freq, sensitivity=sens, load_time=load_time, lock_in_time=lock_time, multiplier=multiplier,
-                    save_path=script_name + '/with_filter1')
+                    save_path=script_name + '/with_sample1')
 
 wait_for_user_confirmation('please remove the sample between the two lenses')
 
 sweep_parameter(set_freq_synth_frequency, np.linspace(freq_start, freq_end, num=num_steps, endpoint=True), time_constant=time_const, chopper_frequency=chop_freq, sensitivity=sens, load_time=load_time, lock_in_time=lock_time, multiplier=multiplier,
-                    save_path=script_name + '/no_filter1')
+                    save_path=script_name + '/no_sample1')
