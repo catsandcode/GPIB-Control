@@ -2,8 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="eec36cac-6e91-4c5e-ac80-6032b0f874c3" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/lock_in_sample_wait_time.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/lock_in_sample_wait_time.py" afterPath="$PROJECT_DIR$/lock_in_sample_wait_time.py" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -21,8 +20,8 @@
       <file leaf-file-name="lock_in_sample_wait_time.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/lock_in_sample_wait_time.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="510">
-              <caret line="75" column="0" lean-forward="true" selection-start-line="75" selection-start-column="0" selection-end-line="75" selection-end-column="0" />
+            <state relative-caret-position="294">
+              <caret line="27" column="172" lean-forward="false" selection-start-line="27" selection-start-column="172" selection-end-line="27" selection-end-column="172" />
               <folding>
                 <element signature="e#0#18#0" expanded="true" />
               </folding>
@@ -742,8 +741,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/lock_in_sample_wait_time.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="510">
-          <caret line="75" column="0" lean-forward="true" selection-start-line="75" selection-start-column="0" selection-end-line="75" selection-end-column="0" />
+        <state relative-caret-position="294">
+          <caret line="27" column="172" lean-forward="false" selection-start-line="27" selection-start-column="172" selection-end-line="27" selection-end-column="172" />
           <folding>
             <element signature="e#0#18#0" expanded="true" />
           </folding>

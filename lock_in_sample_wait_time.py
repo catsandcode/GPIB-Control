@@ -25,7 +25,7 @@ ew.set_low_pass_slope(24.0)
 time.sleep(4.0)
 
 # Frequencies to test
-freqs_sens = [(225.0, 1.0)]#, (230.0, 1.0), (235.0, 1.0), (240.0, 1.0), (245.0, 1.0), (250.0, 1.0), (255.0, 1.0), (260.0, 1.0), (265.0, 1.0), (270.0, 1.0), (275.0, 1.0)]
+freqs_sens = [(225.0, 0.005), (230.0, 0.005), (235.0, 0.002), (240.0, 0.005), (245.0, 0.005), (250.0, 0.002), (255.0, 0.002), (260.0, 0.005), (265.0, 0.002), (270.0, 0.002), (275.0, 0.002)]
 
 # Times to sample at (in seconds)
 times = [0.05, 0.1, 0.5, 1.0, 2.0, 5.0, 10.0, 15.0, 20.0, 30.0, 40.0, 50.0, 60.0]
@@ -39,7 +39,7 @@ for freq, sens in freqs_sens:
     # Create a new 2-by-1 array for the row data, x is in left col, y is in right col
     data_row = np.array((freq, freq))
     # Set sensitivity
-    ew.set_freq_synth_frequency(sens)
+    ew.set_sensitivity(sens)
     # Set frequency
     ew.set_freq_synth_frequency(freq)
     # Get start time in seconds
