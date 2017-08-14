@@ -1,0 +1,7 @@
+examples
+========
+
+The following example program will sweep through a set of frequencies. At each frequency, the program will sample x and y multiple times after changing to its current frequency.
+
+.. literalinclude:: ../lock_in_sample_wait_time.py
+   :language: python

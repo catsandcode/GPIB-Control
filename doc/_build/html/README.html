@@ -89,6 +89,7 @@
 <li class="toctree-l1"><a class="reference internal" href="inst_io.html">inst_io</a></li>
 <li class="toctree-l1"><a class="reference internal" href="instruments.html">instruments</a></li>
 <li class="toctree-l1"><a class="reference internal" href="snippets.html">snippets</a></li>
+<li class="toctree-l1"><a class="reference internal" href="examples.html">examples</a></li>
 </ul>
 
             
@@ -152,7 +153,13 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <p>Readme, yo</p>
+  <p>The setup_control library is intended for use with scripts designed to collect data from the setup. With the use of the setup_control library, such a script should not need to consider communication with instruments at all, but should be able to call simple functions that set various settings and capture the wanted data. Examples of such scripts can be found at <a class="reference internal" href="examples.html"><span class="doc">examples</span></a>.</p>
+<p>The setup_control library is composed of two core modules and contains two other modules specific to the setup I am using. The two core modules are <a class="reference internal" href="inst_io.html"><span class="doc">inst_io</span></a> and <a class="reference internal" href="instruments.html"><span class="doc">instruments</span></a>. <a class="reference internal" href="inst_io.html"><span class="doc">inst_io</span></a> manages the connections in and out of the computer and sends commands to the Prologix GPIB-USB controller and the Pasternack PE11S3903 frequency synthesizer. <a class="reference internal" href="instruments.html"><span class="doc">instruments</span></a> contains functions to control and read data from a few instruments, including the SRS830. If someone wishes to control the SRS830 in future, these two modules could be useful as <em>every</em> GPIB communication function defined in the SRS830 manual is implemented in the module.</p>
+<p>The <a class="reference internal" href="experiment_wrapper.html"><span class="doc">experiment_wrapper</span></a> and <a class="reference internal" href="snippets.html"><span class="doc">snippets</span></a> module are more specific to controlling the setup rather than individual instruments. The <a class="reference internal" href="experiment_wrapper.html"><span class="doc">experiment_wrapper</span></a> module can be used to perform tasks such as setting the output power and frequency and choosing various lock-in settings. The <a class="reference internal" href="experiment_wrapper.html"><span class="doc">experiment_wrapper</span></a> module contains code that must be run every time with this particular setup, such as opening the correct instruments at the correct addresses. The <a class="reference internal" href="snippets.html"><span class="doc">snippets</span></a> module contains functions that might be useful to someone wanting to write a data collection script, such as the <a class="reference internal" href="snippets.html#setup_control.snippets.sweep_parameter" title="setup_control.snippets.sweep_parameter"><code class="xref py py-func docutils literal"><span class="pre">setup_control.snippets.sweep_parameter()</span></code></a> function.</p>
+<p>A few example programs, annotated
+-Sweep program
+-Any other program that I have used
+-How to extract information from saved sweeps</p>
 
 
            </div>
@@ -167,7 +174,6 @@
 
   <div role="contentinfo">
     <p>
-        &copy; Copyright 2017, Jack Roth.
 
     </p>
   </div>
