@@ -5,3 +5,5 @@ The following example program will sweep through a set of frequencies. At each f
 
 .. literalinclude:: ../lock_in_sample_wait_time.py
    :language: python
+
+Although it is not strictly the goal of this library to visualize and analyze data, the following code has been provided to show how the data collected in the previous example might be visualized and analyzed.

@@ -1,32 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="eec36cac-6e91-4c5e-ac80-6032b0f874c3" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/doc/_build/doctrees/README.doctree" afterPath="$PROJECT_DIR$/doc/_build/doctrees/README.doctree" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/doc/_build/doctrees/environment.pickle" afterPath="$PROJECT_DIR$/doc/_build/doctrees/environment.pickle" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/doc/_build/doctrees/experiment_wrapper.doctree" afterPath="$PROJECT_DIR$/doc/_build/doctrees/experiment_wrapper.doctree" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/doc/_build/doctrees/index.doctree" afterPath="$PROJECT_DIR$/doc/_build/doctrees/index.doctree" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/doc/_build/doctrees/inst_io.doctree" afterPath="$PROJECT_DIR$/doc/_build/doctrees/inst_io.doctree" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/doc/_build/doctrees/instruments.doctree" afterPath="$PROJECT_DIR$/doc/_build/doctrees/instruments.doctree" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/doc/_build/doctrees/snippets.doctree" afterPath="$PROJECT_DIR$/doc/_build/doctrees/snippets.doctree" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/doc/_build/html/objects.inv" afterPath="$PROJECT_DIR$/doc/_build/html/objects.inv" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/doc/_build/html/.buildinfo" afterPath="$PROJECT_DIR$/doc/_build/html/.buildinfo" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/doc/_build/html/README.html" afterPath="$PROJECT_DIR$/doc/_build/html/README.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/doc/_build/html/_sources/README.rst.txt" afterPath="$PROJECT_DIR$/doc/_build/html/_sources/README.rst.txt" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/doc/_build/html/_sources/index.rst.txt" afterPath="$PROJECT_DIR$/doc/_build/html/_sources/index.rst.txt" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/doc/_build/html/_sources/instruments.rst.txt" afterPath="$PROJECT_DIR$/doc/_build/html/_sources/instruments.rst.txt" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/doc/_build/html/experiment_wrapper.html" afterPath="$PROJECT_DIR$/doc/_build/html/experiment_wrapper.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/doc/_build/html/genindex.html" afterPath="$PROJECT_DIR$/doc/_build/html/genindex.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/doc/_build/html/index.html" afterPath="$PROJECT_DIR$/doc/_build/html/index.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/doc/_build/html/inst_io.html" afterPath="$PROJECT_DIR$/doc/_build/html/inst_io.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/doc/_build/html/instruments.html" afterPath="$PROJECT_DIR$/doc/_build/html/instruments.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/doc/_build/html/py-modindex.html" afterPath="$PROJECT_DIR$/doc/_build/html/py-modindex.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/doc/_build/html/search.html" afterPath="$PROJECT_DIR$/doc/_build/html/search.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/doc/_build/html/searchindex.js" afterPath="$PROJECT_DIR$/doc/_build/html/searchindex.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/doc/_build/html/snippets.html" afterPath="$PROJECT_DIR$/doc/_build/html/snippets.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/lock_in_sample_wait_time.py" afterPath="$PROJECT_DIR$/lock_in_sample_wait_time.py" />
-    </list>
+    <list default="true" id="eec36cac-6e91-4c5e-ac80-6032b0f874c3" name="Default" comment="" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -387,7 +362,6 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="23" width="1366" height="741" extended-state="6" />
-    <editor active="true" />
     <layout>
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.36933535" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />

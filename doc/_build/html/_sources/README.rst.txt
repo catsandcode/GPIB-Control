@@ -1,10 +1,5 @@
-The setup_control library is intended for use with scripts designed to collect data from the setup. With the use of the setup_control library, such a script should not need to consider communication with instruments at all, but should be able to call simple functions that set various settings and capture the wanted data. Examples of such scripts can be found at :doc:`examples`.
+The setup_control library is intended for use with scripts designed to collect data from the setup. With the use of the setup_control library, such a script should not need to consider communication with instruments at all, but should be able to call simple functions that set various settings and capture the wanted data. Examples of such scripts can be found in :doc:`examples`.
 
 The setup_control library is composed of two core modules and contains two other modules specific to the setup I am using. The two core modules are :doc:`inst_io` and :doc:`instruments`. :doc:`inst_io` manages the connections in and out of the computer and sends commands to the Prologix GPIB-USB controller and the Pasternack PE11S3903 frequency synthesizer. :doc:`instruments` contains functions to control and read data from a few instruments, including the SRS830. If someone wishes to control the SRS830 in future, these two modules could be useful as *every* GPIB communication function defined in the SRS830 manual is implemented in the module.
 
 The :doc:`experiment_wrapper` and :doc:`snippets` module are more specific to controlling the setup rather than individual instruments. The :doc:`experiment_wrapper` module can be used to perform tasks such as setting the output power and frequency and choosing various lock-in settings. The :doc:`experiment_wrapper` module contains code that must be run every time with this particular setup, such as opening the correct instruments at the correct addresses. The :doc:`snippets` module contains functions that might be useful to someone wanting to write a data collection script, such as the :py:func:`setup_control.snippets.sweep_parameter` function.
-
-A few example programs, annotated
--Sweep program
--Any other program that I have used
--How to extract information from saved sweeps
