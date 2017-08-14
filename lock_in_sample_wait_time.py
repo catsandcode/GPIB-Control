@@ -54,7 +54,6 @@ for freq, sens in freqs_sens:
         t_elapse = time.time() - t_start
         # Find the time remaining until the next time to sample at occurs
         t_left = t_wait - t_elapse
-        print t_left
         # Sleep until that time
         time.sleep(t_left)
     # Transpose data_row so that it is actually a row and then add it to the data array
