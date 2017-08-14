@@ -28,7 +28,7 @@ time.sleep(4.0)
 freqs_sens = [(225.0, 0.005), (230.0, 0.005), (235.0, 0.002), (240.0, 0.005), (245.0, 0.005), (250.0, 0.002), (255.0, 0.002), (260.0, 0.005), (265.0, 0.002), (270.0, 0.002), (275.0, 0.002)]
 
 # Times to sample at (in seconds)
-times = [0.05, 0.1, 0.5, 1.0, 2.0, 5.0, 10.0, 15.0, 20.0, 30.0, 40.0, 50.0, 60.0]
+times = [0.1, 0.5, 1.0, 2.0, 5.0, 10.0, 15.0, 20.0, 30.0, 40.0, 50.0, 60.0]
 
 # Create a new array to save data to (note this first empty row will be deleted later)
 data = np.empty((1, len(times) + 1), dtype=float)
@@ -46,16 +46,16 @@ for freq, sens in freqs_sens:
     t_start = time.time()
     # Wait, sample, repeat
     for t_wait in times:
+        # Get data from the lock-in amplifier and and add it to the data array
+        (x, y) = ew.snap_data()
+        data_entry = np.array((x, y))
+        data_row = np.vstack((data_row, data_entry))
         # Find the time elapsed since the frequency was changed
         t_elapse = time.time() - t_start
         # Find the time remaining until the next time to sample at occurs
         t_left = t_wait - t_elapse
         # Sleep until that time
         time.sleep(t_left)
-        # Get data from the lock-in amplifier and and add it to the data array
-        (x, y) = ew.snap_data()
-        data_entry = np.array((x, y))
-        data_row = np.vstack((data_row, data_entry))
     # Transpose data_row so that it is actually a row and then add it to the data array
     data_row = data_row.transpose()
     data = np.vstack((data, data_row))
