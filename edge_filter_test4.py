@@ -51,9 +51,10 @@ def sweep(freqs, sens_bands, save_path):
     for freq in freqs:
         print('At frequency ' + str(freq) + 'GHz')
 
-        # Set frequency and sensitivity
-        ew.set_freq_synth_frequency(freq)
+        # Set sensitivity and frequency
         ew.set_sensitivity(get_sensitivity_setting(freq, sens_bands))
+        time.sleep(0.150) # Wait for sensitivity to set
+        ew.set_freq_synth_frequency(freq)
 
         # Sleep to allow lock-in to lock to new frequency and for time constant to average
         time.sleep(100.0 * 5.0 / 1000.0)  # Sleep for five time constants plus the lock_in_time
