@@ -94,4 +94,4 @@ sweep(np.linspace(freq_start, freq_end, num=num_steps, endpoint=True), bands, sc
 
 wait_for_user_confirmation('please remove the edge filter between the two lenses')
 
-sweep(np.linspace(freq_start, freq_end, num=num_steps, endpoint=True), bands, script_name + '/filter1')
+sweep(np.linspace(freq_start, freq_end, num=num_steps, endpoint=True), bands, script_name + '/no_filter1')
