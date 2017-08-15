@@ -79,19 +79,21 @@ num_steps = 200
 script_name = str(__file__)
 script_name = script_name[:script_name.find('.py')]
 
-bands = [(225.0, 226.0, 0.050), (226.0, 237.0, 0.020), (237.0, 239.0, 0.010), (239.0, 241.0, 0.020), (241.0, 246.0, 0.050), (246.0, 247.0, 0.020), (247.0, 249.0, 0.010), (249.0, 253.0, 0.005), (253.0, 254.0, 0.010), (254.0, 262.0, 0.020), (262.0, 265.0, 0.010), (265.0, 270.0, 0.020), (270.0, 274.0, 0.010), (274.0, 275.0, 0.005)]
+no_filter_bands = [(225.0, 226.0, 0.050), (226.0, 237.0, 0.020), (237.0, 239.0, 0.010), (239.0, 241.0, 0.020), (241.0, 246.0, 0.050), (246.0, 247.0, 0.020), (247.0, 249.0, 0.010), (249.0, 253.0, 0.005), (253.0, 254.0, 0.010), (254.0, 262.0, 0.020), (262.0, 265.0, 0.010), (265.0, 270.0, 0.020), (270.0, 274.0, 0.010), (274.0, 275.0, 0.005)]
+
+with_filter_bands = [(225.0, 226.0, 0.020), (226.0, 227.0, 0.010), (227.0, 232.0, 0.005), (232.0, 235.0, 0.010), (235.0, 238.0, 0.005), (238.0, 240.0, 0.002), (240.0, 241.0, 0.005), (241.0, 242.0, 0.010), (242.0, 245.0, 0.020), (245.0, 246.0, 0.010), (246.0, 248.0, 0.005), (248.0, 250.0, 0.002), (250.0, 254.0, 0.001), (254.0, 255.0, 0.005), (255.0, 256.0, 0.002), (256.0, 259.0, 0.005), (259.0, 265.0, 0.002), (265.0, 268.0, 0.005), (268.0, 275.0, 0.001)]
 
 # Start tests
 wait_for_user_confirmation('please ensure that nothing is between the two lenses')
 
-sweep(np.linspace(freq_start, freq_end, num=num_steps, endpoint=True), bands, script_name + '/no_filter0')
+sweep(np.linspace(freq_start, freq_end, num=num_steps, endpoint=True), no_filter_bands, script_name + '/no_filter0')
 
 wait_for_user_confirmation('please place the edge filter between the two lenses')
 
-sweep(np.linspace(freq_start, freq_end, num=num_steps, endpoint=True), bands, script_name + '/filter0')
+sweep(np.linspace(freq_start, freq_end, num=num_steps, endpoint=True), with_filter_bands, script_name + '/filter0')
 
-sweep(np.linspace(freq_start, freq_end, num=num_steps, endpoint=True), bands, script_name + '/filter1')
+sweep(np.linspace(freq_start, freq_end, num=num_steps, endpoint=True), with_filter_bands, script_name + '/filter1')
 
 wait_for_user_confirmation('please remove the edge filter between the two lenses')
 
-sweep(np.linspace(freq_start, freq_end, num=num_steps, endpoint=True), bands, script_name + '/no_filter1')
+sweep(np.linspace(freq_start, freq_end, num=num_steps, endpoint=True), no_filter_bands, script_name + '/no_filter1')
