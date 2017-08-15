@@ -53,11 +53,11 @@ def sweep(freqs, sens_bands, save_path):
 
         # Set sensitivity and frequency
         ew.set_sensitivity(get_sensitivity_setting(freq, sens_bands))
-        time.sleep(0.150) # Wait for sensitivity to set
+        time.sleep(0.3) # Allow sensitivity to set
         ew.set_freq_synth_frequency(freq)
 
         # Sleep to allow lock-in to lock to new frequency and for time constant to average
-        time.sleep(100.0 * 5.0 / 1000.0)  # Sleep for five time constants plus the lock_in_time
+        time.sleep(100.0 * 5.0 / 1000.0 + 0.5)  # Sleep for five time constants plus an additional half a second
 
         # Get data from the lock-in amplifier and and add it to the data array
         (x, y) = ew.snap_data()
