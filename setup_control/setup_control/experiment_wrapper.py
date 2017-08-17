@@ -207,6 +207,25 @@ _TIME_CONSTANT_DICT = {0: 0.01,
                        19: 30 * (10 ** 6)}
 
 
+def get_sync_enabled():
+    """
+    Returns true if the lock-in synchronous filter is enabled.
+
+    :return: True if the synchronous filter is enabled.
+    """
+    return SR830.SYNC_FILTER_ON == lock_in.get_synchronous_filter_status()
+
+
+def set_sync_enabled(enable):
+    """
+    Sets the lock-in synchronous filter to enabled if enable is True, disabled if False.
+    """
+    if enable:
+        lock_in.set_synchronous_filter_status(on_off=SR830.SYNC_FILTER_ON)
+    else:
+        lock_in.set_synchronous_filter_status(on_off=SR830.SYNC_FILTER_OFF)
+
+
 def get_time_constant():
     """
     Returns the current time constant of the lock-in in ms.
