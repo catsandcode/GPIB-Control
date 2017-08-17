@@ -3,11 +3,6 @@
 *.pyc
 *.ipynb
 figures/*
-doc/*.rst
-doc/*.py
-doc/Makefile
-doc/_static
-doc/_templates
 .DS_Store
 setup_control/setup_control/__init__.pyc
 setup_control/setup_control/daq.pyc
