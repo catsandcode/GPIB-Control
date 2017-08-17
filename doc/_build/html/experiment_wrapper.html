@@ -275,6 +275,20 @@ settings like the lock-in reference input, the initialize_instruments() function
 </dd></dl>
 
 <dl class="function">
+<dt id="setup_control.experiment_wrapper.get_sync_enabled">
+<code class="descclassname">setup_control.experiment_wrapper.</code><code class="descname">get_sync_enabled</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#setup_control.experiment_wrapper.get_sync_enabled" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns true if the lock-in synchronous filter is enabled.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">True if the synchronous filter is enabled.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
 <dt id="setup_control.experiment_wrapper.get_time_constant">
 <code class="descclassname">setup_control.experiment_wrapper.</code><code class="descname">get_time_constant</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#setup_control.experiment_wrapper.get_time_constant" title="Permalink to this definition">¶</a></dt>
 <dd><p>Returns the current time constant of the lock-in in ms.</p>
@@ -459,6 +473,12 @@ the first allowed sensitivity that is larger than the one entered.</p>
 </tr>
 </tbody>
 </table>
+</dd></dl>
+
+<dl class="function">
+<dt id="setup_control.experiment_wrapper.set_sync_enabled">
+<code class="descclassname">setup_control.experiment_wrapper.</code><code class="descname">set_sync_enabled</code><span class="sig-paren">(</span><em>enable</em><span class="sig-paren">)</span><a class="headerlink" href="#setup_control.experiment_wrapper.set_sync_enabled" title="Permalink to this definition">¶</a></dt>
+<dd><p>Sets the lock-in synchronous filter to enabled if enable is True, disabled if False.</p>
 </dd></dl>
 
 <dl class="function">
