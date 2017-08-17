@@ -40,7 +40,7 @@ def sweep(freqs, sens_bands, save_path):
     # Setup lock-in
     ew.set_time_constant(300.0)
     ew.set_low_pass_slope(24.0)
-    ew.set
+    ew.set_sync_enabled(True)
 
     # Sleep to allow instruments to adjust settings
     time.sleep(4.0)
