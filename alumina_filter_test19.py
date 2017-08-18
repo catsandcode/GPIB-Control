@@ -24,56 +24,6 @@ def get_sensitivity_setting(freq, bands):
     return 0.050  # Return 50uV by default
 
 
-def sweep(freqs, sens_bands, save_path):
-    # Initialize instruments
-    ew.initialize()
-
-    # Set the frequency multiplier, as it is particular to the experiment
-    ew.set_freq_multiplier(18)
-
-    # Setup the frequency synthesizer
-    ew.set_freq_synth_power(15.0)
-    ew.set_freq_synth_enable(True)
-
-    # Setup chopper
-    ew.set_chopper_amplitude(5.0)
-    ew.set_chopper_frequency(0.010) # 10Hz chop frequency
-    ew.set_chopper_on(True)
-
-    # Setup lock-in
-    ew.set_time_constant(300.0)
-    ew.set_low_pass_slope(24.0)
-    ew.set_sync_enabled(True)
-
-    # Sleep to allow instruments to adjust settings
-    time.sleep(4.0)
-
-    # Create a new array to save data to
-    data = np.array([0, 0, 0], float)  # This row will be deleted later
-
-    # Sweep the selected parameter and record data
-    for freq in freqs:
-        print('At frequency ' + str(freq) + 'GHz')
-
-        # Set sensitivity and frequency
-        ew.set_sensitivity(get_sensitivity_setting(freq, sens_bands))
-        time.sleep(0.3)  # Allow sensitivity to set
-        ew.set_freq_synth_frequency(freq)
-
-        # Sleep to allow lock-in to lock to new frequency and for time constant to average
-        time.sleep(300.0 * 5.0 / 1000.0 + 0.5)  # Sleep for five time constants plus an additional half a second
-
-        # Get data from the lock-in amplifier and and add it to the data array
-        (x, y) = ew.snap_data()
-
-        data_row = np.array([freq, x, y])
-        data = np.vstack((data, data_row))
-
-    # Delete the first row in the collected data, as it was created to give the array shape earlier but holds no useful data
-    data = np.delete(data, 0, 0)
-
-    np.save(save_path, data)
-
 # Settings
 freq_start = 225.0
 freq_end = 275.0
